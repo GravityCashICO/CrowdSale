@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="GravityCash" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\toufi\\Desktop\\CrowdSale\\Gravity\\obj\\Release\\netcoreapp2\.2\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="Gravity.Data.ApplicationDbContext" description="" value="Server=tcp:gravitycashdbserver.database.windows.net,1433;Initial Catalog=gravitycash;Persist Security Info=False;User ID=GravityCash;Password=GVWallet@@2020;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\toufi\\Desktop\\CrowdSale\\Gravity\\obj\\Release\\netcoreapp2\.2\\PubTmp\\EFSQLScripts\\Gravity\.Data\.ApplicationDbContext\.sql$" />
+  </parameter>
+</parameters>

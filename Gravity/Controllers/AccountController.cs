@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Gravity.Models;
+using Gravity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +28,7 @@ namespace Gravity.Controllers
         }
         [HttpPost]
         [Route("Login/{returnUrl?}")]
-        public async Task<IActionResult> Login(string email, string password,string remember, string returnUrl = null)
+        public async Task<IActionResult> Login(string email, string password, string remember, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
@@ -43,8 +39,11 @@ namespace Gravity.Controllers
                 if (!_userManager.IsEmailConfirmedAsync
                      (user).Result)
                 {
-                    ModelState.AddModelError("",
-                    "Email not confirmed!");
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code }, protocol: HttpContext.Request.Scheme);
+                    
+                    await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent...";
                     return View();
                 }
             }
@@ -71,6 +70,7 @@ namespace Gravity.Controllers
             //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             //    return View(model);
             //}
+            TempData["msg"] = "Invalid login attempt.";
 
 
             return View();
@@ -92,11 +92,13 @@ namespace Gravity.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                 // Send an email with this link
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token=code }, protocol: HttpContext.Request.Scheme);
-                //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                //   "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code }, protocol: HttpContext.Request.Scheme);
 
-                await SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                var resendUrl = Url.Action("ReSendEmail", "Account", new { email }, protocol: HttpContext.Request.Scheme);
+
+
+                await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                TempData["msg"] = "A Confirmation email already sent... <a href=\"" + resendUrl + "\">Send Again</a>";
                 return RedirectToAction(nameof(AccountController.Login), "Account");
                 //await _signInManager.SignInAsync(user, isPersistent: false);
                 //_logger.LogInformation(3, "User created a new account with password.");
@@ -104,10 +106,29 @@ namespace Gravity.Controllers
 
                 //return Content("Please check email to confirm your account ");
             }
+            else
+            {
+                TempData["msg"] = Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors);
+            }
             //AddErrors(result);
 
 
             return View();
+        }
+        [Route("ReSendEmail")]
+        public async Task<IActionResult> ReSendEmail(string email)
+        {
+            var user = _userManager.FindByNameAsync(email).Result;
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code }, protocol: HttpContext.Request.Scheme);
+
+            var resendUrl = Url.Action("ReSendEmail", "Account", new { userId = user.Id }, protocol: HttpContext.Request.Scheme);
+
+
+            await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+            TempData["msg"] = "A Confirmation email already sent... <a href=\"" + resendUrl + "\">Send Again</a>";
+            return RedirectToAction(nameof(AccountController.Login), "Account");
+            
         }
         [Route("LogOut")]
         public async Task<IActionResult> LogOut()
@@ -125,44 +146,60 @@ namespace Gravity.Controllers
                         ConfirmEmailAsync(user, token).Result;
             if (result.Succeeded)
             {
-                ViewBag.Message = "Email confirmed successfully!";
-                return View();
+                TempData["msg"] = "Email confirmed successfully!";
             }
             else
             {
-                ViewBag.Message = "Error while confirming your email!";
-                return View();
+                TempData["msg"] = "Error while confirming your email!"+Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;
             }
+            return RedirectToAction("Login");
         }
 
-        private async Task<bool> SendEmailAsync(string toAddress, string body)
+        [Route("ForgetPass")]
+        public IActionResult ForgetPass()
         {
-            var smtpClient = new SmtpClient
-            {
-                Host = "smtp.gmail.com", // set your SMTP server name here
-                Port = 587, // Port 
-                EnableSsl = true,
-                Credentials = new NetworkCredential("telahy@gmail.com", "dhaka123")
-            };
+            return View();
+        }
+        [HttpPost]
+        [Route("ForgetPass")]
+        public async Task<IActionResult> ForgetPass(string email)
+        {
+            var user = _userManager.FindByNameAsync(email).Result;
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action("ChangePass", "Account", new { email, token = code }, protocol: HttpContext.Request.Scheme);
+            //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+            //   "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
 
-            using (var message = new MailMessage("telahy@gmail.com", toAddress)
-            {
-                IsBodyHtml = true,
-                Subject = "Confirm your account",
-                Body = body
-            })
-            {
-                try
-                {
-                    await smtpClient.SendMailAsync(message);
-                }
-                catch (Exception ex)
-                {
+            await SendEmail.SendEmailAsync(email, "Please change password by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
 
-                    throw;
-                }
+            TempData["msg"] = "Check your email!";
+        
+            return RedirectToAction("Login");
+    }
+
+        [Route("ChangePass")]
+        public IActionResult ChangePass(string email, string token)
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("ChangePass")]
+        public async Task<IActionResult> ChangePass(string email, string token, string password)
+        {
+            var user = _userManager.FindByNameAsync(email).Result;
+            
+            
+            var result = await _userManager.ResetPasswordAsync(
+                                user, token, password);
+            if (result.Succeeded)
+            {
+                TempData["msg"] = "passwrd changed!";
             }
-            return true;
+            else
+            {
+                TempData["msg"] = "Error while confirming your password!"+ Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;
+            }
+            return RedirectToAction("Login");
         }
     }
 }

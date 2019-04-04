@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA5uaHJew/h0SDaeiJY2/PUwAAAAACAAAAAAAQZgAAAAEAACAAAAA2HBt0WDNM0hrC5vTqMIpq0IFgEiBFm9atF21x7PHXcwAAAAAOgAAAAAIAACAAAAC+yh+M9chApici3vOXOndIP5CwubBFEerb6E28lGuZyIAAAABHXp+Rgat2PCGJyGldsWgEqnfSYL+Mx/Kwqyhd8ulu2lR+mwwOF/s9dm+xN/QX5byn0uRZzCt88yGrPkJyle8HdqbDONvepRVI5U6iY/g/XDVEgddwj5m7+WCSk5QQpO2wYTmXoeKlTwQoFX7ZbGpfCyP9BiRNejGclifbd5pmGkAAAABHp7ekR/dG0RxKhYUaMfLKr2oH0N9zwlfC0QobZQj378fNKgzvxu+jGRonlbu+reBVkzsTNedBB5iF+GJrspQA</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:gravitycashdbserver.database.windows.net,1433%3bInitial Catalog=gravitycash%3bPersist Security Info=False%3bUser ID=GravityCash%3bPassword=GVWallet%40%402020%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Gravity.Data.ApplicationDbContext">
+      <Value>Server=tcp:gravitycashdbserver.database.windows.net,1433%3bInitial Catalog=gravitycash%3bPersist Security Info=False%3bUser ID=GravityCash%3bPassword=GVWallet%40%402020%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

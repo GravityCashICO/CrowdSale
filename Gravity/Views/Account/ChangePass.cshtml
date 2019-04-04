@@ -1,0 +1,110 @@
+﻿<!-- BREADCRUMB-->
+<section class="au-breadcrumb m-t-75">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="au-breadcrumb-content">
+                        <div class="au-breadcrumb-left">
+                            <span class="au-breadcrumb-span">You are here:</span>
+                            <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                <li class="list-inline-item active">
+                                    <a href="#">Wallet</a>
+                                </li>
+                                <li class="list-inline-item seprate">
+                                    <span>/</span>
+                                </li>
+                                <li class="list-inline-item">Security</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END BREADCRUMB-->
+
+
+<section>
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Change Password</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            @using (Html.BeginForm())
+            {
+
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="email-input" class=" form-control-label">New Password</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="password" id="password" required name="password" placeholder="New Password" class="form-control">
+                                    <small class="help-block form-text">Please enter your new password</small>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="password-input" class=" form-control-label">Confirm Password</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="password" id="confirmpassword" required name="confirmpassword" placeholder="Confirm Password" class="form-control">
+                                    <small class="help-block form-text">Please enter a confirm password</small>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-save"></i> Save
+                                    </button>
+                                </div>
+                            </div>
+
+                            }
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<!-- END PAGE CONTAINER-->
+<script>
+    $(function () {
+        $("form:last").validate({
+            rules: {
+                password: {
+                    minlength: 4
+                },
+                confirmpassword: {
+                    equalTo: "#password"
+                }
+            }
+        });
+    })
+</script>
+        

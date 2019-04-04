@@ -10,9 +10,9 @@ namespace Gravity.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string url)
         {
-            return View();
+            return Redirect(url);
         }
 
         public IActionResult Privacy()

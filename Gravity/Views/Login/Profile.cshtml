@@ -1,4 +1,5 @@
-﻿<!-- BREADCRUMB-->
+﻿@model ApplicationUser
+<!-- BREADCRUMB-->
 <section class="au-breadcrumb m-t-75">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -37,15 +38,16 @@
                         <div class="card-header">
                             <strong>Profile Update</strong>
                         </div>
+                        <div style="color:red">@TempData["msg"]</div>
                         <div class="card-body card-block">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-
+                                @Html.HiddenFor(m => m.Id)
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">First Name</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="first_name" placeholder="First Name" class="form-control">
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
 
                                     </div>
                                 </div>
@@ -54,7 +56,7 @@
                                         <label for="email-input" class=" form-control-label">Last Name</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="email-input" name="last_name" placeholder="Last Name" class="form-control">
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "First Name" })
 
                                     </div>
                                 </div>
@@ -64,7 +66,7 @@
                                         <label for="email-input" class=" form-control-label">Country</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <select name="select" id="select" class="form-control">
+                                        <select name="Country" required id="Country" class="form-control">
                                             <option value="">Select here..</option>
                                             <option value="Afghanistan"> Afghanistan</option>
                                             <option value="Albania"> Albania</option>
@@ -287,11 +289,12 @@
                                     <div class="col col-md-9">
                                         <div class="form-check-inline form-check">
                                             <label for="inline-radio1" class="form-check-label ">
-                                                <input type="radio" id="inline-radio1" name="inline-radios" value="option1" class="form-check-input">Male  &nbsp;
+                                                @Html.RadioButtonFor(m => m.Sex, "Male", new { @class = "form-check-input" }) Male &nbsp;
+                                                @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1" class="form-check-input">Male  &nbsp;*@
                                             </label>
 
                                             <label for="inline-radio2" class="form-check-label ">
-                                                <input type="radio" id="inline-radio2" name="inline-radios" value="option2" class="form-check-input">Female
+                                                @Html.RadioButtonFor(m => m.Sex, "FeMale", new { @class = "form-check-input" }) FeMale
                                             </label>
 
                                         </div>
@@ -302,7 +305,7 @@
                                         <label for="password-input" class=" form-control-label">Email Address</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="email" id="password-input" name="email" placeholder="Email" disabled="" class="form-control">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", disabled = "" })
 
                                     </div>
                                 </div>
@@ -312,7 +315,7 @@
                                         <label for="email-input" class=" form-control-label">Address</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="email-input" name="address" placeholder="Address" class="form-control">
+                                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
 
                                     </div>
                                 </div>
@@ -322,7 +325,8 @@
                                         <label for="email-input" class=" form-control-label">Mobile No</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="email-input" name="address" placeholder="Mobile" class="form-control">
+                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Mobile" })
+                                        @*<input type="text" id="email-input" name="address" placeholder="Mobile" class="form-control">*@
 
                                     </div>
                                 </div>
@@ -338,7 +342,7 @@
                                 </div>
 
 
-                                </form>
+                            </form>
 
 
                         </div>
@@ -357,3 +361,8 @@
         </div>
 </section>
 
+<script>
+    $(function () {
+        $('#Country').val('@Model.Country');
+    })
+</script>

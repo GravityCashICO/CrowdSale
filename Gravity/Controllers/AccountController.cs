@@ -4,6 +4,9 @@ using Gravity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Nethereum.Hex.HexConvertors.Extensions;
+using System;
+using Gravity.Data;
 
 namespace Gravity.Controllers
 {
@@ -13,10 +16,12 @@ namespace Gravity.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly ApplicationDbContext _ctx;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext ctx)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _ctx = ctx;
         }
 
         [Route("Login/{returnUrl?}")]
@@ -146,6 +151,7 @@ namespace Gravity.Controllers
                         ConfirmEmailAsync(user, token).Result;
             if (result.Succeeded)
             {
+                
                 TempData["msg"] = "Email confirmed successfully!";
             }
             else

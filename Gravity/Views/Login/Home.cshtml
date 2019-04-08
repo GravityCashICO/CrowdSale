@@ -1,4 +1,10 @@
-﻿<div class="section__content section__content--p30">
+﻿@model ICollection<Transaction>
+
+@{ 
+    List<string> publicKeys=ViewBag.publicKeys;
+}
+
+<div class="section__content section__content--p30">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12">
@@ -12,16 +18,59 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <td>Status</td>
 
-                                    <td>Date</td>
-                                    <td>Address (GCH)</td>
+
                                     <td>Type</td>
                                     <td>Amount (GCH)</td>
-
+                                    <td>Date</td>
+                                    <td>From Address (GCH)</td>
+                                    <td>To Address (GCH)</td>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach (var item in Model)
+                                        {
+                                            var isFromAddr = publicKeys.Any(x=>x==item.FromKey);
+
+
                                 <tr>
+
+
+
+                                    <td>
+                                        <span class="role admin">@item.Status</span>
+                                    </td>
+                                    <td>
+                                        <span class="role admin">@(isFromAddr ? "Send" : "Receive")</span>
+                                    </td>
+                                    <td>
+                                        <div class="table-data__info">
+                                            <h6>@item.CoinAmount</h6>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="table-data__info">
+                                            @item.CreationDate.ToLocalTime()
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="table-data__info">
+                                            <span class="@(isFromAddr?"bg-dark":"")">@item.FromKey</span>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="table-data__info">
+                                            <span class="@(isFromAddr?"":"bg-dark")">@item.ToKey</span>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+
+                                @*<tr>
 
                                     <td>
                                         <div class="table-data__info">
@@ -47,126 +96,16 @@
                                         </div>
                                     </td>
 
-                                </tr>
+                                </tr>*@
 
-                                <tr>
-
-                                    <td>
-                                        <div class="table-data__info">
-
-
-                                            2018-09-29 05:57
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <span>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</span>
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="role admin">Pending</span>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <h6>215.15</h6>
-
-                                        </div>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <div class="table-data__info">
-
-
-                                            2018-09-29 05:57
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <span>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</span>
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="role user">Received</span>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <h6>215.15</h6>
-
-                                        </div>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <div class="table-data__info">
-
-
-                                            2018-09-29 05:57
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <span>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</span>
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="role user">Received</span>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <h6>215.15</h6>
-
-                                        </div>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td>
-                                        <div class="table-data__info">
-
-
-                                            2018-09-29 05:57
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <span>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</span>
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="role admin">Pending</span>
-                                    </td>
-                                    <td>
-                                        <div class="table-data__info">
-                                            <h6>215.15</h6>
-
-                                        </div>
-                                    </td>
-
-                                </tr>
+                                
 
 
                             </tbody>
                         </table>
                     </div>
                     <div class="user-data__footer">
-                        <a href="transactions.php" class="au-btn au-btn-load">load more</a>
+                        <a href="#" class="au-btn au-btn-load">load more</a>
                     </div>
                 </div>
                 <!-- END USER DATA-->

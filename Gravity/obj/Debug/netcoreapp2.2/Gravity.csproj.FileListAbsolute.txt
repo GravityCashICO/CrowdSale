@@ -57,7 +57,9 @@ C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.TagHelp
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.TagHelpers.output.cache
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.RazorCoreGenerate.cache
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\_ViewStart.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\ChangePass.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\ConfirmEmail.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\ForgetPass.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
@@ -69,6 +71,7 @@ C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Log
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Login\Send.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Login\Transactions.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Login\Wallet.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Payment\Buy.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
@@ -82,7 +85,3 @@ C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.Views.p
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.dll
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.pdb
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Gravity.csproj.CopyComplete
-C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\ForgetPass.g.cshtml.cs
-C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Account\ChangePass.g.cshtml.cs
-C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Login\Buy.g.cshtml.cs
-C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Payment\Buy.g.cshtml.cs

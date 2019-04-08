@@ -1,4 +1,5 @@
-﻿<!-- BREADCRUMB-->
+﻿@model ICollection<Wallet>
+<!-- BREADCRUMB-->
 <section class="au-breadcrumb m-t-75">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -6,12 +7,12 @@
                 <div class="col-md-12">
                     <div class="au-breadcrumb-content">
                         <div class="au-breadcrumb-left">
-                            <a href="send.php" class="au-btn au-btn-icon au-btn--green">
+                            @*<a href="send.php" class="au-btn au-btn-icon au-btn--green">
                                 <i class="zmdi zmdi-plus"></i>Send GCH
-                            </a>
+                            </a>*@
 
                         </div>
-                        <a href="wallet.php" class="au-btn au-btn-icon au-btn--blue">
+                        <a href="/Wallet/Create?userId=@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" class="au-btn au-btn-icon au-btn--blue">
                             <i class="zmdi zmdi-plus"></i>Create New Address
                         </a>
 
@@ -34,7 +35,7 @@
                         <table class="table table-borderless table-striped table-earning">
                             <thead>
                                 <tr>
-                                    <th>SN</th>
+                                    <th>Action</th>
 
                                     <th>Total</th>
                                     <th class="text-left">GCH Address </th>
@@ -42,10 +43,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="/Login/Send" class="au-btn au-btn-icon au-btn--green">
-    <i class="zmdi zmdi-minus"></i>Send GCH
-</a> 
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="/Login/Send?addrHolder=@item.PublicKey" class="au-btn au-btn-icon au-btn--green">
+                                                <i class="zmdi zmdi-minus"></i>Send GCH
+                                            </a>
+                                            <a href="/Payment/Buy?addrHolder=@item.PublicKey" class="au-btn au-btn-icon au-btn--green">
+                                                <i class="zmdi zmdi-plus"></i>Buy GCH
+                                            </a>
+                                        </td>
+
+                                        <td>@item.TotalCoin</td>
+                                        <td>@item.PublicKey</td>
+                                        <td>@item.CreationDate</td>
+                                    </tr>
+                                }
+
+                                @*<tr>
+                                    <td>
+                                        <a href="/Login/Send" class="au-btn au-btn-icon au-btn--green">
+                                            <i class="zmdi zmdi-minus"></i>Send GCH
+                                        </a>
                                         <a href="/Payment/Buy" class="au-btn au-btn-icon au-btn--green">
                                             <i class="zmdi zmdi-plus"></i>Buy GCH
                                         </a>
@@ -61,7 +81,7 @@
                                     <td></td>
                                     <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
                                     <td>2018-09-29 05:57</td>
-                                </tr>
+                                </tr>*@
 
 
 
@@ -81,7 +101,7 @@
 </section>
 
 
-<script>
+@*<script>
 
 
 var contractAddress="0xd8b8728bd30c5ecf8a4688bdbfdf416be702bfc8"
@@ -131,4 +151,4 @@ function getTokenBalance () {
     }
 
 
-</script>
+</script>*@

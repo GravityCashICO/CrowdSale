@@ -38,14 +38,15 @@
                             <strong> Send (GCH)</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-
+                            @using (Html.BeginForm())
+                            {
+                                <div style="color:red">@TempData["msg"]</div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Gravity Address (GCH)</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="addr" name="text-input" placeholder="GCH Address" class="form-control" />
+                                        <input type="text" id="addr" name="addr" placeholder="GCH Address" class="form-control" />
                                         <small class="form-text text-muted">Please enter your GCH address</small>
                                     </div>
                                 </div>
@@ -54,18 +55,18 @@
                                         <label for="email-input" class=" form-control-label">GCH Ammount</label>
                                     </div>
                                     <div class="col-12 col-md-3">
-                                        <input type="number" id="amnt" name="email-input" placeholder="Amount" class="form-control" />
+                                        <input type="number" id="amnt" name="amnt" placeholder="Amount" class="form-control" />
                                         <small class="help-block form-text">Please enter your GCH amount</small>
                                     </div>
                                 </div>
-
+                                @*<input type="hidden" id="hash" name="hash" />*@
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
 
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <button id="btnSubmit" type="button" class="btn btn-success">
+                                        <button id="getHash" type="submit" class="btn btn-success">
                                             <i class="fa fa-location-arrow"></i> Save
                                         </button>
                                     </div>
@@ -73,7 +74,7 @@
 
 
 
-                                </form>
+                            }
 
                         </div>
 
@@ -89,9 +90,41 @@
                 </div>
             </div>
         </div>
+        </div>
 </section>
-
 <script>
+    
+    //$(function () {
+
+    //    $("#getHash").click(function () {
+
+    //        var $this = $(this).closest('form');
+    //        //var from = '';
+    //        var to = $("#addr").val();
+    //        var val = $("#amnt").val();
+    //        val = val * (10 ** 18);
+    //        var fee = '0';
+    //        fee = fee * (10 ** 18);
+    //        var nonce = '0';
+    //        var transferSig = "0x48664c16";
+
+    //        contract.recoverPreSignedHash(ContractAddress, transferSig, to, val, fee, nonce, function (error, hash) {
+    //            alert(hash);
+    //            $("#hash").val(hash);
+    //            $this.submit();
+    //        });
+
+    //        return false;
+    //    });
+
+    //})
+
+    
+
+
+</script>
+
+@*<script>
 
 
 var contractAddress="0xd8b8728bd30c5ecf8a4688bdbfdf416be702bfc8"
@@ -148,4 +181,4 @@ function sendTokens () {
     }
 
 
-</script>
+</script>*@

@@ -80,6 +80,103 @@ namespace Gravity.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Gravity.Models.MineTransaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<decimal>("GasFee");
+
+                    b.Property<DateTime>("LastTransactinTime");
+
+                    b.Property<decimal>("TotalFee");
+
+                    b.Property<decimal>("totalCoinFee");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MineTransactions");
+                });
+
+            modelBuilder.Entity("Gravity.Models.Payment", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AddressToSendCoin");
+
+                    b.Property<decimal>("CoinAmount");
+
+                    b.Property<string>("CurrencyCode");
+
+                    b.Property<decimal>("Fee");
+
+                    b.Property<string>("Ipn_id");
+
+                    b.Property<decimal>("NetValue");
+
+                    b.Property<decimal>("Received_amount");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("Gravity.Models.Transaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("CoinAmount");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<decimal>("FeeInCoinAmount");
+
+                    b.Property<string>("FromKey");
+
+                    b.Property<string>("HashHex");
+
+                    b.Property<string>("Signature");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("StatusType");
+
+                    b.Property<string>("ToKey");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("Gravity.Models.Wallet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("PrivateKey");
+
+                    b.Property<string>("PublicKey");
+
+                    b.Property<decimal>("TotalCoin");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wallets");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -188,6 +285,14 @@ namespace Gravity.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Gravity.Models.Wallet", b =>
+                {
+                    b.HasOne("Gravity.Models.ApplicationUser", "User")
+                        .WithMany("Wallets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

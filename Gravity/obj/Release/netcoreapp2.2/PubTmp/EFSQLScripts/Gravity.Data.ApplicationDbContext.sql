@@ -267,3 +267,106 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190405061159_new')
+BEGIN
+    CREATE TABLE [MineTransactions] (
+        [Id] uniqueidentifier NOT NULL,
+        [GasFee] decimal(18,2) NOT NULL,
+        [TotalFee] decimal(18,2) NOT NULL,
+        [totalCoinFee] decimal(18,2) NOT NULL,
+        [CreationDate] datetime2 NOT NULL,
+        [LastTransactinTime] datetime2 NOT NULL,
+        CONSTRAINT [PK_MineTransactions] PRIMARY KEY ([Id])
+    );
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190405061159_new')
+BEGIN
+    CREATE TABLE [Payments] (
+        [Id] nvarchar(450) NOT NULL,
+        [Ipn_id] nvarchar(max) NULL,
+        [CurrencyCode] nvarchar(max) NULL,
+        [Received_amount] decimal(18,2) NOT NULL,
+        [Fee] decimal(18,2) NOT NULL,
+        [NetValue] decimal(18,2) NOT NULL,
+        [Status] int NOT NULL,
+        [AddressToSendCoin] nvarchar(max) NULL,
+        [CoinAmount] decimal(18,2) NOT NULL,
+        CONSTRAINT [PK_Payments] PRIMARY KEY ([Id])
+    );
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190405061159_new')
+BEGIN
+    CREATE TABLE [Transactions] (
+        [Id] uniqueidentifier NOT NULL,
+        [FromKey] nvarchar(max) NULL,
+        [ToKey] nvarchar(max) NULL,
+        [CoinAmount] decimal(18,2) NOT NULL,
+        [Status] nvarchar(max) NULL,
+        [CreationDate] datetime2 NOT NULL,
+        [StatusType] nvarchar(max) NULL,
+        [FeeInCoinAmount] decimal(18,2) NOT NULL,
+        CONSTRAINT [PK_Transactions] PRIMARY KEY ([Id])
+    );
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190405061159_new')
+BEGIN
+    CREATE TABLE [Wallets] (
+        [Id] uniqueidentifier NOT NULL,
+        [PublicKey] nvarchar(max) NULL,
+        [PrivateKey] nvarchar(max) NULL,
+        [TotalCoin] decimal(18,2) NOT NULL,
+        [CreationDate] datetime2 NOT NULL,
+        [UserId] nvarchar(450) NOT NULL,
+        CONSTRAINT [PK_Wallets] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_Wallets_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+    );
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190405061159_new')
+BEGIN
+    CREATE INDEX [IX_Wallets_UserId] ON [Wallets] ([UserId]);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190405061159_new')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20190405061159_new', N'2.2.2-servicing-10034');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190407194424_trnxColumns')
+BEGIN
+    ALTER TABLE [Transactions] ADD [HashHex] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190407194424_trnxColumns')
+BEGIN
+    ALTER TABLE [Transactions] ADD [Signature] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190407194424_trnxColumns')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20190407194424_trnxColumns', N'2.2.2-servicing-10034');
+END;
+
+GO
+

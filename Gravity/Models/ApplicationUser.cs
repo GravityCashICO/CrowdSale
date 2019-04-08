@@ -15,5 +15,6 @@ namespace Gravity.Models
 
         public string Address { get; set; }
         //public string MobileNo { get; set; }//phone
+        public List<Wallet> Wallets { get; set; }
     }
 }

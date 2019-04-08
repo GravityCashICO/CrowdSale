@@ -5,14 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Gravity.Models;
+using Newtonsoft.Json;
 
 namespace Gravity.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index(string url)
+        public IActionResult Index()
         {
-            return Redirect(url);
+            //var s = "[{\"Key\":\"amount1\",\"Value\":[\"1\"]},{\"Key\":\"amount2\",\"Value\":[\"1\"]}]";
+            //Dictionary<string, dynamic> vv = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(s);
+            
+            return View();
         }
 
         public IActionResult Privacy()

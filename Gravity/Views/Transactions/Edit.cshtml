@@ -1,0 +1,71 @@
+﻿@model Gravity.Models.Transaction
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Transaction</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FromKey" class="control-label"></label>
+                <input asp-for="FromKey" class="form-control" />
+                <span asp-validation-for="FromKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToKey" class="control-label"></label>
+                <input asp-for="ToKey" class="form-control" />
+                <span asp-validation-for="ToKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoinAmount" class="control-label"></label>
+                <input asp-for="CoinAmount" class="form-control" />
+                <span asp-validation-for="CoinAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusType" class="control-label"></label>
+                <input asp-for="StatusType" class="form-control" />
+                <span asp-validation-for="StatusType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HashHex" class="control-label"></label>
+                <input asp-for="HashHex" class="form-control" />
+                <span asp-validation-for="HashHex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Signature" class="control-label"></label>
+                <input asp-for="Signature" class="form-control" />
+                <span asp-validation-for="Signature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeeInCoinAmount" class="control-label"></label>
+                <input asp-for="FeeInCoinAmount" class="form-control" />
+                <span asp-validation-for="FeeInCoinAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

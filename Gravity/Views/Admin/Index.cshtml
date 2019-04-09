@@ -1,0 +1,174 @@
+﻿@model IEnumerable<Transaction>
+
+@{
+    var p = Convert.ToDecimal(Math.Pow(10, 18));
+    string lastTrnxDate = (Model.Count() <= 0) ? null : Model.LastOrDefault().CreationDate.AddSeconds(1).ToString();
+}
+<section>
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+
+
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FromKey)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ToKey)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CoinAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreationDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StatusType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.HashHex)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Signature)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FeeInCoinAmount)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FromKey)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ToKey)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CoinAmount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StatusType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HashHex)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Signature)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FeeInCoinAmount)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-4 col-sm-offset-4" style="margin-top: 3%;">
+                <input type="submit" id="execSign" tabindex="4" class="form-control btn btn-primary" value="Delegate Transfer">
+            </div>
+
+            <label id="txlink" style="margin-left: 20%">
+                <span id="txspan" style="display: none;">Check your transaction status : </span>
+                <a id="linktx" href='' target="_blank"></a>
+            </label>
+        </div>
+        </div>
+
+    </section>
+
+        
+
+        <script type="text/javascript">
+    $(function () {
+        $('#myTable').DataTable();
+        //alert('@lastTrnxDate');
+        //window.location.href = "/Admin/UploadTransaction?lastTrnxDate=@lastTrnxDate&hash=mmmmmm";
+    })
+
+    window.addEventListener('load', async () => {
+        // Modern dapp browsers...
+        if (window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+                // Request account access if needed
+                await ethereum.enable();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+            window.web3 = new Web3(web3.currentProvider);
+        }
+        // Non-dapp browsers...
+        else {
+            console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        }
+    });
+
+
+    var signs = '@ViewBag.signs';
+    var _toes = [];
+
+    var _values = [];
+    var _fees = [];
+
+    var _nonces = [];
+
+    @foreach (var d in Model)
+    {
+        @:_toes.push("@d.ToKey");
+        @:_values.push("@((d.CoinAmount*p).ToString().Split('.')[0])");
+        @:_fees.push("@(d.FeeInCoinAmount*p)");
+        @:_nonces.push('0');
+    }
+
+
+
+    //alert(_toes);//data="0x5377a6e400000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000001e0000000000000000000000000000000000000000000000000000000000000022000000000000000000000000000000000000000000000000000000000000000843078643836316233353232313663393538393333363631333830646661653231626131336366333139373233326132343633656562616634666534303261323237633034326631666638346166666232373331343362386264616230353864353337356532353031333830313963353062636533316534393831643034643136333731620000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000009c7feb9d283f038e7ad638b5996b78793a545c30000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000"
+
+
+            
+
+        $("#execSign").click(function () {
+            web3.eth.getAccounts(function (error, accounts) {
+                contract.transferArray(signs, _toes, _values, _fees, _nonces, function (error, txHash) {
+                    //contract.transferMul(fromA, toA, valA, feeA, function(error, txHash) {
+                    if (!error) {
+                        //alert(txHash);
+                        //$("#label_common").text("Transaction hash : " + txHash);
+                        $("#txspan").show();
+                        $("#linktx").text(txHash);
+                        $("#linktx").attr('href', 'https://rinkeby.etherscan.io/tx/' + txHash);
+
+                        window.location.href = "/Admin/UploadTransaction?lastTrnxDate=@lastTrnxDate&hash=" + txHash;
+                    } else {
+                        alert(error);
+                        //$("#label_common").text(error);
+                    }
+                });
+            });
+        });
+
+        </script>

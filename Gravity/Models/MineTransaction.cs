@@ -12,6 +12,7 @@ namespace Gravity.Models
         public decimal TotalFee { get; set; }
         public decimal totalCoinFee { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime LastTransactinTime { get; set; }//where   transactins.datetime>=lastTransactinTime
+        public DateTime LastTransactinTime { get; set; }//where   transactins.datetime<=lastTransactinTime
+        public string txHash { get; set; }
     }
 }

@@ -95,6 +95,8 @@ namespace Gravity.Data.Migrations
 
                     b.Property<decimal>("totalCoinFee");
 
+                    b.Property<string>("txHash");
+
                     b.HasKey("Id");
 
                     b.ToTable("MineTransactions");

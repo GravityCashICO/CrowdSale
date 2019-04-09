@@ -370,3 +370,18 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190408134726_minetrnx')
+BEGIN
+    ALTER TABLE [MineTransactions] ADD [txHash] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190408134726_minetrnx')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20190408134726_minetrnx', N'2.2.2-servicing-10034');
+END;
+
+GO
+

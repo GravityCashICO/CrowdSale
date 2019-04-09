@@ -805,5 +805,5 @@ var abi = [
         "type": "function"
     }
 ];
-var web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/f165b595cd184b2a848716830f9804b0"));
+//var web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/f165b595cd184b2a848716830f9804b0"));
 var contract = web3.eth.contract(abi).at(ContractAddress);//rinkeby.infura.io/v3/f165b595cd184b2a848716830f9804b0

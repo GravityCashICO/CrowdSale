@@ -85,3 +85,9 @@ C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Gravity.cspro
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Account\ChangePass.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Account\ForgetPass.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Payment\Buy.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Admin\Index.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Transactions\Create.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Transactions\Delete.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Transactions\Details.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Transactions\Edit.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Transactions\Index.g.cshtml.cs

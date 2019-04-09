@@ -105,11 +105,18 @@ namespace Gravity.Controllers
             if (wallet.TotalCoin < amnt)
             {
                 TempData["msg"] = "Insuffcient valance";
-                return View();
+                return RedirectToAction("Send",new { addrHolder= addrHolder });
             }
             else
             {
                 wallet.TotalCoin = wallet.TotalCoin - amnt;
+
+                var walletTo= _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
+                if (walletTo != null)
+                {
+                    walletTo.TotalCoin = walletTo.TotalCoin + amnt;
+                }
+
 
                 var trns = new Models.Transaction
                 {

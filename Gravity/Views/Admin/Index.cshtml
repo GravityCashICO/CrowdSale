@@ -162,7 +162,11 @@
                         $("#linktx").text(txHash);
                         $("#linktx").attr('href', 'https://rinkeby.etherscan.io/tx/' + txHash);
 
-                        window.location.href = "/Admin/UploadTransaction?lastTrnxDate=@lastTrnxDate&hash=" + txHash;
+                        var url = "/Admin/UploadTransaction?lastTrnxDate=@lastTrnxDate&hash=" + txHash;
+
+                        $.get(url, function (data, status) {
+                            alert("Data: " + data + "\nStatus: " + status);
+                        });
                     } else {
                         alert(error);
                         //$("#label_common").text(error);

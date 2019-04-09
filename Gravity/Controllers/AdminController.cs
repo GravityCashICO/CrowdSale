@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gravity.Data;
 using Gravity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
 
@@ -18,7 +19,11 @@ namespace Gravity.Controllers
         {
             _ctx = ctx;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Explorer()
+        {
+            return View(await _ctx.MineTransactions.ToListAsync());
+        }
+            public async Task<IActionResult> Index()
         {
             //var trnxsvv = _ctx.Transactions.Where(x => x.Status == EnumType.Pending && CompareDate(x.CreationDate, DateTime.Now)).ToList();
             var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
@@ -65,7 +70,7 @@ namespace Gravity.Controllers
             return View(trnxs);
         }
 
-        public async Task<IActionResult> UploadTransaction(string hash,DateTime lastTrnxDate)
+        public async Task<string> UploadTransaction(string hash,DateTime lastTrnxDate)
         {
             var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending&& DateTime.Compare(x.CreationDate, lastTrnxDate) <= 0).ToList();
             //trnxs = trnxs.Where(x => DateTime.Compare(x.CreationDate, lastTrnxDate) <= 0).ToList();
@@ -86,7 +91,7 @@ namespace Gravity.Controllers
             _ctx.MineTransactions.Add(mineTrnx);
             await _ctx.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return "Transactions Uplooaded..!";
         }
         
         }

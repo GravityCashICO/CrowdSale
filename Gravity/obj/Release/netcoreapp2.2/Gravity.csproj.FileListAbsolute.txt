@@ -91,3 +91,5 @@ C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Gravity.Views
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Gravity.dll
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Gravity.pdb
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Gravity.csproj.CopyComplete
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Gravity.csprojAssemblyReference.cache
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\Razor\Views\Payment\Crypto.g.cshtml.cs

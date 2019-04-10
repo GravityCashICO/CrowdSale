@@ -92,3 +92,4 @@ C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Tra
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Transactions\Edit.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Transactions\Index.g.cshtml.cs
 C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Explorer.g.cshtml.cs
+C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Debug\netcoreapp2.2\Razor\Views\Payment\Crypto.g.cshtml.cs

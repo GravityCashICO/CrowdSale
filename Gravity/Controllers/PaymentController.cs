@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using Gravity.Data;
 using Gravity.Models;
 using Gravity.Services;
+using HtmlAgilityPack;
+using HtmlAgilityPack.CssSelectors.NetCore;
 using Microsoft.AspNetCore.Mvc;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Signer;
@@ -83,10 +87,31 @@ namespace Gravity.Controllers
 
             TempData["url"] = url;
 
-           return View();
 
+            return View();
+            //return RedirectToAction("Crypto", new { url });
         }
-        public async Task<IActionResult> Ipn()
+
+        public async Task<IActionResult> Crypto(string url)
+        {
+            //url= HttpUtility.UrlDecode(url);
+            
+            var Webget = new HtmlWeb();
+            var doc = Webget.Load(url);
+
+
+            //var doc = new HtmlAgilityPack.HtmlDocument();
+            //doc.Load(url);
+
+            //IList<HtmlNode> nodes = doc.QuerySelectorAll("div .my-class[data-attr=123] > ul li");
+            //HtmlNode node = nodes[0].QuerySelector("p.with-this-class span[data-myattr]");
+            HtmlNode node = doc.QuerySelector("div.page-row.page-row-expanded");
+            ViewBag.html = node.OuterHtml;
+
+            return View();
+        }
+
+            public async Task<IActionResult> Ipn()
         {
             //var req = Request;
             //var h = JsonConvert.SerializeObject(req.Headers);

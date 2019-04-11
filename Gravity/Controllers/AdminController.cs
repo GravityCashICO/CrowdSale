@@ -25,7 +25,6 @@ namespace Gravity.Controllers
         }
             public async Task<IActionResult> Index()
         {
-            //var trnxsvv = _ctx.Transactions.Where(x => x.Status == EnumType.Pending && CompareDate(x.CreationDate, DateTime.Now)).ToList();
             var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
 
             var Signature = trnxs.Select(x => x.Signature);
@@ -66,8 +65,8 @@ namespace Gravity.Controllers
             }
 
 
-
-            return View(trnxs);
+            return Content("Success");
+            //return View(trnxs);
         }
 
         public async Task<string> UploadTransaction(string hash,DateTime lastTrnxDate)

@@ -62,16 +62,18 @@ namespace Gravity.Controllers
         //    return Redirect(sl["ipn_url"]);
         //}
         [HttpPost]
-        public IActionResult Buy(string addrHolder,string code, decimal amnt)
+        public IActionResult Buy(string addrHolder,string code, double amnt)
         {
+            var amount = amnt * Admin.CoinPrice;
+            //amnt = amnt * .005;//fee .5% fee
             var cmd = "create_transaction";
 
             SortedList<string, string> sl = new SortedList<string, string>
             {
                 //{ "currency", "BTC" },
                 //{ "format", "json" },
-                { "amount", amnt.ToString() },
-                { "currency1", code },
+                { "amount", amount.ToString() },
+                { "currency1", Admin.CoinUit },
                  { "currency2", code },
                 {"buyer_email","toufiqelahy@hotmail.com" },
                 {"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack?addrHolder="+addrHolder+"&amnt="+amnt }

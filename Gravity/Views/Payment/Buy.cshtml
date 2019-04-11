@@ -15,6 +15,7 @@
                                     <span>/</span>
                                 </li>
                                 <li class="list-inline-item">Buy (GCH)</li>
+                                <li class="list-inline-item"><h1>1 GCH Coin price= @Admin.CoinPrice  @Admin.CoinUit</h1></li>
                             </ul>
                         </div>
 
@@ -48,6 +49,7 @@
                                     <div class="col-12 col-md-3">
                                         <input type="number" id="amnt" name="amnt" placeholder="How many GCH Coin" class="form-control" />
                                         <small class="help-block form-text">Please enter your GCH amount</small>
+                                        <small id="totalPrice"> </small>
                                     </div>
                                 </div>
 
@@ -113,5 +115,12 @@
             //alert(url);
             window.location.href = "/Payment/Crypto?url=" + url;
         }
+        var price=@Admin.CoinPrice;
+        $('#amnt').keyup(function () {
+
+            var amnt = $(this).val();
+            var total = amnt * price;
+            $('#totalPrice').html('<h6>Total Price:' + total + ' ETH</h2>');
+        })
     })
 </script>

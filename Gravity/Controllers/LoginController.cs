@@ -28,7 +28,7 @@ namespace Gravity.Controllers
         {
             var publicKeys = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).Select(x=>x.PublicKey).ToList();
             ViewBag.publicKeys = publicKeys;
-            var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).ToList();
+            var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x=>x.CreationDate).ToList();
 
             return View(trns);
         }
@@ -102,7 +102,8 @@ namespace Gravity.Controllers
         public async Task<IActionResult> Send(string addrHolder, string addr,decimal amnt)
         {
             var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
-            if (wallet.TotalCoin < amnt)
+            var fes = amnt * Convert.ToDecimal(0.0001);
+            if (wallet.TotalCoin < (amnt+ fes))
             {
                 TempData["msg"] = "Insuffcient valance";
                 return RedirectToAction("Send",new { addrHolder= addrHolder });
@@ -123,7 +124,7 @@ namespace Gravity.Controllers
                     Id = new Guid(),
                     CoinAmount = amnt,
                     CreationDate = DateTime.UtcNow,
-                    FeeInCoinAmount = 0,
+                    FeeInCoinAmount = fes,
                     FromKey = wallet.PublicKey,
                     Status = EnumType.Pending,
                     ToKey = addr,
@@ -163,7 +164,8 @@ namespace Gravity.Controllers
 
                 trns.HashHex = hash;
                 var signer = new MessageSigner();
-                trns.Signature= signer.Sign(trns.HashHex.HexToByteArray(), wallet.PrivateKey);
+                var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+                trns.Signature= signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
                 
 
                 _ctx.Transactions.Add(trns);

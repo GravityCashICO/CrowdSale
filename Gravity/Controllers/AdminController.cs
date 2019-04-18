@@ -23,29 +23,51 @@ namespace Gravity.Controllers
         public async Task<IActionResult> AutoPush([FromServices] INodeServices nodeServices)
         {
             var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
+            if (trnxs.Count > 0)
+            {
 
-            var Signature = trnxs.Select(x => x.Signature);
-            string signs = string.Join(".", Signature);
-            string[] _toes = trnxs.Select(x => x.ToKey).ToArray();
+                var Signatures = trnxs.Select(x => x.Signature).ToArray();
+                //string signs = string.Join(".", Signature);
+                string[] _toes = trnxs.Select(x => x.ToKey).ToArray();
 
-            var p = System.Convert.ToDecimal(Math.Pow(10, 18));
+                var p = System.Convert.ToDecimal(Math.Pow(10, 18));
 
-            string[] _values = trnxs.Select(x => (x.CoinAmount * p).ToString().Split('.')[0]).ToArray();
-            decimal[] _fees = trnxs.Select(x => x.FeeInCoinAmount * p).ToArray();
-            string[] _nonces = Enumerable.Repeat("0", trnxs.Count).ToArray();
+                string[] _values = trnxs.Select(x => (x.CoinAmount * p).ToString().Split('.')[0]).ToArray();
+                //decimal[] _fees = trnxs.Select(x => x.FeeInCoinAmount * p).ToArray();
+                string[] _nonces = Enumerable.Repeat("0", trnxs.Count).ToArray();
 
-            var obj = new { signs, _toes, _values, _fees = _nonces, _nonces };
-            string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+                var obj = new { signatures = Signatures, _toes, _values, _fees = _nonces };
+                string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
 
-            var result = await nodeServices.InvokeAsync<object>("wwwroot/Scripts/AutoPush.js", json_obj);
+                var result = await nodeServices.InvokeAsync<PushResp>("wwwroot/Scripts/AutoPush.js", json_obj);
 
-            return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                foreach (var trn in trnxs)
+                {
+                    trn.Status = EnumType.Success;
+                }
+
+                var mineTrnx = new MineTransaction();
+                mineTrnx.Id = new Guid();
+                mineTrnx.CreationDate = DateTime.UtcNow;
+                mineTrnx.GasFee = Convert.ToInt32(result.GasPrice.Hex, 16);
+                mineTrnx.LastTransactinTime = trnxs.Last().CreationDate;
+                mineTrnx.totalCoinFee = trnxs.Sum(x => x.FeeInCoinAmount);
+                mineTrnx.TotalFee = Convert.ToInt32(result.GasLimit.Hex, 16);
+                mineTrnx.txHash = result.Hash;
+
+                _ctx.MineTransactions.Add(mineTrnx);
+                await _ctx.SaveChangesAsync();
+
+                return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+            }
+
+            return null;
         }
         public async Task<IActionResult> Explorer()
         {
             return View(await _ctx.MineTransactions.ToListAsync());
         }
-            public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
 
@@ -91,9 +113,9 @@ namespace Gravity.Controllers
             //return View(trnxs);
         }
 
-        public async Task<string> UploadTransaction(string hash,DateTime lastTrnxDate)
+        public async Task<string> UploadTransaction(string hash, DateTime lastTrnxDate)
         {
-            var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending&& DateTime.Compare(x.CreationDate, lastTrnxDate) <= 0).ToList();
+            var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending && DateTime.Compare(x.CreationDate, lastTrnxDate) <= 0).ToList();
             //trnxs = trnxs.Where(x => DateTime.Compare(x.CreationDate, lastTrnxDate) <= 0).ToList();
             foreach (var trn in trnxs)
             {
@@ -114,6 +136,6 @@ namespace Gravity.Controllers
 
             return "Transactions Uplooaded..!";
         }
-        
-        }
+
+    }
 }

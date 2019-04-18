@@ -57,6 +57,7 @@
                                     <div class="col-12 col-md-3">
                                         <input type="number" id="amnt" name="amnt" placeholder="Amount" class="form-control" />
                                         <small class="help-block form-text">Please enter your GCH amount</small>
+                                        <small>Fee is(.01%): <b id="feee">0</b></small>
                                     </div>
                                 </div>
                                 @*<input type="hidden" id="hash" name="hash" />*@
@@ -94,7 +95,10 @@
 </section>
 <script>
     
-    //$(function () {
+    $(function () {
+        $('#amnt').keyup(function () {
+            $('#feee').html($(this).val()*.0001)
+        })
 
     //    $("#getHash").click(function () {
 
@@ -117,7 +121,7 @@
     //        return false;
     //    });
 
-    //})
+    })
 
     
 

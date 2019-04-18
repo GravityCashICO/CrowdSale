@@ -197,7 +197,8 @@ namespace Gravity.Controllers
 
                 trns.HashHex = hash;
                 var signer = new MessageSigner();
-                trns.Signature = signer.Sign(trns.HashHex.HexToByteArray(), Admin.PrivateKey);
+                var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+                trns.Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
 
 
                 _ctx.Transactions.Add(trns);

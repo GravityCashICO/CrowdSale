@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gravity.Data;
 using Gravity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
@@ -18,6 +19,27 @@ namespace Gravity.Controllers
         public AdminController(ApplicationDbContext ctx)
         {
             _ctx = ctx;
+        }
+        public async Task<IActionResult> AutoPush([FromServices] INodeServices nodeServices)
+        {
+            var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
+
+            var Signature = trnxs.Select(x => x.Signature);
+            string signs = string.Join(".", Signature);
+            string[] _toes = trnxs.Select(x => x.ToKey).ToArray();
+
+            var p = System.Convert.ToDecimal(Math.Pow(10, 18));
+
+            string[] _values = trnxs.Select(x => (x.CoinAmount * p).ToString().Split('.')[0]).ToArray();
+            decimal[] _fees = trnxs.Select(x => x.FeeInCoinAmount * p).ToArray();
+            string[] _nonces = Enumerable.Repeat("0", trnxs.Count).ToArray();
+
+            var obj = new { signs, _toes, _values, _fees = _nonces, _nonces };
+            string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+
+            var result = await nodeServices.InvokeAsync<object>("wwwroot/Scripts/AutoPush.js", json_obj);
+
+            return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result));
         }
         public async Task<IActionResult> Explorer()
         {

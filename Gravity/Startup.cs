@@ -90,8 +90,10 @@ namespace Gravity
                 //options.LogoutPath = $"/Identity/Account/Logout";
                 //options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
-
+            services.AddNodeServices();
             services.AddDirectoryBrowser();
+            
+            services.AddTransient<YourJob>();
         }
 
 
@@ -138,6 +140,8 @@ namespace Gravity
                     name: "default",
                     template: "{controller=Login}/{action=Home}/{id?}");
             });
+
+
         }
     }
 }

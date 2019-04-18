@@ -4,7 +4,15 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-Gravity-8780EC55-0A7A-4C6F-A218-2132C05527FF</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\node_modules\**" />
+    <Content Remove="wwwroot\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\node_modules\**" />
+    <None Remove="wwwroot\node_modules\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\fonts\poppins\poppins-v5-latin-100.svg" />
@@ -221,15 +229,18 @@
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack.CssSelectors.NetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="Nethereum" Version="0.0.2.60" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <Folder Include="wwwroot\Scripts\" />
     <Folder Include="wwwroot\vendor\login\New folder\" />
   </ItemGroup>
 

@@ -5,6 +5,7 @@
     <UserSecretsId>aspnet-Gravity-8780EC55-0A7A-4C6F-A218-2132C05527FF</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -240,7 +241,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\Scripts\" />
     <Folder Include="wwwroot\vendor\login\New folder\" />
   </ItemGroup>
 

@@ -14,5 +14,9 @@ namespace Gravity.Models
         public DateTime CreationDate { get; set; }
         public DateTime LastTransactinTime { get; set; }//where   transactins.datetime<=lastTransactinTime
         public string txHash { get; set; }
+
+        public string StatusType { get; set; }
+        public int TransactionCount { get; set; }
+        public string JsonTransactions { get; set; }
     }
 }

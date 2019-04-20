@@ -30,38 +30,4 @@ var privateKey = "F92307ABD3DFC5EEAA00CF856ED34DBD7C84E1BD01A6A7CB5094E69845F2B2
 
 
 
-module.exports.transferArray = function (callback, json_obj) {
-    var jso = JSON.parse(json_obj);
-    var v = [];
-    var r = [];
-    var s = [];
-    (jso.signatures).forEach(function (flatSig) {
-        //let wallet = new ethers.Wallet(privateKey);
-        // Sign the binary data
-        //let flatSig = await wallet.signMessage(messageHashBytes);
 
-        // For Solidity, we need the expanded-format of a signature
-        let sig = ethers.utils.splitSignature(flatSig);
-
-        v.push(sig.v);
-        r.push(sig.r);
-        s.push(sig.s);
-    });
-    
-    contractWithSigner.transferArray(v,r,s, jso._toes, jso._values, jso._fees).then((txd) => {
-
-            callback(null, txd);
-
-        });
-};
-
-
-module.exports.sendBatchCS = function (callback, json_obj) {
-    var jso = JSON.parse(json_obj);
-
-    contractWithSigner.sendBatchCS(jso._toes, jso._values).then((txd) => {
-
-        callback(null, txd);
-
-    });
-};

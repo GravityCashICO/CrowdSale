@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using Gravity.Data;
 using Gravity.Models;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Signer;
+using Nethereum.StandardTokenEIP20.ContractDefinition;
 using Nethereum.Web3;
 
 namespace Gravity.Controllers
@@ -103,9 +105,21 @@ namespace Gravity.Controllers
         {
             var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
             var fes = amnt * Convert.ToDecimal(0.0001);
-            if (wallet.TotalCoin < (amnt+ fes))
+
+
+            var web3 = new Web3(Admin.InfuraUrl);
+            var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
+            var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
+            var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
+
+            //assuming all have 18 decimals
+            var value = Web3.Convert.FromWeiToBigDecimal(balance);
+
+            var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
+
+            if (value < (amnt+ fes+pendingTrnx))
             {
-                TempData["msg"] = "Insuffcient valance";
+                TempData["msg"] = "Insuffcient valance "+pendingTrnx;
                 return RedirectToAction("Send",new { addrHolder= addrHolder });
             }
             else
@@ -133,36 +147,36 @@ namespace Gravity.Controllers
 
 
                 /////
-                var web3 = new Web3(Admin.InfuraUrl);
-                var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
-                var recoverPreSignedHashFunction = contract.GetFunction("recoverPreSignedHash");
+                //var web3 = new Web3(Admin.InfuraUrl);
+                //var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
+                //var recoverPreSignedHashFunction = contract.GetFunction("recoverPreSignedHash");
                 
-                var p = Convert.ToDecimal(Math.Pow(10, 18));
-                var to = trns.ToKey;
-                var val = trns.CoinAmount;
+                //var p = Convert.ToDecimal(Math.Pow(10, 18));
+                //var to = trns.ToKey;
+                //var val = trns.CoinAmount;
 
-                val = val * p;//(10 ** 18);
-                var fee = trns.FeeInCoinAmount;
-                fee = fee * p;
-                var nonce = 0;
-                var transferSig = "0x48664c16".HexToByteArray();
+                //val = val * p;//(10 ** 18);
+                //var fee = trns.FeeInCoinAmount;
+                //fee = fee * p;
+                //var nonce = 0;
+                //var transferSig = "0x48664c16".HexToByteArray();
 
-                var prms = new { _token = Admin.ContractAddress, _functionSig = transferSig, _spender = to, _value = val, _fee = fee, _nonce = nonce };
-                string hash;
-                object[] b = new object[] { Admin.ContractAddress, transferSig, to, val, fee, nonce };
-                try
-                {
-                    var rslt = recoverPreSignedHashFunction.CreateCallInput(functionInput: b);
-                    var c = await recoverPreSignedHashFunction.CallRawAsync(rslt);
-                    hash = c.ToHex();
-                }
-                catch (Exception ex)
-                {
+                //var prms = new { _token = Admin.ContractAddress, _functionSig = transferSig, _spender = to, _value = val, _fee = fee, _nonce = nonce };
+                //string hash;
+                //object[] b = new object[] { Admin.ContractAddress, transferSig, to, val, fee, nonce };
+                //try
+                //{
+                //    var rslt = recoverPreSignedHashFunction.CreateCallInput(functionInput: b);
+                //    var c = await recoverPreSignedHashFunction.CallRawAsync(rslt);
+                //    hash = c.ToHex();
+                //}
+                //catch (Exception ex)
+                //{
 
-                    throw;
-                }
+                //    throw;
+                //}
 
-                trns.HashHex = hash;
+                //trns.HashHex = hash;
                 var signer = new MessageSigner();
                 var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
                 trns.Signature= signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);

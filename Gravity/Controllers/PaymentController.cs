@@ -166,39 +166,39 @@ namespace Gravity.Controllers
                 };
 
                 /////
-                var web3 = new Web3(Admin.InfuraUrl);
-                var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
-                var recoverPreSignedHashFunction = contract.GetFunction("recoverPreSignedHash");
+                //var web3 = new Web3(Admin.InfuraUrl);
+                //var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
+                //var recoverPreSignedHashFunction = contract.GetFunction("recoverPreSignedHash");
 
-                var p = Convert.ToDecimal(Math.Pow(10, 18));
-                var to = trns.ToKey;
-                var val = trns.CoinAmount;
+                //var p = Convert.ToDecimal(Math.Pow(10, 18));
+                //var to = trns.ToKey;
+                //var val = trns.CoinAmount;
 
-                val = val * p;//(10 ** 18);
-                var fee = trns.FeeInCoinAmount;
-                fee = fee * p;
-                var nonce = 0;
-                var transferSig = "0x48664c16".HexToByteArray();
+                //val = val * p;//(10 ** 18);
+                //var fee = trns.FeeInCoinAmount;
+                //fee = fee * p;
+                //var nonce = 0;
+                //var transferSig = "0x48664c16".HexToByteArray();
 
-                var prms = new { _token = Admin.ContractAddress, _functionSig = transferSig, _spender = to, _value = val, _fee = fee, _nonce = nonce };
-                string hash;
-                object[] b = new object[] { Admin.ContractAddress, transferSig, to, val, fee, nonce };
-                try
-                {
-                    var rslt = recoverPreSignedHashFunction.CreateCallInput(functionInput: b);
-                    var c = await recoverPreSignedHashFunction.CallRawAsync(rslt);
-                    hash = c.ToHex();
-                }
-                catch (Exception ex)
-                {
+                //var prms = new { _token = Admin.ContractAddress, _functionSig = transferSig, _spender = to, _value = val, _fee = fee, _nonce = nonce };
+                //string hash;
+                //object[] b = new object[] { Admin.ContractAddress, transferSig, to, val, fee, nonce };
+                //try
+                //{
+                //    var rslt = recoverPreSignedHashFunction.CreateCallInput(functionInput: b);
+                //    var c = await recoverPreSignedHashFunction.CallRawAsync(rslt);
+                //    hash = c.ToHex();
+                //}
+                //catch (Exception ex)
+                //{
 
-                    throw;
-                }
+                //    throw;
+                //}
 
-                trns.HashHex = hash;
+                //trns.HashHex = hash;
                 var signer = new MessageSigner();
                 var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-                trns.Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
+                trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
 
 
                 _ctx.Transactions.Add(trns);

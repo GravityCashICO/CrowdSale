@@ -1,4 +1,5 @@
 ﻿<!-- BREADCRUMB-->
+
 <section class="au-breadcrumb m-t-75">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -40,7 +41,7 @@
                         <div class="card-body card-block">
                             @using (Html.BeginForm())
                             {
-                                <div style="color:red">@TempData["msg"]</div>
+                                <div style="color:red">@Html.Raw(TempData["msg"])</div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input" class=" form-control-label">Gravity Address (GCH)</label>

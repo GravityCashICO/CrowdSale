@@ -120,7 +120,7 @@ namespace Gravity.Controllers
             if (value < (amnt+ fes+pendingTrnx))
             {
                 string err = "Insuffcient valance ";
-                err= pendingTrnx <= 0 ? err += "(Pending Transactions Amount) "+pendingTrnx : err;
+                err= pendingTrnx != 0 ? err += "(Pending Transactions Amount) "+pendingTrnx : err;
                 TempData["msg"] = err;
                 return RedirectToAction("Send",new { addrHolder= addrHolder });
             }

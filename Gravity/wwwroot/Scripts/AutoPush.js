@@ -61,7 +61,7 @@ module.exports.transferArray = function (callback, json_obj) {
 module.exports.sendBatchCS = function (callback, json_obj) {
     var jso = JSON.parse(json_obj);
 
-    contractWithSigner.sendBatchCS(jso._toes, jso._values).then((txd) => {
+    contractWithSigner.sendBatchCS(jso.toes, jso.values).then((txd) => {
 
         callback(null, txd);
 

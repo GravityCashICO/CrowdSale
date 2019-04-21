@@ -91,7 +91,7 @@ namespace Gravity
                 //options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
             services.AddNodeServices();
-            services.AddDirectoryBrowser();
+            //services.AddDirectoryBrowser();
             
             services.AddTransient<YourJob>();
         }
@@ -113,24 +113,24 @@ namespace Gravity
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-            Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "docs")),
-                RequestPath = "/gravitycashico"
-            });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "docs")),
+            //    RequestPath = "/gravitycashico"
+            //});
 
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "docs")),
-                RequestPath = "/gravitycashico"
-            });
+            //app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "docs")),
+            //    RequestPath = "/gravitycashico"
+            //});
 
 
-            app.UseCookiePolicy();
+            
 
             app.UseAuthentication();
 
@@ -141,7 +141,7 @@ namespace Gravity
                     template: "{controller=Login}/{action=Home}/{id?}");
             });
 
-
+            app.UseCookiePolicy();
         }
     }
 }

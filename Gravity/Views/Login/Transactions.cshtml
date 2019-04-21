@@ -1,5 +1,6 @@
 ﻿@{
     List<string> publicKeys = ViewBag.publicKeys;
+    string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(publicKeys.ToArray());
 }
 
 <!-- BREADCRUMB-->
@@ -67,9 +68,10 @@
 
 <script>
     var addresses = (@Html.Raw(Json.Serialize(publicKeys)));
+    console.log(addresses);
     var tmp = addresses.join('~').toLowerCase();
     addresses = tmp.split('~');
-
+    //var jso = JSON.parse('@json_obj');
     //var contractAddress = "0xd8b8728bd30c5ecf8a4688bdbfdf416be702bfc8"
     //var contractAbi = [{ "constant": false, "inputs": [{ "name": "newSellPrice", "type": "uint256" }, { "name": "newBuyPrice", "type": "uint256" }], "name": "setPrices", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_value", "type": "uint256" }], "name": "burn", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "sellPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "target", "type": "address" }, { "name": "mintedAmount", "type": "uint256" }], "name": "mintToken", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "burnFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "buyPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "buy", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "frozenAccount", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }, { "name": "_extraData", "type": "bytes" }], "name": "approveAndCall", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "amount", "type": "uint256" }], "name": "sell", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "target", "type": "address" }, { "name": "freeze", "type": "bool" }], "name": "freezeAccount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "name": "initialSupply", "type": "uint256" }, { "name": "tokenName", "type": "string" }, { "name": "tokenSymbol", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "target", "type": "address" }, { "indexed": false, "name": "frozen", "type": "bool" }], "name": "FrozenFunds", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "to", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_owner", "type": "address" }, { "indexed": true, "name": "_spender", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "from", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" }], "name": "Burn", "type": "event" }];
 
@@ -82,7 +84,7 @@
     console.log(CONTRACT);
 
     var items = [];
-    transactions();
+    transactions(addresses[0]);
     $('#btnInput').click(function () {
         console.log(items);
         var tbody = $('#trns');
@@ -92,30 +94,52 @@
         $.each(items, function (i, items) {
             var tr = $('<tr>');
             
-            if (addresses.indexOf(items["to"]) >= 0 || addresses.indexOf(items["from"]) >= 0) {
+            //if (addresses.indexOf(items["to"]) >= 0 || addresses.indexOf(items["from"]) >= 0) {
                 $.each(props, function (i, prop) {
 
                     $('<td>').html(items[prop]).appendTo(tr);
                 });
-            }
+            //}
             tbody.append(tr);
             
         });
     });
 
-    function transactions() {
+    function transactions(addr) {
 
-        CONTRACT.Transfer({}, { fromBlock: 0, toBlock: 'pending' }, (err, res) => {
-            console.log(res.args);
-            if (res.args.to === CONTRACT._eth.coinbase || res.args.from === CONTRACT._eth.coinbase) {
+        let etherscanProvider = new ethers.providers.EtherscanProvider();
 
-                items.push({
-                    to: res.args.to,
-                    from: res.args.from,
-                    amount: web3.fromWei(res.args.value).toNumber()
-                })
-            }
+        // Getting the current Ethereum price
+        etherscanProvider.getEtherPrice().then(function (price) {
+            console.log("Ether price in USD: " + price);
         });
+
+
+        // Getting the transaction history of an address
+        let address = '0xA6b70392346bE7fBFC33d2d098529efC2459b62D';
+        let startBlock = 0;
+        let endBlock = 'latest';
+        etherscanProvider.getHistory(address).then(function (history) {
+            alert('nnn'+history)
+            console.log(history);
+            items.push({
+                to: history.to,
+                from: history.from,
+                amount: history.value//ethers.utils.bigNumberify(history.value).toString()
+            })
+        });
+
+        //CONTRACT.Transfer({}, { fromBlock: 0, toBlock: 'pending' }, (err, res) => {
+        //    console.log(res.args);
+        //    if (res.args.to === CONTRACT._eth.coinbase || res.args.from === CONTRACT._eth.coinbase) {
+
+        //        items.push({
+        //            to: res.args.to,
+        //            from: res.args.from,
+        //            amount: web3.fromWei(res.args.value).toNumber()
+        //        })
+        //    }
+        //});
 
 
 

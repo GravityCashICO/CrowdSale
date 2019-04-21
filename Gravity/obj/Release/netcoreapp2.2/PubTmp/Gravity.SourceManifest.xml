@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <IisApp path="C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\PubTmp\Out\" />
-  <dbfullsql path="C:\Users\toufi\Desktop\CrowdSale\Gravity\obj\Release\netcoreapp2.2\PubTmp\EFSQLScripts\Gravity.Data.ApplicationDbContext.sql" />
-</sitemanifest>

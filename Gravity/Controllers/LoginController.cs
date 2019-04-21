@@ -104,7 +104,7 @@ namespace Gravity.Controllers
         public async Task<IActionResult> Send(string addrHolder, string addr,decimal amnt)
         {
             var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
-            var fes = amnt * Convert.ToDecimal(0.0001);
+            var fes = amnt * Convert.ToDecimal(Admin.feis);
 
 
             var web3 = new Web3(Admin.InfuraUrl);
@@ -119,12 +119,14 @@ namespace Gravity.Controllers
 
             if (value < (amnt+ fes+pendingTrnx))
             {
-                TempData["msg"] = "Insuffcient valance "+pendingTrnx;
+                string err = "Insuffcient valance ";
+                err= pendingTrnx <= 0 ? err += "(Pending Transactions Amount) "+pendingTrnx : err;
+                TempData["msg"] = err;
                 return RedirectToAction("Send",new { addrHolder= addrHolder });
             }
             else
             {
-                wallet.TotalCoin = wallet.TotalCoin - amnt;
+                wallet.TotalCoin = wallet.TotalCoin - (amnt+fes);
 
                 var walletTo= _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
                 if (walletTo != null)
@@ -142,7 +144,7 @@ namespace Gravity.Controllers
                     FromKey = wallet.PublicKey,
                     Status = EnumType.Pending,
                     ToKey = addr,
-                    StatusType = ""//EnumType.Send;
+                    StatusType = EnumType.Transfer
                 };
 
 

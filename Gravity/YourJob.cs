@@ -1,6 +1,5 @@
 ﻿using Gravity.Data;
 using Gravity.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.NodeServices;
 using Quartz;
 using System;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Quartz.Spi;
-using Microsoft.AspNetCore.Builder;
 using System.Numerics;
 using System.Collections.Generic;
 using Gravity.Services;
@@ -61,7 +59,7 @@ namespace Gravity
             var yourJobTrigger = TriggerBuilder.Create()
                 .StartNow()
                 .WithSimpleSchedule(s => s
-                    .WithIntervalInMinutes(1)
+                    .WithIntervalInMinutes(2)
                     .RepeatForever())
                 .Build();
 
@@ -97,8 +95,8 @@ namespace Gravity
                 catch (Exception ex)
                 {
                     Admin.IsQuartzDone = false;
-                    await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Quartz Error:exception: "+ Newtonsoft.Json.JsonConvert.SerializeObject(ex));
-                   
+                    await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Quartz Error:exception: " + Newtonsoft.Json.JsonConvert.SerializeObject(ex));
+
                 }
             }
             else
@@ -117,15 +115,15 @@ namespace Gravity
         public async Task<bool> AutoPush()
         {
             var trnxs = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToListAsync();
-            
-            if (trnxs.Count < 0)
+
+            if (trnxs.Count <= 0)
             {
                 return true;
             }
 
             var p = System.Convert.ToDecimal(Math.Pow(10, Admin.decimalNumber));
             var autoPush = new List<Transaction>();
-            var airdrop = autoPush;
+            var airdrop = new List<Transaction>();
 
             trnxs.ForEach
             (i =>
@@ -136,29 +134,40 @@ namespace Gravity
                     autoPush.Add(i);
             });
 
-            string json_obj="";
-            PushResp result=new PushResp();
+            string json_obj = "";
+            PushResp result = new PushResp();
             bool isAirdropped = false; ;
 
             try
             {
                 if (airdrop.Count > 0)
                 {
-                    var objAirdrop = airdrop.Select(x => new { toes = x.ToKey, values = (BigInteger)(x.CoinAmount * p) });
+                    var objAirdrop = new
+                    {
+                        toes = airdrop.Select(x => x.ToKey).ToArray(),
+                        values = airdrop.Select(x => ((BigInteger)(x.CoinAmount * p)).ToString()).ToArray(),
+                    };
                     json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objAirdrop);
 
-                    result = await nodeServices.InvokeAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "sendBatchCS", json_obj);
-                    AddMineTransaction(result, json_obj, objAirdrop.Count());  //
+                    result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "sendBatchCS", json_obj);
+                    AddMineTransaction(result, json_obj, airdrop.Count());  //
                     isAirdropped = true;
                 }
                 else if (autoPush.Count > 0)
                 {
-                    var objTransfer = autoPush.Select(x => new { signatures = x.Signature, toes = x.ToKey, values = (BigInteger)(x.CoinAmount * p), fees = (BigInteger)(x.FeeInCoinAmount * p) });
+                    var objTransfer = new
+                    {
+                        signatures = autoPush.Select(x => x.Signature).ToArray(),
+                        toes = autoPush.Select(x => x.ToKey).ToArray(),
+                        values = autoPush.Select(x => ((BigInteger)(x.CoinAmount * p)).ToString()).ToArray(),
+                        //fees= Enumerable.Repeat("0", autoPush.Count).ToArray()
+                        fees = autoPush.Select(x => ((BigInteger)(x.FeeInCoinAmount * p)).ToString()).ToArray()
+                    };
 
                     json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objTransfer);
 
-                    result = await nodeServices.InvokeAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "transferArray", json_obj);
-                    AddMineTransaction(result, json_obj, objTransfer.Count());  //
+                    result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "transferArray", json_obj);
+                    AddMineTransaction(result, json_obj, autoPush.Count());  //
                 }
 
                 //foreach (var trn in trnxs)
@@ -176,9 +185,9 @@ namespace Gravity
                 else
                     trnxs.ForEach(x => x.Status = EnumType.Failed);
 
-                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Node Error:exception: " + json_obj +" resp  "+ Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Node Error:exception: " + json_obj + " resp  " + Newtonsoft.Json.JsonConvert.SerializeObject(result));
                 await _ctx.SaveChangesAsync();
-              
+
                 return false;
             }
 

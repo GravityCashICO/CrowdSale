@@ -23,6 +23,8 @@ namespace Gravity.Models
 
         public static int decimalNumber = 18;
 
+        public static double feis = .0001;//fee in %
+
 
         public static bool IsQuartzDone { get; set; } = true; //quartz
     }

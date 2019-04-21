@@ -97,7 +97,8 @@
     
     $(function () {
         $('#amnt').keyup(function () {
-            $('#feee').html($(this).val()*.0001)
+            var feis = parseFloat('@Admin.feis');
+            $('#feee').html($(this).val() * feis);
         })
 
     //    $("#getHash").click(function () {

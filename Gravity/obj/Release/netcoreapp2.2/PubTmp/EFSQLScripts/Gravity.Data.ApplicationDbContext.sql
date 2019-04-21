@@ -385,3 +385,32 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190420220331_column added')
+BEGIN
+    ALTER TABLE [MineTransactions] ADD [JsonTransactions] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190420220331_column added')
+BEGIN
+    ALTER TABLE [MineTransactions] ADD [StatusType] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190420220331_column added')
+BEGIN
+    ALTER TABLE [MineTransactions] ADD [TransactionCount] int NOT NULL DEFAULT 0;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20190420220331_column added')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20190420220331_column added', N'2.2.2-servicing-10034');
+END;
+
+GO
+

@@ -101,7 +101,7 @@ namespace Gravity
             }
             else
             {
-                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "System Busy or Check");
+                //await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "System Busy or Check");
             }
 
 
@@ -185,7 +185,7 @@ namespace Gravity
                 else
                     trnxs.ForEach(x => x.Status = EnumType.Failed);
 
-                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Node Error:exception: " + json_obj + " resp  " + Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Node Error:exception: " + json_obj + " resp  " + Newtonsoft.Json.JsonConvert.SerializeObject(result)+ Newtonsoft.Json.JsonConvert.SerializeObject(ex));
                 await _ctx.SaveChangesAsync();
 
                 return false;

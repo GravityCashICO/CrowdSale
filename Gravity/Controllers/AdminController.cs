@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using Gravity.Data;
 using Gravity.Models;
+using Gravity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
@@ -20,46 +22,149 @@ namespace Gravity.Controllers
         {
             _ctx = ctx;
         }
-        public async Task<IActionResult> AutoPush([FromServices] INodeServices nodeServices)
+		public async Task<IActionResult> Test(string s,[FromServices] INodeServices nodeServices)
+		{
+			try
+			{
+				var result = await nodeServices.InvokeAsync<string>("wwwroot/Scripts/test.js", s);
+				return Content(result);
+			}
+			catch (Exception ex)
+			{
+
+				return Content(ex.Message);
+			}
+		}
+		public async Task<IActionResult> Test2(string s, [FromServices] INodeServices nodeServices)
+		{
+			try
+			{
+				var result = await nodeServices.InvokeAsync<string>("wwwroot/Scripts/test.js", s);
+				return Content(result);
+			}
+			catch (Exception ex)
+			{
+
+				return Content(ex.Message);
+			}
+		}
+		public async Task<IActionResult> AutoPush([FromServices] INodeServices nodeServices)
         {
-            var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
-            if (trnxs.Count > 0)
+            var trnxs = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToListAsync();
+
+            if (trnxs.Count <= 0)
             {
+                return null;
+            }
 
-                var Signatures = trnxs.Select(x => x.Signature).ToArray();
-                //string signs = string.Join(".", Signature);
-                string[] _toes = trnxs.Select(x => x.ToKey).ToArray();
+            var p = System.Convert.ToDecimal(Math.Pow(10, Admin.decimalNumber));
+            var autoPush = new List<Transaction>();
+            var airdrop = new List<Transaction>();
 
-                var p = System.Convert.ToDecimal(Math.Pow(10, 18));
+            trnxs.ForEach
+            (i =>
+            {
+                if (i.StatusType == EnumType.Buy)
+                    airdrop.Add(i);
+                else
+                    autoPush.Add(i);
+            });
 
-                string[] _values = trnxs.Select(x => (x.CoinAmount * p).ToString().Split('.')[0]).ToArray();
-                //decimal[] _fees = trnxs.Select(x => x.FeeInCoinAmount * p).ToArray();
-                string[] _nonces = Enumerable.Repeat("0", trnxs.Count).ToArray();
+            string json_obj = "";
+            PushResp result = new PushResp();
+            bool isAirdropped = false; ;
 
-                var obj = new { signatures = Signatures, _toes, _values, _fees = _nonces };
-                string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-
-                var result = await nodeServices.InvokeAsync<PushResp>("wwwroot/Scripts/AutoPush.js", json_obj);
-
-                foreach (var trn in trnxs)
+            try
+            {
+                if (airdrop.Count > 0)
                 {
-                    trn.Status = EnumType.Success;
+                    var objAirdrop = new
+                    {
+                        toes = airdrop.Select(x => x.ToKey).ToArray(),
+                        values = airdrop.Select(x => ((BigInteger)(x.CoinAmount * p)).ToString()).ToArray(),
+                    };
+                    json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objAirdrop);
+
+                    result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "sendBatchCS", json_obj);
+                    //AddMineTransaction(result, json_obj, airdrop.Count());  //
+                    isAirdropped = true;
+                }
+                else if (autoPush.Count > 0)
+                {
+                    var objTransfer = new
+                    {
+                        signatures = autoPush.Select(x => x.Signature).ToArray(),
+                        toes = autoPush.Select(x => x.ToKey).ToArray(),
+                        values = autoPush.Select(x => ((BigInteger)(x.CoinAmount * p)).ToString()).ToArray(),
+                        //fees= Enumerable.Repeat("0", autoPush.Count).ToArray()
+                        fees = autoPush.Select(x => ((BigInteger)(x.FeeInCoinAmount * p)).ToString()).ToArray()
+                    };
+
+                    json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objTransfer);
+
+                    result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "transferArray", json_obj);
+                    //AddMineTransaction(result, json_obj, autoPush.Count());  //
                 }
 
-                var mineTrnx = new MineTransaction();
-                mineTrnx.Id = new Guid();
-                mineTrnx.CreationDate = DateTime.UtcNow;
-                mineTrnx.GasFee = Convert.ToInt32(result.GasPrice.Hex, 16);
-                mineTrnx.LastTransactinTime = trnxs.Last().CreationDate;
-                mineTrnx.totalCoinFee = trnxs.Sum(x => x.FeeInCoinAmount);
-                mineTrnx.TotalFee = Convert.ToInt32(result.GasLimit.Hex, 16);
-                mineTrnx.txHash = result.Hash;
+                //foreach (var trn in trnxs)
+                //{
+                //    trn.Status = EnumType.Success;
+                //}
+                trnxs.ForEach(x => x.Status = EnumType.Success);
 
-                _ctx.MineTransactions.Add(mineTrnx);
-                await _ctx.SaveChangesAsync();
-
-                return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             }
+            catch (Exception ex)
+            {
+                //email
+                if (isAirdropped)
+                    trnxs.Where(x => x.StatusType != EnumType.Buy).ToList().ForEach(x => x.Status = EnumType.Failed);
+                else
+                    trnxs.ForEach(x => x.Status = EnumType.Failed);
+
+                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Node Error:exception: " + json_obj + " resp  " + Newtonsoft.Json.JsonConvert.SerializeObject(result) + Newtonsoft.Json.JsonConvert.SerializeObject(ex));
+                //await _ctx.SaveChangesAsync();
+
+            }
+
+            // await _ctx.SaveChangesAsync();
+            //var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
+            //if (trnxs.Count > 0)
+            //{
+
+            //    var Signatures = trnxs.Select(x => x.Signature).ToArray();
+            //    //string signs = string.Join(".", Signature);
+            //    string[] _toes = trnxs.Select(x => x.ToKey).ToArray();
+
+            //    var p = System.Convert.ToDecimal(Math.Pow(10, 18));
+
+            //    string[] _values = trnxs.Select(x => (x.CoinAmount * p).ToString().Split('.')[0]).ToArray();
+            //    //decimal[] _fees = trnxs.Select(x => x.FeeInCoinAmount * p).ToArray();
+            //    string[] _nonces = Enumerable.Repeat("0", trnxs.Count).ToArray();
+
+            //    var obj = new { signatures = Signatures, _toes, _values, _fees = _nonces };
+            //    string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+
+            //    var result = await nodeServices.InvokeAsync<PushResp>("wwwroot/Scripts/AutoPush.js", json_obj);
+
+            //    foreach (var trn in trnxs)
+            //    {
+            //        trn.Status = EnumType.Success;
+            //    }
+
+            //    var mineTrnx = new MineTransaction();
+            //    mineTrnx.Id = new Guid();
+            //    mineTrnx.CreationDate = DateTime.UtcNow;
+            //    mineTrnx.GasFee = Convert.ToInt32(result.GasPrice.Hex, 16);
+            //    mineTrnx.LastTransactinTime = trnxs.Last().CreationDate;
+            //    mineTrnx.totalCoinFee = trnxs.Sum(x => x.FeeInCoinAmount);
+            //    mineTrnx.TotalFee = Convert.ToInt32(result.GasLimit.Hex, 16);
+            //    mineTrnx.txHash = result.Hash;
+
+            //    _ctx.MineTransactions.Add(mineTrnx);
+            //    await _ctx.SaveChangesAsync();
+
+            //    return Content(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+            //}
 
             return null;
         }
@@ -69,45 +174,9 @@ namespace Gravity.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var trnxs = _ctx.Transactions.Where(x => x.Status == EnumType.Pending).OrderBy(x => x.CreationDate).ToList();
+            Admin.IsQuartzDone = true;
 
-            var Signature = trnxs.Select(x => x.Signature);
-            string signs = string.Join(".", Signature);
-            string[] _toes = trnxs.Select(x => x.ToKey).ToArray();
-
-            var p = Convert.ToDecimal(Math.Pow(10, 18));
-
-            string[] _values = trnxs.Select(x => (x.CoinAmount * p).ToString().Split('.')[0]).ToArray();
-            decimal[] _fees = trnxs.Select(x => x.FeeInCoinAmount * p).ToArray();
-            string[] _nonces = Enumerable.Repeat("0", trnxs.Count).ToArray();
-
-            ViewBag.signs = signs;
-            /////
-            var web3 = new Web3(Admin.InfuraUrl);
-            var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
-            var transferArrayFunction = contract.GetFunction("transferArray");
-
-            string hash;
-            object[] b = new object[] { signs, _toes, _values, _fees, _nonces };
-            try
-            {
-                var rslt = transferArrayFunction.CreateCallInput(functionInput: b);
-                var c = await transferArrayFunction.CallRawAsync(rslt);
-                hash = c.ToHex();
-
-
-                var rslt1 = transferArrayFunction.CreateTransactionInput(Admin.PublicKey, functionInput: b);
-
-                //var jh = await transferArrayFunction.SendTransactionAndWaitForReceiptAsync(input: rslt1);
-                //var r = jh.TransactionHash;
-                //var cv = await transferArrayFunction.CallRawAsync(rslt);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
+            
 
             return Content("Success");
             //return View(trnxs);

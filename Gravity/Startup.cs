@@ -48,7 +48,7 @@ namespace Gravity
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddDefaultUI(UIFramework.Bootstrap4)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => {  })
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => { })
                 .AddDefaultTokenProviders()
            .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -90,9 +90,9 @@ namespace Gravity
                 //options.LogoutPath = $"/Identity/Account/Logout";
                 //options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
-            services.AddNodeServices();
+            services.AddNodeServices();//(options => { options.InvocationTimeoutMilliseconds = 120000; });
             //services.AddDirectoryBrowser();
-            
+
             services.AddTransient<YourJob>();
         }
 
@@ -113,7 +113,7 @@ namespace Gravity
             }
 
             app.UseHttpsRedirection();
-            //app.UseStaticFiles();
+            app.UseStaticFiles();
 
             //app.UseStaticFiles(new StaticFileOptions
             //{
@@ -130,7 +130,7 @@ namespace Gravity
             //});
 
 
-            
+
 
             app.UseAuthentication();
 

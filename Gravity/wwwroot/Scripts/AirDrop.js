@@ -17,13 +17,13 @@ var abi = [{ "constant": false, "inputs": [{ "name": "newSellPrice", "type": "ui
 
 var privateKey = "F92307ABD3DFC5EEAA00CF856ED34DBD7C84E1BD01A6A7CB5094E69845F2B298";
 
-    var provider = ethers.getDefaultProvider("rinkeby");
+var provider = ethers.getDefaultProvider("rinkeby");
 
-    var walletWithProvider = new ethers.Wallet(privateKey, provider);
-    //console.log(walletWithProvider);
+var walletWithProvider = new ethers.Wallet(privateKey, provider);
+//console.log(walletWithProvider);
 
-    var contract = new ethers.Contract(ContractAddress, abi, provider);
-    var contractWithSigner = contract.connect(walletWithProvider);
+var contract = new ethers.Contract(ContractAddress, abi, provider);
+var contractWithSigner = contract.connect(walletWithProvider);
 
 //var digest = '0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c';
 //let messageHashBytes = ethers.utils.arrayify(digest);
@@ -31,3 +31,13 @@ var privateKey = "F92307ABD3DFC5EEAA00CF856ED34DBD7C84E1BD01A6A7CB5094E69845F2B2
 
 
 
+
+module.exports = function (callback, json_obj) {
+    var jso = JSON.parse(json_obj);
+
+    contractWithSigner.sendBatchCS(jso.toes, jso.values).then((txd) => {
+
+        callback(null, txd);
+
+    });
+};

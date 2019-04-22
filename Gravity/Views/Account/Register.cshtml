@@ -1,58 +1,116 @@
-﻿<div class="login-wrap">
-    <div class="login-content">
-        <div class="login-logo">
-            <a href="#">
-                <img src="~/images/icon/logo.png" alt="CoolAdmin">
-            </a>
-        </div>
-        <div style="color:red">@TempData["msg"]</div>
-        <div class="login-form">
-            @using (Html.BeginForm())
-            {
+﻿<!doctype html>
+<html class="no-js" lang="en">
+@{
+    Layout = null;
+}
+<!-- Mirrored from themekit.lavalite.org/demo/pages/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:18:02 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sign Up | ThemeKit - Admin Template</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="~/demo/favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
 
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input class="au-input au-input--full" required type="email" name="email" placeholder="Email">
+    <link rel="stylesheet" href="~/demo/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/%40fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/ionicons/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/icon-kit/dist/css/iconkit.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/demo/dist/css/theme.min.css">
+    <script src="~/demo/src/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="auth-wrapper">
+        <div class="container-fluid h-100">
+            <div class="row flex-row h-100 bg-white">
+                <div class="col-xl-8 col-lg-6 col-md-5 p-0 d-md-block d-lg-block d-sm-none d-none">
+                    <div class="lavalite-bg" style="background-image: url('/demo/img/auth/register-bg.jpg')">
+                        <div class="lavalite-overlay"></div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input class="au-input au-input--full" required type="password" id="password" name="password" placeholder="Password">
+                <div class="col-xl-4 col-lg-6 col-md-7 my-auto p-0">
+                    <div class="authentication-form mx-auto">
+                        <div class="logo-centered">
+                            <a href="/"><img src="/images/icon/logo.png" alt=""></a>
+                        </div>
+                        <h3>New to ThemeKit</h3>
+                        <p>Join us today! It takes only few steps</p>
+                        @using (Html.BeginForm())
+                        {
+                            <div style="color:red">@TempData["msg"]</div>
+                            <div class="form-group">
+                                <input name="email" type="email" class="form-control" placeholder="Email" required="">
+                                <i class="ik ik-user"></i>
+                            </div>
+                            <div class="form-group">
+                                <input id="password" name="password" type="password" class="form-control" placeholder="Password" required="">
+                                <i class="ik ik-lock"></i>
+                            </div>
+                            <div class="form-group">
+                                <input id="confirmpassword" name="confirmpassword" type="password" class="form-control" placeholder="Confirm Password" required="">
+                                <i class="ik ik-eye-off"></i>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-left">
+                                    <label class="custom-control custom-checkbox">
+                                        <input required type="checkbox" class="custom-control-input" id="aggree" name="aggree" value="">
+                                        <span class="custom-control-label">&nbsp;I Accept <a href="#">Terms and Conditions</a></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="sign-btn text-center">
+                                <button class="btn btn-theme" type="submit" id="btnRegister">Create Account</button>
+                            </div>
+                        }
+                        <div class="register">
+                            <p>Already have an account? <a href="/Account/Login">Sign In</a></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input class="au-input au-input--full" required type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password">
-                </div>
-                <div class="login-checkbox">
-                    <label>
-                        <input type="checkbox" required id="aggree" name="aggree"><a href="#">Terms & Policy </a> Agree the terms and policy
-                    </label>
-                </div>
-                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" id="btnRegister">Register</button>
-
-            }
-            <div class="register-link">
-                <p>
-                    Already have account?
-                    <a href="/Account/Login">Sign In</a>
-                </p>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    $(function () {
-        $("form:last").validate({
-            rules: {
-                password: {
-                    minlength: 4
-                },
-                confirmpassword: {
-                    equalTo: "#password"
+    <script src="~/demo/code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="~/demo/src/js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="~/demo/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/demo/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/demo/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="~/demo/node_modules/screenfull/dist/screenfull.js"></script>
+    <script src="~/demo/dist/js/theme.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script>
+        $(function () {
+            $("form:last").validate({
+                rules: {
+                    password: {
+                        minlength: 4
+                    },
+                    confirmpassword: {
+                        equalTo: "#password"
+                    }
                 }
-            }
-        });
-    })
-</script>
-            
+            });
+        })
+    </script>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+        (function (b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+                function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+            e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+            e.src = '../../../www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X', 'auto'); ga('send', 'pageview');
+    </script>
+</body>
+<!-- Mirrored from themekit.lavalite.org/demo/pages/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:18:03 GMT -->
+</html>

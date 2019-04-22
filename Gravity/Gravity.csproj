@@ -14,6 +14,14 @@
 </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\themekit\**" />
+    <Content Remove="wwwroot\themekit\**" />
+    <EmbeddedResource Remove="wwwroot\themekit\**" />
+    <None Remove="wwwroot\themekit\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\demo\code.jquery.com\jquery-3.3.1.min.js" />
     <None Include="wwwroot\fonts\poppins\poppins-v5-latin-100.svg" />
     <None Include="wwwroot\fonts\poppins\poppins-v5-latin-100.woff2" />
     <None Include="wwwroot\fonts\poppins\poppins-v5-latin-100italic.svg" />
@@ -419,114 +427,11 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\themekit\" />
     <Folder Include="wwwroot\vendor\login\New folder\" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <TypeScriptCompile Include="node_modules\%40types\node\assert.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\async_hooks.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\base.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\buffer.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\child_process.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\cluster.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\console.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\constants.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\crypto.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\dgram.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\dns.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\domain.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\events.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\fs.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\globals.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\http.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\http2.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\https.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\inspector.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\module.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\net.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\os.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\path.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\perf_hooks.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\process.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\punycode.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\querystring.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\readline.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\repl.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\stream.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\string_decoder.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\timers.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\tls.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\trace_events.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\ts3.2\globals.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\ts3.2\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\ts3.2\util.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\tty.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\url.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\util.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\v8.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\vm.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\worker_threads.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\node\zlib.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\abstract-signer.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\constants.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\contract.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\errors.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\ethers.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\abstract-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\base-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\etherscan-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\fallback-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\infura-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\ipc-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\json-rpc-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\providers\web3-provider.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\thirdparty.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\abi-coder.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\address.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\base64.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\basex.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\bignumber.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\bytes.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\hash.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\hdnode.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\hmac.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\interface.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\json-wallet.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\keccak256.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\networks.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\pbkdf2.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\properties.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\random-bytes.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\rlp.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\secp256k1.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\secret-storage.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\sha2.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\shims.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\signing-key.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\solidity.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\transaction.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\units.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\utf8.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\web.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\utils\wordlist.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wallet.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-en.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-es.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-fr.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-it.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-ja.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-ko.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\wordlists\lang-zh.d.ts" />
-    <TypeScriptCompile Include="node_modules\ethers\_version.d.ts" />
-    <TypeScriptCompile Include="node_modules\hash.js\lib\hash.d.ts" />
-    <TypeScriptCompile Include="node_modules\js-sha3\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\node_modules\%40types\node\assert.d.ts" />
     <TypeScriptCompile Include="wwwroot\node_modules\%40types\node\async_hooks.d.ts" />
     <TypeScriptCompile Include="wwwroot\node_modules\%40types\node\base.d.ts" />

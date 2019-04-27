@@ -10,6 +10,7 @@ using Gravity.Services;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Signer;
 using Nethereum.Web3;
@@ -25,7 +26,40 @@ namespace Gravity.Controllers
         {
             _ctx = ctx;
         }
-        public IActionResult Buy(string addrHolder)
+		public async Task<IActionResult> BuyPackage(int pkgId,string code)
+		{
+			var wallet = _ctx.Wallets.First();
+
+			var package = await _ctx.Packages
+				.FirstAsync(m => m.Id == pkgId);
+
+			var amount = package.PriceInUSD;
+			//amnt = amnt * .005;//fee .5% fee
+			var cmd = "create_transaction";
+
+			SortedList<string, string> sl = new SortedList<string, string>
+			{
+                //{ "currency", "BTC" },
+                //{ "format", "json" },
+                { "amount", amount.ToString() },
+				{ "currency1", "USD" },
+				 { "currency2", code },
+				{"buyer_email","toufiqelahy@hotmail.com" },
+				{"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack?addrHolder="+wallet.PublicKey+"&amnt="+amount }
+			};
+			//sl.Add("version", 1);
+
+			//sl.Add("currency", "BTC");
+			//sl.Add("version", 1);
+			//sl.Add("currency", "BTC");
+			//sl.Add("version", 1);
+			var response = CoinPayments.CallAPI(cmd, sl);
+			string url = response["result"]["status_url"];
+
+			return RedirectToAction("Crypto", new { url });
+		}
+
+		public IActionResult Buy(string addrHolder)
         {
             //if (TempData["url"] != null)
             //{

@@ -42,7 +42,7 @@
     @foreach (var item in Model)
     {
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#">
+            <a href="#" onclick="func(@item.Id)">
                 <div class="widget bg-dark">
 
 
@@ -68,110 +68,6 @@
         </div>
     }
 
-    @*<div class="col-lg-4 col-md-6 col-sm-12">
-        <a href="#">
-            <div class="widget bg-dark">
-
-
-                <div class="widget-body">
-
-
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div class="state">
-                            <h6>1 % Extra Coin</h6>
-                            <h2>200 USD</h2>
-                        </div>
-
-                        <div class="icon">
-                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-
-    <div class="col-lg-4 col-md-6 col-sm-12">
-        <a href="#">
-            <div class="widget bg-dark">
-
-
-                <div class="widget-body">
-
-
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div class="state">
-                            <h6>3 % Extra Coin</h6>
-                            <h2>500 USD</h2>
-                        </div>
-
-                        <div class="icon">
-                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-lg-4 col-md-6 col-sm-12">
-        <a href="#">
-            <div class="widget bg-dark">
-
-
-                <div class="widget-body">
-
-
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div class="state">
-                            <h6>7 % Extra Coin</h6>
-                            <h2>1000 USD</h2>
-                        </div>
-
-                        <div class="icon">
-                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-lg-4 col-md-6 col-sm-12">
-        <a href="#">
-            <div class="widget bg-dark">
-
-
-                <div class="widget-body">
-
-
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div class="state">
-                            <h6>20 % Extra Coin</h6>
-                            <h2>2000 USD</h2>
-                        </div>
-
-                        <div class="icon">
-                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>*@
 
 
     <div class="col-lg-4 col-md-6 col-sm-12">
@@ -203,18 +99,26 @@
 
 
 
-
+    
 
 </div>
 
     <!--Account Balance End -->
 
-
-
-
-
-
-
-
-
 </div>
+
+<div class="form-group">
+    <label for="code"><b>(Selection) Payment method</b> </label>
+    <select name="code" required id="code" class="form-control">
+        <option value="LTCT"> Litecoin Testnet</option>
+        <option value="BTC">Bitcoin</option>
+        <option value="ETH"> Ethereum</option>
+
+    </select>
+</div>
+
+<script>
+    function func(id){
+        window.location.href = '/Payment/BuyPackage?pkgId=' + id + '&code=' + $('#code').val();
+    }
+</script>

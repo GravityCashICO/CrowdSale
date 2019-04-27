@@ -81,7 +81,7 @@ namespace Gravity.Controllers
             return View(mUser);
         }
         
-        public IActionResult Send(string addrHolder)
+        public IActionResult Send()
         {
 			var publicKeys = GetPubKeys();
 			ViewBag.publicKeys = publicKeys;
@@ -104,95 +104,63 @@ namespace Gravity.Controllers
 
 		}
         [HttpPost]
-        public async Task<IActionResult> Send(string addrHolder, string addr,decimal amnt)
-        {
-            var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
-            var fes = amnt * Convert.ToDecimal(Admin.feis);
+        public async Task<IActionResult> Send(string addr,decimal amnt,decimal feee)//string addrHolder, 
+		{
+            //var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
+            //var fes = amnt * Convert.ToDecimal(Admin.feis);
 
 
-            var web3 = new Web3(Admin.InfuraUrl);
-            var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
-            var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
-            var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
+            //var web3 = new Web3(Admin.InfuraUrl);
+            //var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
+            //var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
+            //var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
 
-            //assuming all have 18 decimals
-            var value = Web3.Convert.FromWeiToBigDecimal(balance);
+            ////assuming all have 18 decimals
+            //var value = Web3.Convert.FromWeiToBigDecimal(balance);
 
-            var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
+            //var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
 
-            if (value < (amnt+ fes+pendingTrnx))
-            {
-                string err = "Insuffcient valance ";
-                err= pendingTrnx != 0 ? err += "(Pending Transactions Amount) "+pendingTrnx : err;
-                TempData["msg"] = err;
-                return RedirectToAction("Send",new { addrHolder= addrHolder });
-            }
-            else
-            {
-                wallet.TotalCoin = wallet.TotalCoin - (amnt+fes);
+            //if (value < (amnt+ fes+pendingTrnx))
+            //{
+            //    string err = "Insuffcient valance ";
+            //    err= pendingTrnx != 0 ? err += "(Pending Transactions Amount) "+pendingTrnx : err;
+            //    TempData["msg"] = err;
+            //    return RedirectToAction("Send",new { addrHolder= addrHolder });
+            //}
+            //else
+            //{
+            //    //wallet.TotalCoin = wallet.TotalCoin - (amnt+fes);
 
-                var walletTo= _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
-                if (walletTo != null)
-                {
-                    walletTo.TotalCoin = walletTo.TotalCoin + amnt;
-                }
-
-
-                var trns = new Models.Transaction
-                {
-                    Id = new Guid(),
-                    CoinAmount = amnt,
-                    CreationDate = DateTime.UtcNow,
-                    FeeInCoinAmount = fes,
-                    FromKey = wallet.PublicKey,
-                    Status = EnumType.Pending,
-                    ToKey = addr,
-                    StatusType = EnumType.Transfer
-                };
+            //    var walletTo= _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
+            //    if (walletTo != null)
+            //    {
+            //        walletTo.TotalCoin = walletTo.TotalCoin + amnt;
+            //    }
 
 
-                /////
-                //var web3 = new Web3(Admin.InfuraUrl);
-                //var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
-                //var recoverPreSignedHashFunction = contract.GetFunction("recoverPreSignedHash");
-                
-                //var p = Convert.ToDecimal(Math.Pow(10, 18));
-                //var to = trns.ToKey;
-                //var val = trns.CoinAmount;
+            //    var trns = new Models.Transaction
+            //    {
+            //        Id = new Guid(),
+            //        CoinAmount = amnt,
+            //        CreationDate = DateTime.UtcNow,
+            //        FeeInCoinAmount = fes,
+            //        FromKey = wallet.PublicKey,
+            //        Status = EnumType.Pending,
+            //        ToKey = addr,
+            //        StatusType = EnumType.Transfer
+            //    };
 
-                //val = val * p;//(10 ** 18);
-                //var fee = trns.FeeInCoinAmount;
-                //fee = fee * p;
-                //var nonce = 0;
-                //var transferSig = "0x48664c16".HexToByteArray();
-
-                //var prms = new { _token = Admin.ContractAddress, _functionSig = transferSig, _spender = to, _value = val, _fee = fee, _nonce = nonce };
-                //string hash;
-                //object[] b = new object[] { Admin.ContractAddress, transferSig, to, val, fee, nonce };
-                //try
-                //{
-                //    var rslt = recoverPreSignedHashFunction.CreateCallInput(functionInput: b);
-                //    var c = await recoverPreSignedHashFunction.CallRawAsync(rslt);
-                //    hash = c.ToHex();
-                //}
-                //catch (Exception ex)
-                //{
-
-                //    throw;
-                //}
-
-                //trns.HashHex = hash;
-                var signer = new MessageSigner();
-                var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-                trns.Signature= signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
+            //    var signer = new MessageSigner();
+            //    var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+            //    trns.Signature= signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
                 
 
-                _ctx.Transactions.Add(trns);
+            //    _ctx.Transactions.Add(trns);
 
-                _ctx.SaveChanges();
+            //    _ctx.SaveChanges();
 
                 
-            }
+            //}
 
             return RedirectToAction("Home");
         }

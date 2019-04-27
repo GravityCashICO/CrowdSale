@@ -9,6 +9,7 @@ using Gravity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Signer;
 using Nethereum.StandardTokenEIP20.ContractDefinition;
@@ -28,9 +29,9 @@ namespace Gravity.Controllers
         }
         public IActionResult Home()
         {
-            var publicKeys = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).Select(x=>x.PublicKey).ToList();
-            ViewBag.publicKeys = publicKeys;
-            var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x=>x.CreationDate).ToList();
+            var publicKeys = GetPubKeys();
+			ViewBag.publicKeys = publicKeys;
+            var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x=>x.CreationDate).Take(5).ToList();
 
             return View(trns);
         }
@@ -82,24 +83,26 @@ namespace Gravity.Controllers
         
         public IActionResult Send(string addrHolder)
         {
-           
-            //   var msg1 = "0x9999d9b4714b9639caa28716da353e9e1c22253f58216f2eda5adbb784767ee5";
-            //var msg1Bytes = msg1.HexToByteArray();
-            ////var msg1Hex = msg1Bytes.ToHex(true);
-        
-            //string prveKey = "755e1e09cd0ce504ad06c477fdf7c18167c0582267bd04d0cfa71c06eafa3564";
-            //Nethereum.Signer.EthECKey privateKey = new Nethereum.Signer.EthECKey(prveKey);
-            //var signer = new MessageSigner();
-            //var signature = signer.Sign(msg1Bytes, prveKey);
-            
-            //web3.Client.SendRequestAsync(method:"transferArray", paramList: new { b=""});
-            //var web3 = new Nethereum.Web3.Web3("HTTP://127.0.0.1:7545");
-            //var ipcClient = new Nethereum.JsonRpc.IpcClient("./geth.ipc");
-            //var web3 = new Nethereum.Web3.Web3(ipcClient);
+			var publicKeys = GetPubKeys();
+			ViewBag.publicKeys = publicKeys;
+			return View();
+			//   var msg1 = "0x9999d9b4714b9639caa28716da353e9e1c22253f58216f2eda5adbb784767ee5";
+			//var msg1Bytes = msg1.HexToByteArray();
+			////var msg1Hex = msg1Bytes.ToHex(true);
 
-            //var encoded = web3.OfflineTransactionSigning.SignTransaction(privateKey, receiveAddress, 10, txCount.Value);
-            return View();
-        }
+			//string prveKey = "755e1e09cd0ce504ad06c477fdf7c18167c0582267bd04d0cfa71c06eafa3564";
+			//Nethereum.Signer.EthECKey privateKey = new Nethereum.Signer.EthECKey(prveKey);
+			//var signer = new MessageSigner();
+			//var signature = signer.Sign(msg1Bytes, prveKey);
+
+			//web3.Client.SendRequestAsync(method:"transferArray", paramList: new { b=""});
+			//var web3 = new Nethereum.Web3.Web3("HTTP://127.0.0.1:7545");
+			//var ipcClient = new Nethereum.JsonRpc.IpcClient("./geth.ipc");
+			//var web3 = new Nethereum.Web3.Web3(ipcClient);
+
+			//var encoded = web3.OfflineTransactionSigning.SignTransaction(privateKey, receiveAddress, 10, txCount.Value);
+
+		}
         [HttpPost]
         public async Task<IActionResult> Send(string addrHolder, string addr,decimal amnt)
         {
@@ -196,18 +199,27 @@ namespace Gravity.Controllers
 
         public IActionResult Transactions()
         {
-            var publicKeys = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).Select(x => x.PublicKey).ToList();
-            ViewBag.publicKeys = publicKeys;
-            return View();
+			var publicKeys = GetPubKeys();
+			ViewBag.publicKeys = publicKeys;
+			var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x => x.CreationDate).ToList();
+
+			return View(trns);
         }
         public IActionResult Wallet()
         {
             return View(_ctx.Wallets.Where(x=>x.UserId== User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList());
         }
 
-		public IActionResult ICO()
+		public async Task<IActionResult> ICO()
 		{
-			return View();
+			return View(await _ctx.Packages.ToListAsync());
+		}
+
+
+		public string[] GetPubKeys()
+		{
+			var publicKeys = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).Select(x => x.PublicKey).ToArray();
+			return publicKeys;
 		}
 	}
 }

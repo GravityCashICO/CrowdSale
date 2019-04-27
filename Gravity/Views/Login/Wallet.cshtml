@@ -46,7 +46,7 @@
                                     <th>SN</th>
                                     <th>Wallet Address</th>
 
-
+                                    <th>Balance(GCH)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,17 +57,9 @@
                                     <tr>
                                         <th scope="row">@i</th>
                                         <td>@item.PublicKey</td>
-
+                                        <td class="totalCoin" key="@item.PublicKey"></td>
                                     </tr>
                                 }
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -94,7 +86,7 @@
         $('.totalCoin').each(async function (i, obj) {
             //test
             var $this = $(this);
-            var addr = $this.html();
+            var addr = $this.attr('key');
             var val = await contract.balanceOf(addr);
             //alert(val)
             //var r = val.toHexString();

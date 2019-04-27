@@ -1,0 +1,74 @@
+﻿@model ICollection<Transaction>
+
+@{
+    //List<string> publicKeys = ViewBag.publicKeys;
+    int i = 0;
+}
+
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header d-block">
+                <h3>GCH Transactions</h3>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="dt-responsive">
+                <table id="table" class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Date</th>
+                           
+                            <th>Address</th>
+                            <th>Amount (GCH)</th>
+                            <th>Fee(GCH)</th>
+
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            i++;
+
+                            //var isFromAddr = publicKeys.Any(x => x == item.FromKey);
+
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.CreationDate.ToLocalTime()</td>
+                                
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">@item.FromKey</a></td>
+                                <td class="text-right">@item.CoinAmount</td>
+                                <td class="text-right">@item.FeeInCoinAmount</td>
+                                <td class="text-right">
+                                    @if (item.Status == EnumType.Success)
+                                    {
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-secondary btn-rounded">
+                                            Unconfirmed
+                                        </button>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+
+
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <!-- Language - -->
+    </div>
+
+
+
+

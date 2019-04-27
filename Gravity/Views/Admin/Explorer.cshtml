@@ -38,7 +38,7 @@
 
 
                 <div class="card-body">
-                    <form class="forms-sample" method="post" action="">
+                    <form class="forms-sample" method="post" action="" ajax-target="#partialExplorer">
 
                         <div class="input-group col-xs-12">
                             <input name="hash" required type="text" class="form-control" placeholder="GCH address or txn">
@@ -62,7 +62,7 @@
 
 
 
-    <div class="row">
+    <div id="partialExplorer" class="row">
         <partial name="_HashExplorer" />
     </div>
 </div>

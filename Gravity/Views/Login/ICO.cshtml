@@ -1,4 +1,8 @@
-﻿<div class="container-fluid">
+﻿@model IEnumerable<Gravity.Models.Package>
+
+
+
+<div class="container-fluid">
     <div class="page-header">
 
 
@@ -35,6 +39,8 @@
 
 
     <!--Account Balance --><div class="row clearfix">
+    @foreach (var item in Model)
+    {
         <div class="col-lg-4 col-md-6 col-sm-12">
             <a href="#">
                 <div class="widget bg-dark">
@@ -47,8 +53,8 @@
                         <div class="d-flex justify-content-between align-items-center">
 
                             <div class="state">
-                                <h6>0 % Extra Coin</h6>
-                                <h2>100 USD</h2>
+                                <h6>@item.ExtraCoinPercentage % Extra Coin</h6>
+                                <h2>@item.PriceInUSD USD</h2>
                             </div>
 
                             <div class="icon">
@@ -60,146 +66,146 @@
                 </div>
             </a>
         </div>
+    }
+
+    @*<div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="#">
+            <div class="widget bg-dark">
 
 
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#">
-                <div class="widget bg-dark">
-
-
-                    <div class="widget-body">
+                <div class="widget-body">
 
 
 
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
 
-                            <div class="state">
-                                <h6>1 % Extra Coin</h6>
-                                <h2>200 USD</h2>
-                            </div>
-
-                            <div class="icon">
-                                <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                            </div>
-
+                        <div class="state">
+                            <h6>1 % Extra Coin</h6>
+                            <h2>200 USD</h2>
                         </div>
+
+                        <div class="icon">
+                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
+                        </div>
+
                     </div>
                 </div>
-            </a>
-        </div>
-
-
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#">
-                <div class="widget bg-dark">
-
-
-                    <div class="widget-body">
-
-
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            <div class="state">
-                                <h6>3 % Extra Coin</h6>
-                                <h2>500 USD</h2>
-                            </div>
-
-                            <div class="icon">
-                                <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#">
-                <div class="widget bg-dark">
-
-
-                    <div class="widget-body">
-
-
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            <div class="state">
-                                <h6>7 % Extra Coin</h6>
-                                <h2>1000 USD</h2>
-                            </div>
-
-                            <div class="icon">
-                                <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#">
-                <div class="widget bg-dark">
-
-
-                    <div class="widget-body">
-
-
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            <div class="state">
-                                <h6>20 % Extra Coin</h6>
-                                <h2>2000 USD</h2>
-                            </div>
-
-                            <div class="icon">
-                                <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#">
-                <div class="widget bg-default">
-
-
-                    <div class="widget-body">
-
-
-
-                        <div class="d-flex justify-content-between align-items-center">
-
-                            <div class="state">
-
-                                <h2 style="color: black;">Custom</h2>
-                            </div>
-
-                            <div class="icon">
-                                <img src="~/demo/img/logo/gch-black-logo.png" style="max-width: 50px;">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </a>
-        </div>
-
-
-
-
-
+            </div>
+        </a>
     </div>
+
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="#">
+            <div class="widget bg-dark">
+
+
+                <div class="widget-body">
+
+
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="state">
+                            <h6>3 % Extra Coin</h6>
+                            <h2>500 USD</h2>
+                        </div>
+
+                        <div class="icon">
+                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="#">
+            <div class="widget bg-dark">
+
+
+                <div class="widget-body">
+
+
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="state">
+                            <h6>7 % Extra Coin</h6>
+                            <h2>1000 USD</h2>
+                        </div>
+
+                        <div class="icon">
+                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="#">
+            <div class="widget bg-dark">
+
+
+                <div class="widget-body">
+
+
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="state">
+                            <h6>20 % Extra Coin</h6>
+                            <h2>2000 USD</h2>
+                        </div>
+
+                        <div class="icon">
+                            <img src="~/demo/img/logo/gch-white-logo.png" style="max-width: 50px;">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>*@
+
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="#">
+            <div class="widget bg-default">
+
+
+                <div class="widget-body">
+
+
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="state">
+
+                            <h2 style="color: black;">Custom</h2>
+                        </div>
+
+                        <div class="icon">
+                            <img src="~/demo/img/logo/gch-black-logo.png" style="max-width: 50px;">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </a>
+    </div>
+
+
+
+
+
+</div>
 
     <!--Account Balance End -->
 

@@ -175,11 +175,11 @@ namespace Gravity.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Explorer(string hash)
 		{
-			if (hash.Length < 9)
+			if (hash.Length < 50)//48
 			{
-				var trnx = await _ctx.Transactions.Where(x => x.FromKey == hash).ToListAsync();
+				var trnx = await _ctx.Transactions.Where(x => x.FromKey == hash || x.ToKey==hash).ToListAsync();
 
-				return View("Login/_Transactions", trnx);
+				return View("_Transactions", trnx);
 			}
 			var mt= await _ctx.MineTransactions.Where(x => x.txHash == hash).ToListAsync();
 

@@ -1,12 +1,7 @@
-﻿<div class="container-fluid">
+﻿@model ICollection<Transaction>
+
+<div class="container-fluid">
     <div class="page-header">
-
-
-
-
-
-
-
 
         <div class="row align-items-end">
             <div class="col-lg-8">
@@ -41,7 +36,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="state">
                             <h6>Account Balance</h6>
-                            <h2>250.47678 GCH</h2>
+                            <partial name="TotalBalance" />
                         </div>
                         <div class="icon">
                             <i class="ik ik-file-text"></i>
@@ -71,197 +66,7 @@
                 <div class="card-header d-block">
                     <h3>GCH Transactions</h3>
                 </div>
-                <div class="card-body">
-                    <div class="dt-responsive">
-                        <table id="data_table" class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Address</th>
-                                    <th>Amount (GCH)</th>
-                                    <th>Fee(GCH)</th>
-
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-primary">Processed</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-secondary btn-rounded">
-                                            Unconfirmed
-                                        </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>6</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>7</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>8</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>9</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>10</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>11</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>12</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>13</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>14</td>
-                                    <td>2018-09-29 05:57</td>
-                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
-                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
-                                    <td class="text-right">55.20</td>
-                                    <td class="text-right">0.01</td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
+                <partial name="_Transactions" model="Model">
             </div>
 
 

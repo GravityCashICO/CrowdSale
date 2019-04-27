@@ -1,4 +1,4 @@
-<h2 id="totalBlnc">0 GCH</h2>
+<h2><text id="totalBlnc">0</text> GCH</h2>
 
     <script>
         var json_obj= '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.publicKeys))';
@@ -6,19 +6,19 @@
         //var jso = JSON.parse(json_obj);
         var jso = JSON.parse(json_obj);//alert(jso);
 
-        var value = 0;
-    $(function () {
+        var totalCoin = 0;
+    //$(function () {
 
 
 
             jso.forEach(async function (addr) {
     var val = await contract.balanceOf(addr);
             val = parseInt(val.toString()) / 10 ** 18;
-                value += val;
+                totalCoin += val;
 
-                $('#totalBlnc').html(value+' GCH');
+                $('#totalBlnc').html(totalCoin);
 });
 
-    })
+    //})
 
     </script>

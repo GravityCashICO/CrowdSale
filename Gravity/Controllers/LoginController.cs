@@ -17,72 +17,72 @@ using Nethereum.Web3;
 
 namespace Gravity.Controllers
 {
-    [Authorize]
-    public class LoginController : Controller
-    {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ApplicationDbContext _ctx;
-        public LoginController(UserManager<ApplicationUser> userManager, ApplicationDbContext ctx)
-        {
-            _ctx = ctx;
-            _userManager = userManager;
-        }
-        public IActionResult Home()
-        {
-            var publicKeys = GetPubKeys();
+	[Authorize]
+	public class LoginController : Controller
+	{
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly ApplicationDbContext _ctx;
+		public LoginController(UserManager<ApplicationUser> userManager, ApplicationDbContext ctx)
+		{
+			_ctx = ctx;
+			_userManager = userManager;
+		}
+		public IActionResult Home()
+		{
+			var publicKeys = GetPubKeys();
 			ViewBag.publicKeys = publicKeys;
-            var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x=>x.CreationDate).Take(5).ToList();
+			var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x => x.CreationDate).Take(5).ToList();
 
-            return View(trns);
-        }
+			return View(trns);
+		}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult Password_change()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Password_change(string oldPass,string password)
-        {
-            //var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
-            var user =await _userManager.GetUserAsync(User);
-            var result = await _userManager.ChangePasswordAsync(
-                                user, oldPass, password);
+		public IActionResult Index()
+		{
+			return View();
+		}
+		public IActionResult Password_change()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Password_change(string oldPass, string password)
+		{
+			//var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+			var user = await _userManager.GetUserAsync(User);
+			var result = await _userManager.ChangePasswordAsync(
+								user, oldPass, password);
 
-            TempData["msg"] = Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;
+			TempData["msg"] = Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;
 
-            return View();
-        }
+			return View();
+		}
 
-        public async Task<IActionResult> Profile()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            return View(user);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Profile(ApplicationUser user)
-        {
-            var mUser = await _userManager.FindByIdAsync(user.Id);
-            mUser.PhoneNumber = user.PhoneNumber;
+		public async Task<IActionResult> Profile()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			return View(user);
+		}
+		[HttpPost]
+		public async Task<IActionResult> Profile(ApplicationUser user)
+		{
+			var mUser = await _userManager.FindByIdAsync(user.Id);
+			mUser.PhoneNumber = user.PhoneNumber;
 
-            mUser.FirstName = user.PhoneNumber;
-            mUser.LastName = user.LastName;
-            mUser.Country = user.Country;
-            mUser.Sex = user.Sex;
-            mUser.Address = user.Address;
+			mUser.FirstName = user.PhoneNumber;
+			mUser.LastName = user.LastName;
+			mUser.Country = user.Country;
+			mUser.Sex = user.Sex;
+			mUser.Address = user.Address;
 
-            var result= await _userManager.UpdateAsync(mUser);
+			var result = await _userManager.UpdateAsync(mUser);
 
-            TempData["msg"] = Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;
+			TempData["msg"] = Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;
 
-            return View(mUser);
-        }
-        
-        public IActionResult Send()
-        {
+			return View(mUser);
+		}
+
+		public IActionResult Send()
+		{
 			var publicKeys = GetPubKeys();
 			ViewBag.publicKeys = publicKeys;
 			return View();
@@ -103,80 +103,133 @@ namespace Gravity.Controllers
 			//var encoded = web3.OfflineTransactionSigning.SignTransaction(privateKey, receiveAddress, 10, txCount.Value);
 
 		}
-        [HttpPost]
-        public async Task<IActionResult> Send(string addr,decimal amnt,decimal feee)//string addrHolder, 
+		[HttpPost]
+		public async Task<IActionResult> Send(string addr, decimal amnt, decimal feee)//string addrHolder, 
 		{
-            //var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
-            //var fes = amnt * Convert.ToDecimal(Admin.feis);
+			var wallets = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList();
 
 
-            //var web3 = new Web3(Admin.InfuraUrl);
-            //var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
-            //var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
-            //var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
-
-            ////assuming all have 18 decimals
-            //var value = Web3.Convert.FromWeiToBigDecimal(balance);
-
-            //var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
-
-            //if (value < (amnt+ fes+pendingTrnx))
-            //{
-            //    string err = "Insuffcient valance ";
-            //    err= pendingTrnx != 0 ? err += "(Pending Transactions Amount) "+pendingTrnx : err;
-            //    TempData["msg"] = err;
-            //    return RedirectToAction("Send",new { addrHolder= addrHolder });
-            //}
-            //else
-            //{
-            //    //wallet.TotalCoin = wallet.TotalCoin - (amnt+fes);
-
-            //    var walletTo= _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
-            //    if (walletTo != null)
-            //    {
-            //        walletTo.TotalCoin = walletTo.TotalCoin + amnt;
-            //    }
+			//var fes = feee;
+			decimal totalCoins = 0;
+			decimal pendingCoins = 0;
 
 
-            //    var trns = new Models.Transaction
-            //    {
-            //        Id = new Guid(),
-            //        CoinAmount = amnt,
-            //        CreationDate = DateTime.UtcNow,
-            //        FeeInCoinAmount = fes,
-            //        FromKey = wallet.PublicKey,
-            //        Status = EnumType.Pending,
-            //        ToKey = addr,
-            //        StatusType = EnumType.Transfer
-            //    };
+			var web3 = new Web3(Admin.InfuraUrl);
+			var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
 
-            //    var signer = new MessageSigner();
-            //    var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-            //    trns.Signature= signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
-                
+			foreach (var wallet in wallets)
+			{
+				var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
+				var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
+				var value = Web3.Convert.FromWeiToBigDecimal(balance);
 
-            //    _ctx.Transactions.Add(trns);
+				wallet.TotalCoin = Convert.ToDecimal(value.ToString());
+				totalCoins += wallet.TotalCoin;
 
-            //    _ctx.SaveChanges();
+				var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
+				pendingCoins += pendingTrnx;
 
-                
-            //}
 
-            return RedirectToAction("Home");
-        }
 
-        public IActionResult Transactions()
-        {
+			}
+
+
+			//assuming all have 18 decimals
+
+
+
+
+			if (totalCoins < (amnt + feee + pendingCoins))
+			{
+				string err = "Insuffcient valance ";
+				err = pendingCoins != 0 ? err += "(Pending Transactions Amount) " + pendingCoins : err;
+				TempData["msg"] = err;
+				return RedirectToAction("Send");
+			}
+			else
+			{
+				var signer = new MessageSigner();
+				var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+				foreach (var wallet in wallets.OrderByDescending(x => x.TotalCoin))
+				{
+					if (wallet.TotalCoin >= (amnt + feee))
+					{
+						wallet.TotalCoin = wallet.TotalCoin - (amnt + feee);
+
+						var trns = new Models.Transaction
+						{
+							Id = new Guid(),
+							CoinAmount = amnt,
+							CreationDate = DateTime.UtcNow,
+							FeeInCoinAmount = feee,
+							FromKey = wallet.PublicKey,
+							Status = EnumType.Pending,
+							ToKey = addr,
+							StatusType = EnumType.Transfer
+						};
+
+						trns.Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
+
+						_ctx.Transactions.Add(trns);
+						break;
+					}
+					else
+					{
+						wallet.TotalCoin = 0;
+						amnt = amnt - wallet.TotalCoin;
+
+						var trns = new Models.Transaction
+						{
+							Id = new Guid(),
+							CoinAmount = amnt,
+							CreationDate = DateTime.UtcNow,
+							FeeInCoinAmount = 0,
+							FromKey = wallet.PublicKey,
+							Status = EnumType.Pending,
+							ToKey = addr,
+							StatusType = EnumType.Transfer
+						};
+
+						
+						trns.Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
+
+
+						_ctx.Transactions.Add(trns);
+					}
+					
+
+				}
+
+				var walletTo = _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
+
+				if (walletTo != null)
+				{
+					walletTo.TotalCoin = walletTo.TotalCoin + amnt;
+				}
+
+
+				
+
+				_ctx.SaveChanges();
+
+
+			}
+
+			return RedirectToAction("Home");
+		}
+
+		public IActionResult Transactions()
+		{
 			var publicKeys = GetPubKeys();
 			ViewBag.publicKeys = publicKeys;
 			var trns = _ctx.Transactions.Where(x => publicKeys.Any(pubKey => pubKey == x.FromKey || pubKey == x.ToKey)).OrderByDescending(x => x.CreationDate).ToList();
 
 			return View(trns);
-        }
-        public IActionResult Wallet()
-        {
-            return View(_ctx.Wallets.Where(x=>x.UserId== User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList());
-        }
+		}
+		public IActionResult Wallet()
+		{
+			return View(_ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList());
+		}
 
 		public async Task<IActionResult> ICO()
 		{

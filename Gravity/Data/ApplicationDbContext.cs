@@ -14,8 +14,8 @@ namespace Gravity.Data
             : base(options)
         {
         }
-
-        public DbSet<Wallet> Wallets { get; set; }
+		public DbSet<Package> Packages { get; set; }
+		public DbSet<Wallet> Wallets { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
 
         public DbSet<Payment> Payments { get; set; }

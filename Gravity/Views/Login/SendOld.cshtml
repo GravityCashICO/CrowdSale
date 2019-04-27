@@ -1,0 +1,190 @@
+﻿<!-- BREADCRUMB-->
+
+<section class="au-breadcrumb m-t-75">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="au-breadcrumb-content">
+                        <div class="au-breadcrumb-left">
+                            <span class="au-breadcrumb-span">You are here:</span>
+                            <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                <li class="list-inline-item active">
+                                    <a href="#">Wallet</a>
+                                </li>
+                                <li class="list-inline-item seprate">
+                                    <span>/</span>
+                                </li>
+                                <li class="list-inline-item">Send (GCH)</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END BREADCRUMB-->
+
+
+<section>
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong> Send (GCH)</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            @using (Html.BeginForm())
+                            {
+                                <div style="color:red">@Html.Raw(TempData["msg"])</div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Gravity Address (GCH)</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="addr" name="addr" placeholder="GCH Address" class="form-control" />
+                                        <small class="form-text text-muted">Please enter your GCH address</small>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="email-input" class=" form-control-label">GCH Ammount</label>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <input type="text" id="amnt" name="amnt" placeholder="Amount" class="form-control" />
+                                        <small class="help-block form-text">Please enter your GCH amount</small>
+                                        <small>Fee is(.01%): <b id="feee">0</b></small>
+                                    </div>
+                                </div>
+                                @*<input type="hidden" id="hash" name="hash" />*@
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <button id="getHash" type="submit" class="btn btn-success">
+                                            <i class="fa fa-location-arrow"></i> Save
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+                            }
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+</section>
+<script>
+    
+    $(function () {
+        $('#amnt').keyup(function () {
+            var feis = parseFloat('@Admin.feis');
+            $('#feee').html($(this).val() * feis);
+        })
+
+    //    $("#getHash").click(function () {
+
+    //        var $this = $(this).closest('form');
+    //        //var from = '';
+    //        var to = $("#addr").val();
+    //        var val = $("#amnt").val();
+    //        val = val * (10 ** 18);
+    //        var fee = '0';
+    //        fee = fee * (10 ** 18);
+    //        var nonce = '0';
+    //        var transferSig = "0x48664c16";
+
+    //        contract.recoverPreSignedHash(ContractAddress, transferSig, to, val, fee, nonce, function (error, hash) {
+    //            alert(hash);
+    //            $("#hash").val(hash);
+    //            $this.submit();
+    //        });
+
+    //        return false;
+    //    });
+
+    })
+
+    
+
+
+</script>
+
+@*<script>
+
+
+var contractAddress="0xd8b8728bd30c5ecf8a4688bdbfdf416be702bfc8"
+var contractAbi= [{"constant":false,"inputs":[{"name":"newSellPrice","type":"uint256"},{"name":"newBuyPrice","type":"uint256"}],"name":"setPrices","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_value","type":"uint256"}],"name":"burn","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"sellPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"target","type":"address"},{"name":"mintedAmount","type":"uint256"}],"name":"mintToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_value","type":"uint256"}],"name":"burnFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"buyPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"buy","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"frozenAccount","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"sell","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"target","type":"address"},{"name":"freeze","type":"bool"}],"name":"freezeAccount","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"initialSupply","type":"uint256"},{"name":"tokenName","type":"string"},{"name":"tokenSymbol","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"target","type":"address"},{"indexed":false,"name":"frozen","type":"bool"}],"name":"FrozenFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Burn","type":"event"}];
+
+var CONTRACT = web3.eth.contract(contractAbi).at(contractAddress, (err, ctr) => {
+  return ctr;
+});
+
+console.log(CONTRACT);
+
+var $addr=$('#addr');
+
+var $amnt=$('#amnt');
+
+
+
+
+$('#btnSubmit').on('click',function(){
+    sendTokens ();
+})
+
+
+
+function sendTokens () {
+    var addr=$addr.val();
+    var amnt=$amnt.val();
+
+    //alert(addr);
+      if (!web3.isAddress(addr)) {
+        alert('Invalid address!')
+        $addr.val('');
+        return
+      }
+
+      if (isNaN(amnt) || amnt <= 0) {
+        alert('Invalid amount!')
+        $amnt.val('');
+        return
+      }
+
+      CONTRACT.transfer(addr, web3.toWei(amnt, 'ether'), (err, res) => {
+        if (!err) {
+          console.log(res);
+          $addr.val('');
+          $amnt.val('');
+          window.location.href = '/Login/wallet';
+          return
+        }
+        console.log(err)
+        $addr.val('');
+          $amnt.val('');
+      })
+    }
+
+
+</script>*@

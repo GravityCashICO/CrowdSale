@@ -6,6 +6,7 @@
     }
     else
     {
-        Layout = "_LayoutV2";
+        Context.Response.Headers["Cache-Control"] = "no-store";
+        Layout = "_Layout";
     }
 }

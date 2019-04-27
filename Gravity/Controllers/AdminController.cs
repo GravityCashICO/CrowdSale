@@ -172,7 +172,20 @@ namespace Gravity.Controllers
         {
             return View(await _ctx.MineTransactions.ToListAsync());
         }
-        public async Task<IActionResult> Index()
+		[HttpPost]
+		public async Task<IActionResult> Explorer(string hash)
+		{
+			if (hash.Length < 9)
+			{
+				var trnx = await _ctx.Transactions.Where(x => x.FromKey == hash).ToListAsync();
+
+				return View("Login/_Transactions", trnx);
+			}
+			var mt= await _ctx.MineTransactions.Where(x => x.txHash == hash).ToListAsync();
+
+			return View("_HashExplorer",mt);
+		}
+		public async Task<IActionResult> Index()
         {
             Admin.IsQuartzDone = true;
 

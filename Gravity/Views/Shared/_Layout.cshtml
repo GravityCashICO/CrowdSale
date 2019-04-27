@@ -1,48 +1,41 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html class="no-js" lang="en">
 
+<!-- Mirrored from themekit.lavalite.org/demo/pages/table="~/demo/node_modules/-bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:17:51 GMT -->
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Gravity Cash Wallet">
-    <meta name="author" content="Gravity Cash Team">
-    <meta name="keywords" content="Gravity Cash">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <?php include("includes/title.php");?>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="~/images/icon/favicon.png">
+    <link rel="icon" href="~/demo/img/favicon.png" type="image/x-icon" />
 
-    <!-- Title Page-->
-    <title>Gravity Cash Wallet</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
 
-    <!-- Fontfaces CSS-->
-    <link href="~/css/font-face.css" rel="stylesheet" media="all">
-    <link href="~/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="~/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="~/demo/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/%40fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/ionicons/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/icon-kit/dist/css/iconkit.min.css">
+    <link rel="stylesheet" href="~/demo/node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/demo/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/demo/dist/css/theme.min.css">
+    <link rel="stylesheet" href="~/demo/dist/css/custom.css">
+    <script src="~/demo/src/js/vendor/modernizr-2.8.3.min.js"></script>
 
-    <!-- Bootstrap CSS-->
-    <link href="~/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-    <!-- Vendor CSS-->
-    <link href="~/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="~/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="~/vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="~/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="~/vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="~/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="~/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="~/vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/demo/code.jquery.com/jquery-3.3.1.min.js"></script>
+    @*<script>window.jQuery || document.write('<script src="~/demo/src/js/vendor/jquery-3.3.1.min.js"><\/script>')</script>*@
+    <script src="~/demo/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/demo/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/demo/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="~/demo/node_modules/screenfull/dist/screenfull.js"></script>
+    <script src="~/demo/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/demo/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/demo/dist/js/theme.min.js"></script>
+    <script src="~/demo/js/tables.js"></script>
 
-    <!-- Main CSS-->
-    <link href="~/css/theme.css" rel="stylesheet" media="all">
-    <link href="~/css/site.css" rel="stylesheet" />
-
-    <!-- Jquery JS-->
-    <script src="~/vendor/jquery-3.2.1.min.js"></script>
-
-    <!-- Jquery JS-->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/js/web3.min.js"></script>
     <script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"
@@ -51,224 +44,49 @@
     </script>
     <script src="~/js/abi.js"></script>
 
-    <!-- Bootstrap JS-->
-    <script src="~/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="~/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-
 </head>
 
-<body class="">
-    <div class="page-wrapper">
-        <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar2">
-            <div class="logo">
-                <a href="#">
-                    <img src="~/images/icon/logo-white.png" alt="Cool Admin" />
-                </a>
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="wrapper">
+        <header class="header-top" header-theme="light">
+            <partial name="_Header" />
+        </header>
+
+        <div class="page-wrap">
+            <div class="app-sidebar colored">
+                <div class="sidebar-header">
+                    <a class="header-brand" href="/">
+                        <div class="logo-img">
+                            <img src="~/demo/img/logo/logo-white.png" class="header-brand-img" alt="Gravity Cash">
+                        </div>
+                        <span class="text"></span>
+                    </a>
+                    <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+                </div>
+
+                <div class="sidebar-content">
+                    <partial name="_SideMenu" />
+                </div>
             </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div style="background-color:white" class="menu-sidebar2__content js-scrollbar1">
-
-                    <nav class="navbar-sidebar2">
-
-                        <ul class="list-unstyled navbar__list">
-                            <li>
-                                <a href="/Admin/Explorer">
-                                    <i class="fas fa-home"></i>Blockchain Explorer
-                                </a>
-
-                            </li>
-                            @*<li>
-                                <a href="/gravitycashico/index.html">
-                                    <i class="fas fa-home"></i>ICO
-                                </a>
-
-                            </li>*@
-                            <li>
-                                <a href="/Login/home">
-                                    <i class="fas fa-home"></i>Home
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="/Login/wallet">
-                                    <i class="fas fa-dollar-sign"></i>Wallet
-                                </a>
-                            </li>
-
-                            @*<li>
-                                <a href="/Login/transactions">
-                                    <i class="fas fa-tasks"></i>Transactions
-                                </a>
-                            </li>*@
-                            <li>
-                                <a href="/Login/profile">
-                                    <i class="fas fa-user"></i>Account
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/Login/password_change">
-                                    <i class="fas fa-lock"></i>Security
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/Account/Logout" class="stopAjax">
-                                    <i class="fas fa-power-off"></i>Logout
-                                </a>
-                            </li>
-
-
-                        </ul>
-
-                    </nav>
-                </div>
-            }
-        </aside>
-        <!-- END MENU SIDEBAR-->
-        <!-- PAGE CONTAINER-->
-        <div class="page-container2 @(User.Identity.IsAuthenticated? "custom":"")">
-            <!-- HEADER DESKTOP-->
-
-            <header class="header-desktop2">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="header-wrap2">
-                            <div class="logo d-block d-lg-none">
-                                <a href="#">
-                                    <img src="~/images/icon/logo-white.png" alt="CoolAdmin" />
-                                </a>
-                            </div>
-
-                            @if (!User.Identity.IsAuthenticated)
-                            {
-                                <div class="header-button2">
-
-                                    <div class="header-button-item js-item-menu">
-                                        <h5>Total : 1250.25 (GCH)</h5>
-
-                                    </div>
-                                    <div class="header-button-item mr-0 js-sidebar-btn">
-                                        <i class="zmdi zmdi-menu"></i>
-                                    </div>
-                                </div>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-            </header>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <aside style="background-color:white" class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
-                    <div class="logo">
-                        <a href="#">
-                            <img src="~/images/icon/logo-white.png" alt="Cool Admin" />
-                        </a>
-                    </div>
-                    <div class="menu-sidebar2__content js-scrollbar2">
-
-                        <nav class="navbar-sidebar2">
-
-                            <ul class="list-unstyled navbar__list">
-
-                                @*<li>
-                                    <a href="/gravitycashico/index.html">
-                                        <i class="fas fa-home"></i>ICO
-                                    </a>
-
-                                </li>*@
-
-                                <li>
-                                    <a href="/Login/home">
-                                        <i class="fas fa-home"></i>Home
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a href="/Login/wallet">
-                                        <i class="fas fa-dollar-sign"></i>Wallet
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/Login/transactions">
-                                        <i class="fas fa-tasks"></i>Transactions
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Login/profile">
-                                        <i class="fas fa-user"></i>Account
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/Login/password_change">
-                                        <i class="fas fa-lock"></i>Security
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/Account/Logout" class="stopAjax">
-                                        <i class="fas fa-power-off"></i>Logout
-                                    </a>
-                                </li>
-
-                            </ul>
-
-                        </nav>
-                    </div>
-                </aside>
-                <!-- END HEADER DESKTOP-->
-            }
-
-
-            <section class="">
+            <div class="main-content">
                 <div id="toufiqElahy">@RenderBody()</div>
-            </section>
+            </div>
 
-            <section>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <p>Copyright © 2019 Gravity Cash. All rights reserved.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END PAGE CONTAINER-->
+            <footer class="footer">
+                <partial name="_Footer" />
+            </footer>
         </div>
-
     </div>
 
+
+
+
+
     
-    <!-- Vendor JS       -->
-    <script src="~/vendor/slick/slick.min.js">
-    </script>
-    <script src="~/vendor/wow/wow.min.js"></script>
-    <script src="~/vendor/animsition/animsition.min.js"></script>
-    <script src="~/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="~/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="~/vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="~/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="~/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="~/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="~/vendor/select2/select2.min.js">
-    </script>
-    <script src="~/vendor/vector-map/jquery.vmap.js"></script>
-    <script src="~/vendor/vector-map/jquery.vmap.min.js"></script>
-    <script src="~/vendor/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="~/vendor/vector-map/jquery.vmap.world.js"></script>
-
-    <!-- Main JS-->
-    <script src="~/js/main.js"></script>
-
 
     <link href="~/SPA/toufiqElahySPA.css" rel="stylesheet" />
     <script src="~/SPA/toufiqElahySPA.js"></script>
@@ -277,8 +95,18 @@
             $('#toufiqElahy').toufiqSPA();
         })
     </script>
-
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    @*<script>
+            (function (b, o, i, l, e, r) {
+                b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+                    function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+                e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+                e.src = '../../www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e, r)
+            }(window, document, 'script', 'ga'));
+        ga('create', 'UA-XXXXX-X', 'auto'); ga('send', 'pageview');
+        </script>*@
 </body>
 
+<!-- Mirrored from themekit.lavalite.org/demo/pages/table-bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:17:51 GMT -->
 </html>
-<!-- end document-->

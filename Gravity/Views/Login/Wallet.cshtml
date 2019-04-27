@@ -1,113 +1,92 @@
 ﻿@model ICollection<Wallet>
-<!-- BREADCRUMB-->
-<section class="au-breadcrumb m-t-75">
-    <div class="section__content section__content--p30">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="au-breadcrumb-content">
-                        <div class="au-breadcrumb-left">
-                            @*<a href="send.php" class="au-btn au-btn-icon au-btn--green">
-                                    <i class="zmdi zmdi-plus"></i>Send GCH
-                                </a>*@
 
-                        </div>
-                        <a href="/Wallet/Create?userId=@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" class="au-btn au-btn-icon au-btn--blue">
-                            <i class="zmdi zmdi-plus"></i>Create New Address
-                        </a>
+@{ 
+    int i = 0;
+}
 
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <div class="page-header-title">
+                    <i class="ik ik-plus-circle bg-dark"></i>
+                    <div class="d-inline">
+                        <h5> Wallet (GCH)</h5>
+                        <span>Gravity Cash Wallet</span>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4">
+                <nav class="breadcrumb-container" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item">
+                            <a href="/Wallet/Create?userId=@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" class="btn btn-primary"><i class="ik ik-plus-circle"></i> Create Address</a>
+                        </li>
+
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
-</section>
-<!-- END BREADCRUMB-->
 
 
-<section>
-    <div class="section__content section__content--p30">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-block">
+                    <h3>GCH Address List</h3>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-9">
-                    <div class="table-responsive table--no-card m-b-30">
-                        <table class="table table-borderless table-striped table-earning">
+                </div>
+                <div class="card-body p-0 table-border-style">
+                    <div class="table-responsive">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Action</th>
+                                    <th>SN</th>
+                                    <th>Wallet Address</th>
 
-                                    <th>Total</th>
-                                    <th class="text-left">GCH Address </th>
-                                    <th>Link</th>
-                                    <th>Date</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>
-                                            <a href="/Login/Send?addrHolder=@item.PublicKey" class="au-btn au-btn-icon au-btn--green">
-                                                <i class="zmdi zmdi-minus"></i>Send GCH
-                                            </a>
-                                            <a href="/Payment/Buy?addrHolder=@item.PublicKey" class="au-btn au-btn-icon au-btn--green">
-                                                <i class="zmdi zmdi-plus"></i>Buy GCH
-                                            </a>
-                                        </td>
+                                    i++;
 
-                                        <td class="totalCoin">@item.PublicKey</td>
+                                    <tr>
+                                        <th scope="row">@i</th>
                                         <td>@item.PublicKey</td>
-                                        <td><a href="https://rinkeby.etherscan.io/token/@Admin.ContractAddress?a=@item.PublicKey">BlockChain</a></td>
-                                        <td>@item.CreationDate</td>
+
                                     </tr>
                                 }
-
-                                @*<tr>
-                                        <td>
-                                            <a href="/Login/Send" class="au-btn au-btn-icon au-btn--green">
-                                                <i class="zmdi zmdi-minus"></i>Send GCH
-                                            </a>
-                                            <a href="/Payment/Buy" class="au-btn au-btn-icon au-btn--green">
-                                                <i class="zmdi zmdi-plus"></i>Buy GCH
-                                            </a>
-                                        </td>
-
-                                        <td id="tkn"></td>
-                                        <td id="addr"></td>
-                                        <td>2018-09-29 05:57</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-
-                                        <td></td>
-                                        <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
-                                        <td>2018-09-29 05:57</td>
-                                    </tr>*@
-
-
-
-
-
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
-
 
 
         </div>
     </div>
-</section>
+</div>
+
+
 
 <script type="text/javascript">
-    
+
 
     async function getBalance(addr) {
         addr = '0x45BD27bB68B07FE9541B26955d880b70df34B960';
-        
+
         return r;
     }
 
@@ -123,11 +102,11 @@
             $this.html(val);
         });
     })
-    
-    
 
 
-    
+
+
+
             @*console.log(str);
             var jso = JSON.parse(str);
     let privateKey = "@Admin.PrivateKey";
@@ -150,8 +129,8 @@
                 return tc;
             }*@
 
-    
-        
+
+
 
 </script>
 

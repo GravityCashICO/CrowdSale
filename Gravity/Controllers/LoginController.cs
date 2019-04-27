@@ -204,5 +204,10 @@ namespace Gravity.Controllers
         {
             return View(_ctx.Wallets.Where(x=>x.UserId== User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList());
         }
-    }
+
+		public IActionResult ICO()
+		{
+			return View();
+		}
+	}
 }

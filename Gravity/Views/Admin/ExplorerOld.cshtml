@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MineTransaction>
+
+
+<section>
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+
+
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>TX Link</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.GasFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.totalCoinFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreationDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastTransactinTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.txHash)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            string url = "https://rinkeby.etherscan.io/tx/" + item.txHash;
+                            <tr>
+                                <td><a href="@url">@url</a></td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GasFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.totalCoinFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastTransactinTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.txHash)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        </div>
+
+    </section>
+
+        
+
+        
+<script>
+     $(function () {
+        $('#myTable').DataTable();
+    })
+</script>

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<MineTransaction>
+
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header d-block">
+                <h3>Transactions</h3>
+            </div>
+            <div class="card-body">
+                <div class="dt-responsive">
+                    <table id="table" class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Height</th>
+                                <th>Date</th>
+                                <th>Hash</th>
+                                <th>Size</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string url = "https://rinkeby.etherscan.io/tx/" + item.txHash;
+                                <tr>
+                                    <td>573116 (Main Chain)</td>
+                                    <td>@item.CreationDate.ToLocalTime()</td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> @item.txHash </a></td>
+                                    <td class="text-right">1,324.5</td>
+
+                                </tr>
+                            }
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+
+                            </tr>
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+                            <tr>
+                                <td>573116 (Main Chain)</td>
+                                <td>2019-04-25 03:56:47</td>
+                                <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"> 	00000000000000000012e707fa034b1cc69644f9f15bf9ec6ab13cbae0ccf156</a></td>
+                                <td class="text-right">1,324.5</td>
+                            </tr>
+
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Language - -->
+    </div>

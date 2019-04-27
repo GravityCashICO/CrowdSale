@@ -1,153 +1,271 @@
-﻿@{
-    List<string> publicKeys = ViewBag.publicKeys;
-    string json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(publicKeys.ToArray());
-}
+﻿<div class="container-fluid">
+    <div class="page-header">
 
-<!-- BREADCRUMB-->
-<section class="au-breadcrumb m-t-75">
-    <div class="section__content section__content--p30">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="au-breadcrumb-content">
-                        <div class="au-breadcrumb-left">
-                            <span class="au-breadcrumb-span">You are here:</span>
-                            <ul class="list-unstyled list-inline au-breadcrumb__list">
-                                <li class="list-inline-item active">
-                                    <a href="#">Wallet</a>
-                                </li>
-                                <li class="list-inline-item seprate">
-                                    <span>/</span>
-                                </li>
-                                <li class="list-inline-item">Transactions</li>
-                            </ul>
+
+
+
+
+
+
+
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <div class="page-header-title">
+                    <i class="ik ik-file-text bg-dark"></i>
+                    <div class="d-inline">
+                        <h5> Transactions (GCH)</h5>
+                        <span>Gravity Cash Transactions History</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <nav class="breadcrumb-container" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item">
+
+                        </li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--Account Balance --><div class="row clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="widget bg-dark">
+                <div class="widget-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="state">
+                            <h6>Account Balance</h6>
+                            <h2>250.47678 GCH</h2>
                         </div>
-
+                        <div class="icon">
+                            <i class="ik ik-file-text"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- END BREADCRUMB-->
-<section class="section__content section__content--p30 container-fluid">
-    <input value="Load Transactions" class="btn btn-info" id="btnInput" type="button" />
-    <br>
-</section>
-<section>
-    <div class="section__content section__content--p30">
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-responsive table--no-card m-b-30">
-                        <table class="table table-borderless table-striped table-earning">
+
+
+    </div>
+
+    <!--Account Balance End -->
+
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-block">
+                    <h3>GCH Transactions</h3>
+                </div>
+                <div class="card-body">
+                    <div class="dt-responsive">
+                        <table id="data_table" class="table table-responsive">
                             <thead>
                                 <tr>
-                                    <th class="">To Address</th>
-                                    <th class="">From Address</th>
-                                    <th class="">Amount (GCH) </th>
+                                    <th>SN</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Address</th>
+                                    <th>Amount (GCH)</th>
+                                    <th>Fee(GCH)</th>
+
+                                    <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="trns"></tbody>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-primary">Processed</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-secondary btn-rounded">
+                                            Unconfirmed
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>2</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>3</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>4</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>5</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>6</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>7</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>8</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>9</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>10</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-danger">Send</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>11</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>12</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>13</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>14</td>
+                                    <td>2018-09-29 05:57</td>
+                                    <td class="text-left"><span class="badge badge-pill badge-success">Receive</span></td>
+                                    <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</a></td>
+                                    <td class="text-right">55.20</td>
+                                    <td class="text-right">0.01</td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-outline-success">Confirmed</button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
                         </table>
                     </div>
                 </div>
-
             </div>
 
 
-
-
+            <!-- Language - -->
         </div>
-        </div>
-</section>
-
-
-
-
-<script>
-    var addresses = (@Html.Raw(Json.Serialize(publicKeys)));
-    console.log(addresses);
-    var tmp = addresses.join('~').toLowerCase();
-    addresses = tmp.split('~');
-    //var jso = JSON.parse('@json_obj');
-    //var contractAddress = "0xd8b8728bd30c5ecf8a4688bdbfdf416be702bfc8"
-    //var contractAbi = [{ "constant": false, "inputs": [{ "name": "newSellPrice", "type": "uint256" }, { "name": "newBuyPrice", "type": "uint256" }], "name": "setPrices", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_value", "type": "uint256" }], "name": "burn", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "sellPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "target", "type": "address" }, { "name": "mintedAmount", "type": "uint256" }], "name": "mintToken", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "burnFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "buyPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "buy", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "frozenAccount", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }, { "name": "_extraData", "type": "bytes" }], "name": "approveAndCall", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "amount", "type": "uint256" }], "name": "sell", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "target", "type": "address" }, { "name": "freeze", "type": "bool" }], "name": "freezeAccount", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "name": "initialSupply", "type": "uint256" }, { "name": "tokenName", "type": "string" }, { "name": "tokenSymbol", "type": "string" }], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "target", "type": "address" }, { "indexed": false, "name": "frozen", "type": "bool" }], "name": "FrozenFunds", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "to", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_owner", "type": "address" }, { "indexed": true, "name": "_spender", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "from", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" }], "name": "Burn", "type": "event" }];
-
-    //var CONTRACT = web3.eth.contract(contractAbi).at(contractAddress, (err, ctr) => {
-    //    return ctr;
-    //});
-
-    CONTRACT = contract;
-
-    console.log(CONTRACT);
-
-    var items = [];
-    transactions(addresses[0]);
-    $('#btnInput').click(function () {
-        console.log(items);
-        var tbody = $('#trns');
-        tbody.empty();
-        props = ["to", "from", "amount"];
-      
-        $.each(items, function (i, items) {
-            var tr = $('<tr>');
-            
-            //if (addresses.indexOf(items["to"]) >= 0 || addresses.indexOf(items["from"]) >= 0) {
-                $.each(props, function (i, prop) {
-
-                    $('<td>').html(items[prop]).appendTo(tr);
-                });
-            //}
-            tbody.append(tr);
-            
-        });
-    });
-
-    function transactions(addr) {
-
-        let etherscanProvider = new ethers.providers.EtherscanProvider();
-
-        // Getting the current Ethereum price
-        etherscanProvider.getEtherPrice().then(function (price) {
-            console.log("Ether price in USD: " + price);
-        });
-
-
-        // Getting the transaction history of an address
-        let address = '0xA6b70392346bE7fBFC33d2d098529efC2459b62D';
-        let startBlock = 0;
-        let endBlock = 'latest';
-        etherscanProvider.getHistory(address).then(function (history) {
-            alert('nnn'+history)
-            console.log(history);
-            items.push({
-                to: history.to,
-                from: history.from,
-                amount: history.value//ethers.utils.bigNumberify(history.value).toString()
-            })
-        });
-
-        //CONTRACT.Transfer({}, { fromBlock: 0, toBlock: 'pending' }, (err, res) => {
-        //    console.log(res.args);
-        //    if (res.args.to === CONTRACT._eth.coinbase || res.args.from === CONTRACT._eth.coinbase) {
-
-        //        items.push({
-        //            to: res.args.to,
-        //            from: res.args.from,
-        //            amount: web3.fromWei(res.args.value).toNumber()
-        //        })
-        //    }
-        //});
-
-
-
-
-
-
-    }
-
-
-</script>
-
+    </div>
+</div>

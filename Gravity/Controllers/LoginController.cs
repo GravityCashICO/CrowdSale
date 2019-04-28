@@ -129,7 +129,7 @@ namespace Gravity.Controllers
 				var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
 				pendingCoins += pendingTrnx;
 
-
+				wallet.TotalCoin -= pendingTrnx;
 
 			}
 
@@ -141,63 +141,59 @@ namespace Gravity.Controllers
 
 			if (totalCoins < (amnt + feee + pendingCoins))
 			{
-				string err = "Insuffcient valance ";
+				string err = "Insuffcient Balance ";
 				err = pendingCoins != 0 ? err += "(Pending Transactions Amount) " + pendingCoins : err;
 				TempData["msg"] = err;
 				return RedirectToAction("Send");
 			}
 			else
 			{
+				decimal amountWithFee = (amnt + feee);
 				var signer = new MessageSigner();
 				var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-				foreach (var wallet in wallets.OrderByDescending(x => x.TotalCoin))
+				foreach (var wallet in wallets.Where(x => x.TotalCoin > 0).OrderBy(n => Math.Abs(amountWithFee - n.TotalCoin)))
 				{
-					if (wallet.TotalCoin >= (amnt + feee))
+					if (wallet.TotalCoin >= amountWithFee)
 					{
-						wallet.TotalCoin = wallet.TotalCoin - (amnt + feee);
+						wallet.TotalCoin = wallet.TotalCoin - amountWithFee;
 
 						var trns = new Models.Transaction
 						{
 							Id = new Guid(),
-							CoinAmount = amnt,
+							CoinAmount = amountWithFee - feee,
 							CreationDate = DateTime.UtcNow,
 							FeeInCoinAmount = feee,
 							FromKey = wallet.PublicKey,
 							Status = EnumType.Pending,
 							ToKey = addr,
-							StatusType = EnumType.Transfer
+							StatusType = EnumType.Transfer,
+							Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey)
 						};
-
-						trns.Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
-
 						_ctx.Transactions.Add(trns);
 						break;
 					}
 					else
 					{
-						wallet.TotalCoin = 0;
-						amnt = amnt - wallet.TotalCoin;
-
 						var trns = new Models.Transaction
 						{
 							Id = new Guid(),
-							CoinAmount = amnt,
+							CoinAmount = wallet.TotalCoin - feee,
 							CreationDate = DateTime.UtcNow,
-							FeeInCoinAmount = 0,
+							FeeInCoinAmount = feee,
 							FromKey = wallet.PublicKey,
 							Status = EnumType.Pending,
 							ToKey = addr,
-							StatusType = EnumType.Transfer
+							StatusType = EnumType.Transfer,
+							Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey)
 						};
-
-						
-						trns.Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey);
-
-
 						_ctx.Transactions.Add(trns);
-					}
-					
 
+
+						amountWithFee = amountWithFee - wallet.TotalCoin;
+						wallet.TotalCoin = 0;
+					}
+
+					feee = 0;
 				}
 
 				var walletTo = _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
@@ -208,7 +204,7 @@ namespace Gravity.Controllers
 				}
 
 
-				
+
 
 				_ctx.SaveChanges();
 

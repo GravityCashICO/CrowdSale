@@ -103,7 +103,7 @@ namespace Gravity.Controllers
 
 
                 await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                TempData["msg"] = "A Confirmation email already sent... <a href=\"" + resendUrl + "\">Send Again</a>";
+                TempData["msg"] = "A Confirmation email already sent...Check your Email.";
                 return RedirectToAction(nameof(AccountController.Login), "Account");
                 //await _signInManager.SignInAsync(user, isPersistent: false);
                 //_logger.LogInformation(3, "User created a new account with password.");

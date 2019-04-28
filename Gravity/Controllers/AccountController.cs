@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nethereum.Hex.HexConvertors.Extensions;
 using System;
 using Gravity.Data;
+using Gravity.Helpers;
 
 namespace Gravity.Controllers
 {
@@ -46,9 +47,13 @@ namespace Gravity.Controllers
                 {
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code }, protocol: HttpContext.Request.Scheme);
-                    
-                    await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent...";
+
+					var model = new ViewModels.emailVerification { UserName = user.FirstName, Link = callbackUrl,Email=user.UserName };
+
+					string viewHtml = await this.RenderViewAsync("emailVerification", model);
+					await SendEmail.SendEmailAsync(user.UserName, viewHtml);
+					//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+					TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent...";
                     return View();
                 }
             }
@@ -99,11 +104,14 @@ namespace Gravity.Controllers
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code }, protocol: HttpContext.Request.Scheme);
 
-                var resendUrl = Url.Action("ReSendEmail", "Account", new { email }, protocol: HttpContext.Request.Scheme);
+                //var resendUrl = Url.Action("ReSendEmail", "Account", new { email }, protocol: HttpContext.Request.Scheme);
 
+				var model = new ViewModels.emailVerification { UserName = user.FirstName, Link = callbackUrl, Email = user.UserName };
 
-                await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                TempData["msg"] = "A Confirmation email already sent...Check your Email.";
+				string viewHtml = await this.RenderViewAsync("emailVerification", model);
+				await SendEmail.SendEmailAsync(user.UserName, viewHtml);
+				//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+				TempData["msg"] = "A Confirmation email already sent...Check your Email.";
                 return RedirectToAction(nameof(AccountController.Login), "Account");
                 //await _signInManager.SignInAsync(user, isPersistent: false);
                 //_logger.LogInformation(3, "User created a new account with password.");
@@ -129,9 +137,12 @@ namespace Gravity.Controllers
 
             var resendUrl = Url.Action("ReSendEmail", "Account", new { userId = user.Id }, protocol: HttpContext.Request.Scheme);
 
+			var model = new ViewModels.emailVerification { UserName = user.FirstName, Link = callbackUrl, Email = user.UserName };
 
-            await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-            TempData["msg"] = "A Confirmation email already sent... <a href=\"" + resendUrl + "\">Send Again</a>";
+			string viewHtml = await this.RenderViewAsync("emailVerification", model);
+			await SendEmail.SendEmailAsync(user.UserName, viewHtml);
+			//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+			TempData["msg"] = "A Confirmation email already sent... <a href=\"" + resendUrl + "\">Send Again</a>";
             return RedirectToAction(nameof(AccountController.Login), "Account");
             
         }
@@ -176,9 +187,15 @@ namespace Gravity.Controllers
             //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
             //   "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
 
-            await SendEmail.SendEmailAsync(email, "Please change password by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+            //await SendEmail.SendEmailAsync(email, "Please change password by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
 
-            TempData["msg"] = "Check your email!";
+			var model = new ViewModels.passwordReset { UserName = user.UserName, Link=callbackUrl };
+
+			string viewHtml = await this.RenderViewAsync("passwordReset", model);
+			await SendEmail.SendEmailAsync(user.UserName, viewHtml);
+
+
+			TempData["msg"] = "Check your email!";
         
             return RedirectToAction("Login");
     }

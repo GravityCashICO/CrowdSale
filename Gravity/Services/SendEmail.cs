@@ -22,7 +22,7 @@ namespace Gravity.Services
             using (var message = new MailMessage("telahy@gmail.com", toAddress)
             {
                 IsBodyHtml = true,
-                Subject = "Confirm your account",
+                Subject = "Gravity Cash",
                 Body = body
             })
             {

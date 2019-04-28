@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Gravity.Data;
+using Gravity.Helpers;
 using Gravity.Models;
 using Gravity.Services;
 using HtmlAgilityPack;
@@ -223,10 +224,20 @@ namespace Gravity.Controllers
             //await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
             if (status == 2 || status>=100)
             {
-                await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "postBack "+q+"  " + JsonConvert.SerializeObject(req.Form));
+                
 
                 var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
-                wallet.TotalCoin = wallet.TotalCoin + amnt;
+				var user = _ctx.Users.First(x => x.Id == wallet.UserId);
+				var userName = user.FirstName + " " + user.LastName;
+				var received_amount = forms["received_amount"].ToString();
+				var currency2 = forms["currency2"].ToString();
+
+				var model = new ViewModels.PaymentConfirmation { UserName=userName,received_amount=received_amount,currency2=currency2};
+
+				string viewHtml = await this.RenderViewAsync("paymentConfimation", model);
+				await SendEmail.SendEmailAsync(user.UserName, viewHtml);
+				await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "postBack " + q + "  " + JsonConvert.SerializeObject(req.Form));
+				wallet.TotalCoin = wallet.TotalCoin + amnt;
 
                 var trns = new Models.Transaction
                 {
@@ -240,37 +251,6 @@ namespace Gravity.Controllers
                     StatusType = EnumType.Buy
                 };
 
-                /////
-                //var web3 = new Web3(Admin.InfuraUrl);
-                //var contract = web3.Eth.GetContract(Admin.abi, Admin.ContractAddress);
-                //var recoverPreSignedHashFunction = contract.GetFunction("recoverPreSignedHash");
-
-                //var p = Convert.ToDecimal(Math.Pow(10, 18));
-                //var to = trns.ToKey;
-                //var val = trns.CoinAmount;
-
-                //val = val * p;//(10 ** 18);
-                //var fee = trns.FeeInCoinAmount;
-                //fee = fee * p;
-                //var nonce = 0;
-                //var transferSig = "0x48664c16".HexToByteArray();
-
-                //var prms = new { _token = Admin.ContractAddress, _functionSig = transferSig, _spender = to, _value = val, _fee = fee, _nonce = nonce };
-                //string hash;
-                //object[] b = new object[] { Admin.ContractAddress, transferSig, to, val, fee, nonce };
-                //try
-                //{
-                //    var rslt = recoverPreSignedHashFunction.CreateCallInput(functionInput: b);
-                //    var c = await recoverPreSignedHashFunction.CallRawAsync(rslt);
-                //    hash = c.ToHex();
-                //}
-                //catch (Exception ex)
-                //{
-
-                //    throw;
-                //}
-
-                //trns.HashHex = hash;
                 var signer = new MessageSigner();
                 var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
                 trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<table width="648" border="0">
+  <tbody><tr>
+    <td colspan="2" style="padding:30px 30px 10px 30px;text-align:center"><p><img src="https://ci5.googleusercontent.com/proxy/gNz0IV0Ss1MYtjvZvEvCnucyhU7veCkSFQKYSjO7reNOHdn3d74ecMyPuweEtnCd0zSKSyCFXA=s0-d-e1-ft#https://gravitycash.com/img/logo.png" class="CToWUd" style="width:70px; "></p>    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding:10px 30px 20px 30px;text-align:center;font-weight:bold;font-size:1.4em"> Gravitycash Payment Confirmation</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding:30px 30px 10px 30px;line-height:1.8;font-family:open sans,Arial,sans-serif" align="left">
+      <p>Dear, Username</p>
+  
+		<p>A deposit of 1.63265352 ETH OR BTC has been received and updated your payment status. Your Gravitycash token (GCH) will be deposited soon to your online wallet account. </p>
+  </td>
+  </tr>
+	    <tr>
+    <td colspan="2" style="padding:30px 30px 10px 30px;line-height:1.2;font-family:open sans,Arial,sans-serif" align="left">Thank you for buy Gravitycash (GCH) .</td>
+  </tr>
+	  <tr>
+    <td colspan="2" style="padding:30px 30px 10px 30px;line-height:1.2;font-family:open sans,Arial,sans-serif" align="left">This email contains important information about your new Gravity Account. Be sure to keep this safe and stored .</td>
+  </tr>
+  
+
+
+  <tr>
+    <td colspan="2" style="font-family:open sans,Arial,sans-serif;font-size:13px;line-height:25px;padding:10px 30px;border-top:1px solid #000000" align="right"><h3>Thank You
+    </h3><span class="HOEnZb"><font color="#888888">
+    Gravity Cash Team</font></span></td>
+  </tr>
+</tbody></table>
+</body>
+</html>

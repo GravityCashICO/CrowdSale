@@ -41,7 +41,7 @@
                                 <span class="badge badge-pill badge-@(isFromAddr ? "danger" : "success")">@(isFromAddr ? "Send" : "Receive")</span>
                             }
                         </td>
-                        <td><a href="hash.php?id=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">@item.FromKey</a></td>
+                        <td><a href="/Admin/Hash?hash=@item.HashHex">@item.FromKey</a></td>
                         <td class="text-right">@item.CoinAmount</td>
                         <td class="text-right">@item.FeeInCoinAmount</td>
                         <td class="text-right">

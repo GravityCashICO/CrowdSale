@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="en">
+    
 
 <head>
         <meta charset="utf-8">
@@ -26,7 +27,7 @@
     </head>
 
     <body>
- 
+
 
         <div class="wrapper">
             	<header class="header-top" header-theme="light">
@@ -53,13 +54,21 @@
                 <div class="main-content">
                     <div class="container-fluid">
                         <div class="page-header">
+							
+							
+							
+							
+							
+							
+							
+							
                             <div class="row align-items-end">
                                 <div class="col-lg-8">
                                     <div class="page-header-title">
-                                        <i class="ik ik-plus-circle bg-dark"></i>
+                                        <i class="ik ik-search bg-dark"></i>
                                         <div class="d-inline">
-                                            <h5> Wallet (GCH)</h5>
-                                            <span>Gravity Cash Wallet</span>
+                                            <h5> GCH Explorer </h5>
+                                            <span>Gravity Cash Blockchain Explorer</span>
                                         </div>
                                     </div>
                                 </div>
@@ -68,55 +77,141 @@
                                         <ol class="breadcrumb">
                                            
                                             <li class="breadcrumb-item">
-                                                               <a href="index.html" class="btn btn-primary"><i class="ik ik-plus-circle"></i> Create Address</a>
+                                                              
                                             </li>
                                             
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
+								
                         </div>
+							
+							
+							<!--Account Balance --><div class="row clearfix">
+                            
+                            
+						
+						     <div class="col-sm-12">
+                                <div class="card" >
+                                   
+									
+									   <div class="card-body">
+                                        <form class="forms-sample" method="post" action="explorer.php">
+											
+											<div class="input-group col-xs-12">
+                                                    <input type="text" class="form-control" placeholder="GCH address or txn">
+                                                    <span class="input-group-append">
+                                                    <input type="submit" class="file-upload-browse btn btn-primary" type="button" value="Search">
+                                                    </span>
+                                                </div>
+                                           
+                                           
+                                          </form>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+							
+					<!--Account Balance End -->		
+							
+						
 
 
-                        <div class="row">
-                            <div class="col-md-12">
+                         <div class="row">
+                            <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-header d-block">
-                                        <h3>GCH Address List</h3>
-                                      
+                                        <h3>Transaction Details </h3>
                                     </div>
-                                    <div class="card-body p-0 table-border-style">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>SN</th>
-                                                        <th>Wallet Address</th>
-                                                       
-                                                     
-                                                    </tr>
-                                                </thead>
+                                    <div class="card-body">
+                                        <div class="dt-responsive">
+                                            <table  id="table" class="table table-responsive">
+                                          
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
-                                                     
+                                                   
+													
+													                 <tr>
+                                  <td><h6>Transaction Hash:</h6></td>
+													<td>0xf905bcc738960a3240921745387fa1a76a889bacbd096be25eaea8f8f9bbac8a</td>
+													
                                                     </tr>
-                                                    <tr>
-                                                      <th scope="row">2</th>
-                                                        <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
+													
+													                 <tr>
+                                               <td><h6>Status:</h6></td>
+													<td><span class="badge badge-pill badge-success">Success</span></td>
+												
+												
                                                     </tr>
-                                                    <tr>
-                                                <th scope="row">3</th>
-                                                        <td>0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae</td>
+													
+													                 <tr>
+                                          <td><h6>Block:</h6></td>
+													<td> 4287809 1384 <small>1384 Block Confirmations</small> </td>
+													
                                                     </tr>
+													
+													 <tr>
+                                                  <td><h6>TimeStamp:</h6></td>
+													<td>Apr-28-2019 10:16:13 AM +UTC</td>
+													
+												
+														
+                                                    </tr>
+													
+													                 <tr>
+                                           <td><h6>From:</h6></td>
+													<td>0xa6b70392346be7fbfc33d2d098529efc2459b62d
+</td>
+													
+                                                    </tr>
+													
+													                 <tr>
+                                                   <td><h6>To:</h6></td>
+													<td>0x5e2b81be332eb27a51c30f9fd86a45a060f4e92d</td>
+													
+                                                    </tr>
+													
+													                 <tr>
+                                        <td><h6>Tokens Transfered:</h6></td>
+												 <td>   <strong> From :</strong> 0x6798f371ceab4fe2f59da53a6239ed979ec36772</br>
+													 <strong> To :</strong> 0xf2a1d42ca6a16386e3e79dc24a790f198e4c93b4 <strong>For 9 ERC-20 (GCH)</strong></br>
+													<strong> From :</strong>  0x6798f371ceab4fe2f59da53a6239ed979ec36772</br>
+													<strong> To :</strong> 0xa6b70392346be7fbfc33d2d098529efc2459b62d 	<strong>For 0.01 ERC-20 (GCH)</strong></td>
+												
+                                                    </tr>
+													
+													                 <tr>
+                                         <td><h6>Value:</h6></td>
+													<td>0 Ether ($0.00) </td>
+												
+                                                    </tr>
+													
+													                 <tr>
+                                                    <td><h6>Gas Limit:</h6></td>
+													<td>73,287</td>
+												
+                                                    </tr>
+													
+													                 <tr>
+                                                    <td><h6>Nonce Position:</h6></td>
+													<td>148</td>
+													
+                                                    </tr>
+													
+													                
+                                                   
                                                 </tbody>
+                                 
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                    
-
+                               </div>
+            </div>
+                                <!-- Language - -->
                             </div>
                         </div>
                     </div>
@@ -143,7 +238,7 @@
         <script src="node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
         <script src="dist/js/theme.min.js"></script>
         <script src="js/tables.js"></script>
-    
+       
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

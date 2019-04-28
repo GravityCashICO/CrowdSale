@@ -42,7 +42,7 @@
     @foreach (var item in Model)
     {
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <a href="#" onclick="func(@item.Id)">
+            <a href="/Payment/Package?pkgId=@item.Id">
                 <div class="widget bg-dark">
 
 
@@ -55,6 +55,7 @@
                             <div class="state">
                                 <h6>@item.ExtraCoinPercentage % Extra Coin</h6>
                                 <h2>@item.PriceInUSD USD</h2>
+                                <span style="color: greenyellow;"> GCH @@ @Admin.CoinPriceUSD USD</span>
                             </div>
 
                             <div class="icon">
@@ -71,7 +72,7 @@
 
 
     <div class="col-lg-4 col-md-6 col-sm-12">
-        <a href="#">
+        <a href="/Payment/Custom">
             <div class="widget bg-default">
 
 
@@ -84,6 +85,7 @@
                         <div class="state">
 
                             <h2 style="color: black;">Custom</h2>
+                            <span style="color:darkviolet;"> GCH @@ @Admin.CoinPriceUSD USD</span>
                         </div>
 
                         <div class="icon">
@@ -106,19 +108,3 @@
     <!--Account Balance End -->
 
 </div>
-
-<div class="form-group">
-    <label for="code"><b>(Selection) Payment method</b> </label>
-    <select name="code" required id="code" class="form-control">
-        <option value="LTCT"> Litecoin Testnet</option>
-        <option value="BTC">Bitcoin</option>
-        <option value="ETH"> Ethereum</option>
-
-    </select>
-</div>
-
-<script>
-    function func(id){
-        window.location.href = '/Payment/BuyPackage?pkgId=' + id + '&code=' + $('#code').val();
-    }
-</script>

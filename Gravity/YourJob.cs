@@ -170,11 +170,12 @@ namespace Gravity
 					AddMineTransaction(result, json_obj, autoPush.Count());  //
 				}
 
-				//foreach (var trn in trnxs)
-				//{
-				//    trn.Status = EnumType.Success;
-				//}
-				trnxs.ForEach(x => x.Status = EnumType.Success);
+				foreach (var trn in trnxs)
+				{
+					trn.Status = EnumType.Success;
+					trn.HashHex = result.Hash;
+				}
+				//trnxs.ForEach(x => x.Status = EnumType.Success , x.HashHex="");
 
 			}
 			catch (Exception ex)

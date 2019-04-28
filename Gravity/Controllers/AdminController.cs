@@ -22,6 +22,10 @@ namespace Gravity.Controllers
         {
             _ctx = ctx;
         }
+		public async Task<IActionResult> Hash(string hash)
+		{
+			return View();
+		}
 		public async Task<IActionResult> Test(string s,[FromServices] INodeServices nodeServices)
 		{
 			try

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en">
     
-<!-- Mirrored from themekit.lavalite.org/demo/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:10:59 GMT -->
+
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -35,9 +35,7 @@
     </head>
 
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+
 
         <div class="wrapper">
 			<header class="header-top" header-theme="light">
@@ -871,7 +869,7 @@
         <script src="js/widgets.js"></script>
         <script src="js/charts.js"></script>
         <script src="dist/js/theme.min.js"></script>
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+       
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

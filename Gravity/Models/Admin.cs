@@ -10,7 +10,8 @@ namespace Gravity.Models
         public static string Receiver = "0x45BD27bB68B07FE9541B26955d880b70df34B960";
 
         public static double CoinPrice = 0.001;//eth
-        public static string CoinUit = "ETH";
+		public static double CoinPriceUSD = 0.10;//eth
+		public static string CoinUit = "ETH";
 
         public static string PublicKey = "0xA6b70392346bE7fBFC33d2d098529efC2459b62D";
         public static string PrivateKey = "F92307ABD3DFC5EEAA00CF856ED34DBD7C84E1BD01A6A7CB5094E69845F2B298";

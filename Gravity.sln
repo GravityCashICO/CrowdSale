@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gravity", "Gravity\Gravity.csproj", "{08CDC988-223C-46B8-9727-E1883EDB9167}"
 EndProject
@@ -26,6 +26,27 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "demo", "..\..\..\..\My Web 
 		SlnRelativePath = "..\..\..\..\My Web Sites\demo\"
 	EndProjectSection
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "wallet", "wallet\", "{7B875530-8D34-46E8-8326-D48DBD5585AB}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_10017"
+		Debug.AspNetCompiler.PhysicalPath = "wallet\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_10017\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_10017"
+		Release.AspNetCompiler.PhysicalPath = "wallet\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_10017\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "10017"
+		SlnRelativePath = "wallet\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +61,10 @@ Global
 		{98CBEA1D-B075-43CE-B0BD-A118A74292C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98CBEA1D-B075-43CE-B0BD-A118A74292C6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{98CBEA1D-B075-43CE-B0BD-A118A74292C6}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7B875530-8D34-46E8-8326-D48DBD5585AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B875530-8D34-46E8-8326-D48DBD5585AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B875530-8D34-46E8-8326-D48DBD5585AB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B875530-8D34-46E8-8326-D48DBD5585AB}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

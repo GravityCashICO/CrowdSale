@@ -7,9 +7,7 @@
         var jso = JSON.parse(json_obj);//alert(jso);
 
         var totalCoin = 0;
-    //$(function () {
-
-
+    
 
             jso.forEach(async function (addr) {
     var val = await contract.balanceOf(addr);
@@ -19,6 +17,6 @@
                 $('#totalBlnc').html(totalCoin);
 });
 
-    //})
+
 
     </script>

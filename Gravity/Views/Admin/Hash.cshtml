@@ -2,13 +2,6 @@
     <div class="container-fluid">
         <div class="page-header">
 
-
-
-
-
-
-
-
             <div class="row align-items-end">
                 <div class="col-lg-8">
                     <div class="page-header-title">
@@ -70,92 +63,14 @@
 
         <div id="partialExplorer" class="row">
             <div class="col-sm-12">
+
                 <div class="card">
                     <div class="card-header d-block">
                         <h3>Transaction Details </h3>
                     </div>
                     <div class="card-body">
                         <div class="dt-responsive">
-                            <table id="table" class="table table-responsive">
-
-                                <tbody>
-
-
-                                    <tr>
-                                        <td><h6>Transaction Hash:</h6></td>
-                                        <td>0xf905bcc738960a3240921745387fa1a76a889bacbd096be25eaea8f8f9bbac8a</td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>Status:</h6></td>
-                                        <td><span class="badge badge-pill badge-success">Success</span></td>
-
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>Block:</h6></td>
-                                        <td> 4287809 1384 <small>1384 Block Confirmations</small> </td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>TimeStamp:</h6></td>
-                                        <td>Apr-28-2019 10:16:13 AM +UTC</td>
-
-
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>From:</h6></td>
-                                        <td>
-                                            0xa6b70392346be7fbfc33d2d098529efc2459b62d
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>To:</h6></td>
-                                        <td>0x5e2b81be332eb27a51c30f9fd86a45a060f4e92d</td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>Tokens Transfered:</h6></td>
-                                        <td>
-                                            <strong> From :</strong> 0x6798f371ceab4fe2f59da53a6239ed979ec36772</br>
-                                            <strong> To :</strong> 0xf2a1d42ca6a16386e3e79dc24a790f198e4c93b4 <strong>For 9 ERC-20 (GCH)</strong></br>
-                                            <strong> From :</strong>  0x6798f371ceab4fe2f59da53a6239ed979ec36772</br>
-                                            <strong> To :</strong> 0xa6b70392346be7fbfc33d2d098529efc2459b62d 	<strong>For 0.01 ERC-20 (GCH)</strong>
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>Value:</h6></td>
-                                        <td>0 Ether ($0.00) </td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>Gas Limit:</h6></td>
-                                        <td>73,287</td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td><h6>Nonce Position:</h6></td>
-                                        <td>148</td>
-
-                                    </tr>
-
-
-
-                                </tbody>
-
-                            </table>
+                            @Html.Raw(ViewBag.html)
                         </div>
                     </div>
                 </div>
@@ -165,3 +80,14 @@
     </div>
 </div>
                     
+
+<script>
+    $(function () {
+        //$('a[href^="/"]').each(function () {
+            
+        //    $(this).attr('href', '#');
+        //})
+        
+    })
+</script>
+

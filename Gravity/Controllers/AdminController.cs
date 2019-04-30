@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Gravity.Data;
 using Gravity.Models;
 using Gravity.Services;
+using HtmlAgilityPack;
+using HtmlAgilityPack.CssSelectors.NetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,14 @@ namespace Gravity.Controllers
         }
 		public async Task<IActionResult> Hash(string hash)
 		{
+			//var web3 = new Web3(Admin.InfuraUrl);
+			//var receipt = await web3.Eth.Transactions.GetTransactionByHash.SendRequestAsync(hash);
+			var Webget = new HtmlWeb();
+			var doc = Webget.Load(Admin.txUrl+hash);
+
+			HtmlNode node = doc.QuerySelector("#myTabContent");
+			ViewBag.html = node.OuterHtml;
+
 			return View();
 		}
 		public async Task<IActionResult> Test(string s,[FromServices] INodeServices nodeServices)

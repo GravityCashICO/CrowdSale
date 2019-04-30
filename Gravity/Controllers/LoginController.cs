@@ -151,7 +151,7 @@ namespace Gravity.Controllers
 				decimal amountWithFee = (amnt + feee);
 				var signer = new MessageSigner();
 				var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-				foreach (var wallet in wallets.Where(x => x.TotalCoin > 0).OrderBy(n => Math.Abs(amountWithFee - n.TotalCoin)))
+				foreach (var wallet in wallets.Where(x => x.TotalCoin > 0 && x.PublicKey != addr).OrderBy(n => Math.Abs(amountWithFee - n.TotalCoin)))
 				{
 					if (wallet.TotalCoin >= amountWithFee)
 					{

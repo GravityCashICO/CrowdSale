@@ -10,9 +10,9 @@ namespace Gravity.Models
         public string Id  { get; set; }//txn_id
         public string Ipn_id { get; set; }//ipn_id
         public string CurrencyCode { get; set; }
-        public decimal Received_amount { get; set; }//received_amount
-        public decimal Fee { get; set; }//fee
-        public decimal NetValue { get; set; }//net    actual val
+        public string Received_amount { get; set; }//received_amount
+        public string Fee { get; set; }//fee
+        public string NetValue { get; set; }//net    actual val
         public int Status { get; set; }
         public string AddressToSendCoin { get; set; }//parameter
         public decimal CoinAmount { get; set; }//parameter

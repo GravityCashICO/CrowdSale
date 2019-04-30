@@ -10,8 +10,8 @@ namespace Gravity.Services
 {
     public static class CoinPayments
     {
-        private static string s_privkey = "497DE79272786bAf7E03C05EE2F71E9e0d41C087E379183E8FcE57Cc91bEC237";
-        private static string s_pubkey = "1f339b0d89f29d8ddc2456c92300da28d7b4be202f0c8f421b4c486a105799e4";
+		private static string s_privkey = "1Bf9b92CB6EDa4D87499B739aba52af125c6bD82216Ef15b72556a2f55D590Ad";//"497DE79272786bAf7E03C05EE2F71E9e0d41C087E379183E8FcE57Cc91bEC237";
+		private static string s_pubkey = "cdf94869e08fb22cc1b378420e01fd3828ef474c3e2b55ef944eea0404ec3651";//"1f339b0d89f29d8ddc2456c92300da28d7b4be202f0c8f421b4c486a105799e4";
         private static readonly Encoding encoding = Encoding.UTF8;
 
         //public CoinPayments(string privkey, string pubkey)

@@ -20,13 +20,13 @@ using Newtonsoft.Json;
 namespace Gravity.Controllers
 {
 
-    public class PaymentController : Controller
-    {
-        private readonly ApplicationDbContext _ctx;
-        public PaymentController( ApplicationDbContext ctx)
-        {
-            _ctx = ctx;
-        }
+	public class PaymentController : Controller
+	{
+		private readonly ApplicationDbContext _ctx;
+		public PaymentController(ApplicationDbContext ctx)
+		{
+			_ctx = ctx;
+		}
 		public async Task<IActionResult> Custom()
 		{
 			return View();
@@ -69,7 +69,7 @@ namespace Gravity.Controllers
 				.FirstAsync(m => m.Id == pkgId);
 			return View(package);
 		}
-		
+
 		public async Task<IActionResult> BuyPackage(int pkgId, string code)
 		{
 			var wallet = _ctx.Wallets.First();
@@ -93,176 +93,200 @@ namespace Gravity.Controllers
 				{"buyer_email","toufiqelahy@hotmail.com" },
 				{"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack?addrHolder="+wallet.PublicKey+"&amnt="+(coin+bonus) }
 			};
-			
+
 			var response = CoinPayments.CallAPI(cmd, sl);
 			string url = response["result"]["status_url"];
 
 			return RedirectToAction("Crypto", new { url });
 		}
-		
+
 
 		public IActionResult Buy(string addrHolder)
-        {
-            //if (TempData["url"] != null)
-            //{
-            //    var url = TempData["url"].ToString();
-            //    TempData["url"] = null;
-            //    return Redirect(url);
-            //}
-            return View();
-        }
-        //public IActionResult Index(string code,string price="0")
+		{
+			//if (TempData["url"] != null)
+			//{
+			//    var url = TempData["url"].ToString();
+			//    TempData["url"] = null;
+			//    return Redirect(url);
+			//}
+			return View();
+		}
+		//public IActionResult Index(string code,string price="0")
 
-        //{
-        //    var cmd = "create_transaction";
+		//{
+		//    var cmd = "create_transaction";
 
-        //    SortedList<string, string> sl = new SortedList<string, string>
-        //    {
-        //        //{ "currency", "BTC" },
-        //        //{ "format", "json" },
-        //        { "amount", price },
-        //        { "currency1", code },
-        //         { "currency2", code },
-        //        {"buyer_email","toufiqelahy@hotmail.com" },
-        //        {"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack" }
-        //    };
-        //    //sl.Add("version", 1);
+		//    SortedList<string, string> sl = new SortedList<string, string>
+		//    {
+		//        //{ "currency", "BTC" },
+		//        //{ "format", "json" },
+		//        { "amount", price },
+		//        { "currency1", code },
+		//         { "currency2", code },
+		//        {"buyer_email","toufiqelahy@hotmail.com" },
+		//        {"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack" }
+		//    };
+		//    //sl.Add("version", 1);
 
-        //    //sl.Add("currency", "BTC");
-        //    //sl.Add("version", 1);
-        //    //sl.Add("currency", "BTC");
-        //    //sl.Add("version", 1);
-        //    var response= CoinPayments.CallAPI(cmd, sl);
+		//    //sl.Add("currency", "BTC");
+		//    //sl.Add("version", 1);
+		//    //sl.Add("currency", "BTC");
+		//    //sl.Add("version", 1);
+		//    var response= CoinPayments.CallAPI(cmd, sl);
 
 
-        //    return Redirect(sl["ipn_url"]);
-        //}
-        [HttpPost]
-        public IActionResult Buy(string addrHolder,string code, double amnt)
-        {
-            var amount = amnt * Admin.CoinPrice;
-            //amnt = amnt * .005;//fee .5% fee
-            var cmd = "create_transaction";
+		//    return Redirect(sl["ipn_url"]);
+		//}
+		[HttpPost]
+		public IActionResult Buy(string addrHolder, string code, double amnt)
+		{
+			var amount = amnt * Admin.CoinPrice;
+			//amnt = amnt * .005;//fee .5% fee
+			var cmd = "create_transaction";
 
-            SortedList<string, string> sl = new SortedList<string, string>
-            {
+			SortedList<string, string> sl = new SortedList<string, string>
+			{
                 //{ "currency", "BTC" },
                 //{ "format", "json" },
                 { "amount", amount.ToString() },
-                { "currency1", Admin.CoinUit },
-                 { "currency2", code },
-                {"buyer_email","toufiqelahy@hotmail.com" },
-                {"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack?addrHolder="+addrHolder+"&amnt="+amnt }
-            };
-            //sl.Add("version", 1);
+				{ "currency1", Admin.CoinUit },
+				 { "currency2", code },
+				{"buyer_email","toufiqelahy@hotmail.com" },
+				{"ipn_url","https://gravitycash.azurewebsites.net/Payment/IpnBack?addrHolder="+addrHolder+"&amnt="+amnt }
+			};
+			//sl.Add("version", 1);
 
-            //sl.Add("currency", "BTC");
-            //sl.Add("version", 1);
-            //sl.Add("currency", "BTC");
-            //sl.Add("version", 1);
-            var response = CoinPayments.CallAPI(cmd, sl);
-            string url = response["result"]["status_url"];
+			//sl.Add("currency", "BTC");
+			//sl.Add("version", 1);
+			//sl.Add("currency", "BTC");
+			//sl.Add("version", 1);
+			var response = CoinPayments.CallAPI(cmd, sl);
+			string url = response["result"]["status_url"];
 
-            TempData["url"] = url;
-
-
-            return View();
-            //return RedirectToAction("Crypto", new { url });
-        }
-
-        public async Task<IActionResult> Crypto(string url)
-        {
-            //url= HttpUtility.UrlDecode(url);
-            
-            var Webget = new HtmlWeb();
-            var doc = Webget.Load(url);
+			TempData["url"] = url;
 
 
-            //var doc = new HtmlAgilityPack.HtmlDocument();
-            //doc.Load(url);
+			return View();
+			//return RedirectToAction("Crypto", new { url });
+		}
 
-            //IList<HtmlNode> nodes = doc.QuerySelectorAll("div .my-class[data-attr=123] > ul li");
-            //HtmlNode node = nodes[0].QuerySelector("p.with-this-class span[data-myattr]");
-            HtmlNode node = doc.QuerySelector("div.page-row.page-row-expanded");
-            ViewBag.html = node.OuterHtml;
+		public async Task<IActionResult> Crypto(string url)
+		{
+			//url= HttpUtility.UrlDecode(url);
 
-            return View();
-        }
+			var Webget = new HtmlWeb();
+			var doc = Webget.Load(url);
 
-            public async Task<IActionResult> Ipn()
-        {
-            //var req = Request;
-            //var h = JsonConvert.SerializeObject(req.Headers);
-            //var q = req.QueryString.Value;
-            //var f = JsonConvert.SerializeObject(req.Form);
 
-            //await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "get  " + q + "   headers   " + h + "   form   " + f);
-            return Ok();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Ipn(object obj)
-        {
-            var req = Request;
-            var h = JsonConvert.SerializeObject(req.Headers);
-            var q = req.QueryString.Value;
-            var f = JsonConvert.SerializeObject(req.Form);
-            
-            //await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
-            return Ok();
-        }
-        [HttpPost]
-        public async Task<IActionResult> IpnBack(string addrHolder, decimal amnt)
-        {
-            var req = Request;
-            var forms = req.Form;
-            var status = Convert.ToInt32(forms["status"]);
-            //var req = Request;
-            var h = JsonConvert.SerializeObject(req.Headers);
-            var q = req.QueryString.Value;
-            var f = JsonConvert.SerializeObject(req.Form);
+			//var doc = new HtmlAgilityPack.HtmlDocument();
+			//doc.Load(url);
 
-            //await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
-            if (status == 2 || status>=100)
-            {
-                
+			//IList<HtmlNode> nodes = doc.QuerySelectorAll("div .my-class[data-attr=123] > ul li");
+			//HtmlNode node = nodes[0].QuerySelector("p.with-this-class span[data-myattr]");
+			HtmlNode node = doc.QuerySelector("div.page-row.page-row-expanded");
+			ViewBag.html = node.OuterHtml;
 
-                var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
+			return View();
+		}
+
+		public async Task<IActionResult> Ipn()
+		{
+			//var req = Request;
+			//var h = JsonConvert.SerializeObject(req.Headers);
+			//var q = req.QueryString.Value;
+			//var f = JsonConvert.SerializeObject(req.Form);
+
+			//await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "get  " + q + "   headers   " + h + "   form   " + f);
+			return Ok();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Ipn(object obj)
+		{
+			var req = Request;
+			var h = JsonConvert.SerializeObject(req.Headers);
+			var q = req.QueryString.Value;
+			var f = JsonConvert.SerializeObject(req.Form);
+
+			//await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
+			return Ok();
+		}
+		[HttpPost]
+		public async Task<IActionResult> IpnBack(string addrHolder, decimal amnt)
+		{
+			var req = Request;
+			var forms = req.Form;
+			var status = Convert.ToInt32(forms["status"]);
+			//var req = Request;
+			var h = JsonConvert.SerializeObject(req.Headers);
+			var q = req.QueryString.Value;
+			var f = JsonConvert.SerializeObject(req.Form);
+
+			//await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
+			if (status == 2 || status >= 100)
+			{
+				var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
 				var user = _ctx.Users.First(x => x.Id == wallet.UserId);
 				var userName = user.FirstName + " " + user.LastName;
 				var received_amount = forms["received_amount"].ToString();
 				var currency2 = forms["currency2"].ToString();
 
-				var model = new ViewModels.PaymentConfirmation { UserName=userName,received_amount=received_amount,currency2=currency2};
+				var model = new ViewModels.PaymentConfirmation { UserName = userName, received_amount = received_amount, currency2 = currency2 };
 
 				string viewHtml = await this.RenderViewAsync("paymentConfimation", model);
 				await SendEmail.SendEmailAsync(user.UserName, viewHtml);
 				await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "postBack " + q + "  " + JsonConvert.SerializeObject(req.Form));
 				wallet.TotalCoin = wallet.TotalCoin + amnt;
 
-                var trns = new Models.Transaction
-                {
-                    Id = new Guid(),
-                    CoinAmount = amnt,
-                    CreationDate = DateTime.UtcNow,
-                    FeeInCoinAmount = 0,
-                    FromKey = Admin.PublicKey,//wallet.PublicKey;
-                    Status = EnumType.Pending,
-                    ToKey = addrHolder,
-                    StatusType = EnumType.Buy
-                };
+				var trns = new Models.Transaction
+				{
+					Id = new Guid(),
+					CoinAmount = amnt,
+					CreationDate = DateTime.UtcNow,
+					FeeInCoinAmount = 0,
+					FromKey = Admin.PublicKey,//wallet.PublicKey;
+					Status = EnumType.Pending,
+					ToKey = addrHolder,
+					StatusType = EnumType.Buy
+				};
 
-                var signer = new MessageSigner();
-                var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-                trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
+				var signer = new MessageSigner();
+				var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+				trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
 
 
-                _ctx.Transactions.Add(trns);
+				///
+				var payment = new Models.Payment
+				{
+					Id = forms["txn_id"].ToString(),
+					Ipn_id = forms["ipn_id"].ToString(),
+					CurrencyCode = forms["currency2"].ToString(),
+					Received_amount = forms["received_amount"].ToString(),
+					Fee = forms["fee"].ToString(),
+					NetValue = forms["net"].ToString(),
+					Status = status,
+					AddressToSendCoin = addrHolder,
+					CoinAmount = amnt
+				};
+				_ctx.Payments.Add(payment);
 
-                _ctx.SaveChanges();
-            }
-           
-            
-            return Ok();
-        }
-    }
+
+
+				_ctx.Transactions.Add(trns);
+
+				try
+				{
+					_ctx.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+
+					await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", ex.Message);
+					throw;
+				}
+			}
+
+
+			return Ok();
+		}
+	}
 }

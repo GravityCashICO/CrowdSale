@@ -164,7 +164,24 @@ namespace Gravity.Controllers
             {
                 
                 TempData["msg"] = "Email confirmed successfully!";
-            }
+
+				var ecKey = EthECKey.GenerateKey();//Nethereum.Signer.EthECKey.GenerateKey();
+				var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
+				var account = new Nethereum.Web3.Accounts.Account(privateKey);
+
+				var publicKey = Nethereum.Signer.EthECKey.GetPublicAddress(privateKey);
+
+				var wallet = new Wallet();
+				wallet.Id = new Guid();
+				wallet.CreationDate = DateTime.UtcNow;
+				wallet.PrivateKey = privateKey;
+				wallet.PublicKey = publicKey;
+				wallet.TotalCoin = 0;
+				wallet.UserId = userid;
+				_ctx.Wallets.Add(wallet);
+
+				_ctx.SaveChanges();
+			}
             else
             {
                 TempData["msg"] = "Error while confirming your email!"+Newtonsoft.Json.JsonConvert.SerializeObject(result.Errors); ;

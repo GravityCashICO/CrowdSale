@@ -204,6 +204,7 @@ namespace Gravity
 			mineTrnx.StatusType = totalCoinFee == 0 ? EnumType.Buy : EnumType.Transfer;
 			mineTrnx.TransactionCount = trnxCount;
 			mineTrnx.JsonTransactions = json;
+			mineTrnx.Nonce = result.Nonce;
 
 			_ctx.MineTransactions.Add(mineTrnx);
 		}

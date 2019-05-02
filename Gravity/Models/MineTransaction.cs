@@ -18,5 +18,7 @@ namespace Gravity.Models
         public string StatusType { get; set; }
         public int TransactionCount { get; set; }
         public string JsonTransactions { get; set; }
-    }
+
+		public long Nonce { get; set; }
+	}
 }

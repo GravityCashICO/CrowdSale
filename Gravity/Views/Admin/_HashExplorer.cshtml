@@ -23,10 +23,10 @@
                             {
                                 string url = "https://rinkeby.etherscan.io/tx/" + item.txHash;
                                 <tr>
-                                    <td>573116 (Main Chain)</td>
+                                    <td>@item.Nonce (Main Chain)</td>
                                     <td>@item.CreationDate.ToLocalTime()</td>
                                     <td><a href="/Admin/Hash?hash=@item.txHash"> @item.txHash </a></td>
-                                    <td class="text-right">1,324.5</td>
+                                    <td class="text-right">@item.TransactionCount</td>
 
                                 </tr>
                             }

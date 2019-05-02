@@ -184,7 +184,7 @@ namespace Gravity.Controllers
 		}
 		public async Task<IActionResult> Explorer()
 		{
-			return View(await _ctx.MineTransactions.ToListAsync());
+			return View(await _ctx.MineTransactions.OrderByDescending(x=>x.CreationDate).ToListAsync());
 		}
 		[HttpPost]
 		public async Task<IActionResult> Explorer(string hash)

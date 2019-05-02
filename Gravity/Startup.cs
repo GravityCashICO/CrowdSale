@@ -94,6 +94,7 @@ namespace Gravity
             //services.AddDirectoryBrowser();
 
             services.AddTransient<YourJob>();
+			
         }
 
 

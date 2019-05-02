@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Gravity.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,39 +13,41 @@ using Quartz;
 
 namespace Gravity
 {
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            
-            //CreateWebHostBuilder(args).Build().Run();
-            var host = CreateWebHostBuilder(args).Build();
-            
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+	public class Program
+	{
+		public static async Task Main(string[] args)
+		{
 
-                try
-                {
-                    //var context = services.GetRequiredService<ApplicationDbContext>();
-                    //context.Database.Migrate();
-                    //SeedData.Initialize(services);
-                     await QuartzStartup.Start(services);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }
-            }
-   
-            host.Run();
-        }
-        
+			//CreateWebHostBuilder(args).Build().Run();
+			var host = CreateWebHostBuilder(args).Build();
+
+			using (var scope = host.Services.CreateScope())
+			{
+				var services = scope.ServiceProvider;
+
+				try
+				{
+					var context = services.GetRequiredService<ApplicationDbContext>();
+					Seed.Initial(context);
+					//var context = services.GetRequiredService<ApplicationDbContext>();
+					//context.Database.Migrate();
+					//SeedData.Initialize(services);
+					await QuartzStartup.Start(services);
+				}
+				catch (Exception ex)
+				{
+					var logger = services.GetRequiredService<ILogger<Program>>();
+					logger.LogError(ex, "An error occurred seeding the DB.");
+				}
+			}
+
+			host.Run();
+		}
 
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-    }
+
+		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+			WebHost.CreateDefaultBuilder(args)
+				.UseStartup<Startup>();
+	}
 }

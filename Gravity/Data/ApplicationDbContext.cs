@@ -20,8 +20,9 @@ namespace Gravity.Data
 
         public DbSet<Payment> Payments { get; set; }
         public DbSet<MineTransaction> MineTransactions { get; set; }
+		public DbSet<Info> Infoes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+		protected override void OnModelCreating(ModelBuilder builder)
         {
             foreach (var property in builder.Model.GetEntityTypes()
             .SelectMany(t => t.GetProperties())

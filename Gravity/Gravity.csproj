@@ -245,6 +245,9 @@
     <None Include="wwwroot\node_modules\xmlhttprequest\lib\XMLHttpRequest.js" />
     <None Include="wwwroot\node_modules\xmlhttprequest\LICENSE" />
     <None Include="wwwroot\node_modules\xmlhttprequest\README.md" />
+    <None Include="wwwroot\Scripts\AirDrop.js" />
+    <None Include="wwwroot\Scripts\AutoPush.js" />
+    <None Include="wwwroot\Scripts\test.js" />
     <None Include="wwwroot\vendor\animsition\animsition.min.js" />
     <None Include="wwwroot\vendor\bootstrap-4.1\bootstrap.min.js" />
     <None Include="wwwroot\vendor\bootstrap-4.1\popper.min.js" />

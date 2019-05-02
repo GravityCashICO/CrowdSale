@@ -13,13 +13,14 @@ namespace Gravity.Services
         {
             var smtpClient = new SmtpClient
             {
+
                 Host = "smtp.gmail.com", // set your SMTP server name here
                 Port = 587, // Port 
                 EnableSsl = true,
-                Credentials = new NetworkCredential("telahy@gmail.com", "dhaka123")
+                Credentials = new NetworkCredential("gravitycashonline@gmail.com", "yiwsebyqcwwudlmv")
             };
 
-            using (var message = new MailMessage("telahy@gmail.com", toAddress)
+            using (var message = new MailMessage("gravitycashonline@gmail.com", toAddress)
             {
                 IsBodyHtml = true,
                 Subject = "Gravity Cash",

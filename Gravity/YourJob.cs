@@ -149,7 +149,7 @@ namespace Gravity
 					};
 					json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objAirdrop);
 
-					result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "sendBatchCS", json_obj);
+					result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "sendBatchCS", json_obj, Admin.PrivateKey);
 					AddMineTransaction(result, json_obj, airdrop.Count());  //
 					isAirdropped = true;
 				}
@@ -166,7 +166,7 @@ namespace Gravity
 
 					json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objTransfer);
 
-					result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "transferArray", json_obj);
+					result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "transferArray", json_obj, Admin.PrivateKey);
 					AddMineTransaction(result, json_obj, autoPush.Count());  //
 				}
 

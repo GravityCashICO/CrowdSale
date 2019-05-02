@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.NodeServices;
 using Microsoft.EntityFrameworkCore;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Gravity.Controllers
 {
@@ -243,6 +245,29 @@ namespace Gravity.Controllers
 			Admin.CoinPriceUSD = price;
 			return View(Admin.CoinPriceUSD);
 			//return View(trnxs);
+		}
+		public async Task<IActionResult> TestEmal(string email)
+		{
+			try
+			{
+				//var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+				var client = new SendGridClient("");
+				var msg = new SendGridMessage()
+				{
+					From = new EmailAddress("support@gravitycashonline.com", "DX Team"),
+					Subject = "gravty",
+					//PlainTextContent = "Hello, Email!",
+					HtmlContent = "<strong>Hello, Email!</strong>"
+				};
+				msg.AddTo(new EmailAddress("toufiqelahy@hotmail.com", "Test User"));
+				var response = await client.SendEmailAsync(msg);
+				return Content(Newtonsoft.Json.JsonConvert.SerializeObject(response));
+			}
+			catch (Exception ex)
+			{
+
+				return Content(ex.Message);
+			}
 		}
 	}
 }

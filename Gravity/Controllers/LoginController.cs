@@ -106,6 +106,13 @@ namespace Gravity.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Send(string addr, decimal amnt, decimal feee)//string addrHolder, 
 		{
+			addr = addr.Trim();
+			var v = new Nethereum.Util.AddressUtil();
+			if (v.IsValidEthereumAddressHexFormat(addr) == false)
+			{
+				TempData["msg"] = "Invalid address";
+				return View();
+			}
 			var wallets = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList();
 
 
@@ -126,7 +133,7 @@ namespace Gravity.Controllers
 				wallet.TotalCoin = Convert.ToDecimal(value.ToString());
 				totalCoins += wallet.TotalCoin;
 
-				var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status == EnumType.Pending).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
+				var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status != EnumType.Success).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
 				pendingCoins += pendingTrnx;
 
 				wallet.TotalCoin -= pendingTrnx;

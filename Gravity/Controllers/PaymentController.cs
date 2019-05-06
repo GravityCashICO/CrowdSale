@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Gravity.Controllers
 {
-
+	
 	public class PaymentController : Controller
 	{
 		private readonly ApplicationDbContext _ctx;
@@ -226,11 +226,11 @@ namespace Gravity.Controllers
 			{
 				var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
 				var user = _ctx.Users.First(x => x.Id == wallet.UserId);
-				var userName = user.FirstName + " " + user.LastName;
+				//var userName = user.FirstName + " " + user.LastName;
 				var received_amount = forms["received_amount"].ToString();
 				var currency2 = forms["currency2"].ToString();
 
-				var model = new ViewModels.PaymentConfirmation { UserName = userName, received_amount = received_amount, currency2 = currency2 };
+				var model = new ViewModels.PaymentConfirmation { UserName = user.FirstName + " " + user.LastName, received_amount = received_amount, currency2 = currency2 };
 
 				string viewHtml = await this.RenderViewAsync("paymentConfimation", model);
 				await SendEmail.SendEmailAsync(user.UserName, viewHtml);

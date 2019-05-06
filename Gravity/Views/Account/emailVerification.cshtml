@@ -3,6 +3,7 @@
 <!doctype html>
 @{
     Layout = null;
+    var user = Model.UserName.Trim() == "" ? "User" : Model.UserName;
 }
 <html>
 <head>
@@ -21,7 +22,7 @@
             </tr>
             <tr>
                 <td colspan="2" style="padding:30px 30px 10px 30px;line-height:1.8;font-family:open sans,Arial,sans-serif" align="left">
-                    <p>Dear, @Model.UserName</p>
+                    <p>Dear, @user</p>
 
                     <p>Welcome to Gravitycash online wallet account. Almost done to complete your Gravitycash online wallet  sign up, we just need to verify your email address: <a href="mailto:support@gravitycash.org">@Model.Email</a>.</p>
                     <p>To verify your email please follow the link below:</p>

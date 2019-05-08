@@ -54,7 +54,7 @@ namespace Gravity.Controllers
 					string viewHtml = await this.RenderViewAsync("emailVerification", model);
 					await SendEmail.SendEmailAsync(user.UserName, viewHtml);
 					//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-					TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent...";
+					TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent."+Admin.EmailNotice;
 					return View();
 				}
 			}
@@ -112,7 +112,7 @@ namespace Gravity.Controllers
 				string viewHtml = await this.RenderViewAsync("emailVerification", model);
 				await SendEmail.SendEmailAsync(user.UserName, viewHtml);
 				//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-				TempData["msg"] = "A Confirmation email already sent...Check your Email.";
+				TempData["msg"] = "A Confirmation email already sent...Check your Email." + Admin.EmailNotice;
 				return RedirectToAction(nameof(AccountController.Login), "Account");
 				//await _signInManager.SignInAsync(user, isPersistent: false);
 				//_logger.LogInformation(3, "User created a new account with password.");
@@ -143,7 +143,7 @@ namespace Gravity.Controllers
 			string viewHtml = await this.RenderViewAsync("emailVerification", model);
 			await SendEmail.SendEmailAsync(user.UserName, viewHtml);
 			//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-			TempData["msg"] = "A Confirmation email already sent... <a href=\"" + resendUrl + "\">Send Again</a>";
+			TempData["msg"] = "A Confirmation email already sent." + Admin.EmailNotice;
 			return RedirectToAction(nameof(AccountController.Login), "Account");
 
 		}
@@ -213,7 +213,7 @@ namespace Gravity.Controllers
 			await SendEmail.SendEmailAsync(user.UserName, viewHtml);
 
 
-			TempData["msg"] = "Check your email!";
+			TempData["msg"] = "Check your email!" + Admin.EmailNotice;
 
 			return RedirectToAction("Login");
 		}

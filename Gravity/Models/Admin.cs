@@ -37,5 +37,7 @@ namespace Gravity.Models
 
 		public static string PublicKeyCP = "";
 		public static string PrivateKeyCP = "";
+
+		public const string EmailNotice = ".You Will Receieve Email Exactly 1 Minute Later. Thanks For The Patient.";
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Web;
 using Gravity.Data;
@@ -14,12 +15,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Signer;
+using Nethereum.StandardTokenEIP20.ContractDefinition;
 using Nethereum.Web3;
 using Newtonsoft.Json;
 
 namespace Gravity.Controllers
 {
-	
+
 	public class PaymentController : Controller
 	{
 		private readonly ApplicationDbContext _ctx;
@@ -31,8 +33,17 @@ namespace Gravity.Controllers
 		{
 			return View();
 		}
+
 		public async Task<IActionResult> BuyCustom(double amnt, string code)
 		{
+			var total = await Nether.GetBalance(Admin.PublicKey);
+			if (Convert.ToDecimal(amnt) > total)
+			{
+				TempData["msg"] = total + " GCH Coin Exists For ICO Sale.";
+				return RedirectToAction("Custom");
+			}
+
+
 			var wallet = _ctx.Wallets.First();
 
 			int percentage = 0;
@@ -72,14 +83,22 @@ namespace Gravity.Controllers
 
 		public async Task<IActionResult> BuyPackage(int pkgId, string code)
 		{
-			var wallet = _ctx.Wallets.First();
-
 			var package = await _ctx.Packages
 				.FirstAsync(m => m.Id == pkgId);
 
 			var amount = package.PriceInUSD;
 			var coin = (1 / Admin.CoinPriceUSD) * amount;
 			var bonus = (coin * package.ExtraCoinPercentage) / 100;
+			//validate
+			var total = await Nether.GetBalance(Admin.PublicKey);
+			if (Convert.ToDecimal(coin + bonus) > total)
+			{
+				TempData["msg"] = total + " GCH Coin Exists For ICO Sale.";
+				return RedirectToAction("Custom");
+			}
+
+			var wallet = _ctx.Wallets.First();
+
 			//amnt = amnt * .005;//fee .5% fee
 			var cmd = "create_transaction";
 

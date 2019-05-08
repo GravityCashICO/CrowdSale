@@ -19,7 +19,7 @@ namespace Gravity.Services
 				var client = new SendGridClient(apiKey);
 				var msg = new SendGridMessage()
 				{
-					From = new EmailAddress("support@gravitycashonline.com", "GravityCash Team"),
+					From = new EmailAddress("no-reply@gravitycashonline.com", "GravityCash Team"),
 					Subject = "Gravity Cash",
 					//PlainTextContent = "Hello, Email!",
 					HtmlContent = body
@@ -34,18 +34,18 @@ namespace Gravity.Services
 			}
 			return true;
 		}
-			public static async Task<bool> SendEmailAsyncOld(string toAddress, string body)
+			public static async Task<bool> SendEmailAsyncn(string toAddress, string body)
         {
-            var smtpClient = new SmtpClient
-            {
+			var smtpClient = new SmtpClient
+			{
 
-                Host = "smtp.gmail.com", // set your SMTP server name here
-                Port = 587, // Port 
-                EnableSsl = true,
-                Credentials = new NetworkCredential("gravitycashonline@gmail.com", "yiwsebyqcwwudlmv")
+				Host = "smtp-pulse.com", // set your SMTP server name here
+				Port = 2525, // Port 
+				EnableSsl = true,
+				Credentials = new NetworkCredential("toufiqelahy3@gmail.com", "LAPLt6MbmGbTL")//"gravitycashonline@gmail.com", "yiwsebyqcwwudlmv")
             };
 
-            using (var message = new MailMessage("gravitycashonline@gmail.com", toAddress)
+            using (var message = new MailMessage("support@gravitycashonline.com", toAddress)
             {
                 IsBodyHtml = true,
                 Subject = "Gravity Cash",

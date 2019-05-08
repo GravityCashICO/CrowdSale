@@ -88,11 +88,12 @@
                 <div class="card-header"><h3>Buy (GCH)</h3></div>
 
                 <div class="card-body">
+                    <div style="color:red" id="msgErr">@TempData["msg"]</div>
                     <form class="forms-sample">
 
                         <div class="form-group">
                             <label for="amnt">USD Amount </label>
-                            <input required type="number" class="form-control" id="amnt" name="amnt" placeholder="USD Amount ">
+                            <input required type="number" max="1000000" class="form-control" id="amnt" name="amnt" placeholder="USD Amount ">
                         </div>
 
                         <div class="form-group">
@@ -131,16 +132,31 @@
 
 </div>
 <script>
-        function func() {
+    var $err = $('#msgErr');
+    var val = 0;
+    balancePromise=contract.balanceOf('@Admin.PublicKey');
+    balancePromise.then((blnc) => {
+        val = parseInt(blnc.toString()) / 10 ** 18;
+});
+    //val = parseInt(val.toString()) / 10 ** 18;
+
+    function func() {
+        var amnt = $('#amnt').val();
+        if (amnt > val || amnt > 1000000) {
+            $err.html(' Please Validate.')
+        } else {
             window.location.href = '/Payment/BuyCustom?amnt=' + $('#amnt').val() + '&code=' + $('#code').val();
+        }
+
             }
 
     $(function () {
 
+
         $('#amnt').keyup(function () {
 
-        var percentage = 0;
-        var amnt = $('#amnt').val();
+            var percentage = 0;
+            var amnt = $('#amnt').val();
 			if (amnt > 2000)
 			{
 				percentage = 22;//22%
@@ -148,9 +164,20 @@
 
 			var amount = amnt;
 			var coin = (1 / @Admin.CoinPriceUSD) * amount;
-        var bonus = (coin * percentage) / 100;
-        $('#coin').val(coin);
+            var bonus = (coin * percentage) / 100;
+            $('#coin').val(coin);
             $('#bonus').val(bonus);
-            })
+
+            if (amnt > val) {
+                $err.html(val + ' GCH Coin Exists For ICO Sale.')
+            } else if(amnt > 1000000) {
+                $err.html("Can't buy more tan 1 Million");
+            }else {
+                $err.html('');
+            }
+
+        })
+
+
     })
 </script>

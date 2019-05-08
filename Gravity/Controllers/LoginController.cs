@@ -121,16 +121,17 @@ namespace Gravity.Controllers
 			decimal pendingCoins = 0;
 
 
-			var web3 = new Web3(Admin.InfuraUrl);
-			var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
+			//var web3 = new Web3(Admin.InfuraUrl);
+			//var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
 
 			foreach (var wallet in wallets)
 			{
-				var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
-				var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
-				var value = Web3.Convert.FromWeiToBigDecimal(balance);
+				//var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
+				//var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
+				//var value = Web3.Convert.FromWeiToBigDecimal(balance);
 
-				wallet.TotalCoin = Convert.ToDecimal(value.ToString());
+				//wallet.TotalCoin = Convert.ToDecimal(value.ToString());
+				wallet.TotalCoin =await Nether.GetBalance(wallet.PublicKey);
 				totalCoins += wallet.TotalCoin;
 
 				var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status != EnumType.Success).Sum(x => x.FeeInCoinAmount + x.CoinAmount);

@@ -90,7 +90,41 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script>
         $(function () {
-            $("form:last").validate();
+            $.validator.addMethod("RequireDigit", function(value, element) {
+                return /([0-9])/.test(value);
+            }, " Requires a number between 0-9 in the password.");
+
+            $.validator.addMethod("RequireLowercase", function(value, element) {
+                return /[a-z]/.test(value);
+            }, " Requires a lowercase character in the password.");
+
+            $.validator.addMethod("RequireNonAlphanumeric", function(value, element) {
+                return /[^a-zA-Z 0-9]+/g.test(value);
+            }, " Requires a non-alphanumeric character in the password.");
+
+            $.validator.addMethod("RequiredUniqueChars", function(value, element) {
+                return /([~,!,@@,#,$,%,^,&,*,-,_,+,=,?,>,<])/.test(value);
+            }, " Requires the number of special characters in the password.");
+
+            $.validator.addMethod("RequireUppercase", function(value, element) {
+                return /[A-Z]/.test(value);
+            }, " Requires an uppercase character in the password.");
+
+
+            $("form:last").validate({
+                rules: {
+                    password: {
+                        minlength: 6,//RequiredLength
+                        RequireLowercase: true,
+                        RequireDigit: true,
+                        RequiredUniqueChars: true,
+                        RequireUppercase: true,
+                        RequireNonAlphanumeric: true
+                        
+                    }
+                }
+            });
+
         })
     </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

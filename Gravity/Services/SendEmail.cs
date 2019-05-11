@@ -13,6 +13,11 @@ namespace Gravity.Services
     {
 		public static async Task<bool> SendEmailAsync(string toAddress, string body)
 		{
+			#if DEBUG
+				return await SendEmailAsyncn(toAddress,body);
+#else
+					
+			
 			try
 			{
 				var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
@@ -25,6 +30,9 @@ namespace Gravity.Services
 					HtmlContent = body
 				};
 				msg.AddTo(new EmailAddress(toAddress, "GravityCash User"));
+				// Disable click tracking.
+				// See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
+				msg.SetClickTracking(false, false);
 				var response = await client.SendEmailAsync(msg);
 			}
 			catch (Exception ex)
@@ -33,19 +41,22 @@ namespace Gravity.Services
 				throw ex;
 			}
 			return true;
+
+#endif
 		}
-			public static async Task<bool> SendEmailAsyncn(string toAddress, string body)
+		public static async Task<bool> SendEmailAsyncn(string toAddress, string body)
         {
 			var smtpClient = new SmtpClient
 			{
 
-				Host = "smtp-pulse.com", // set your SMTP server name here
-				Port = 2525, // Port 
+				Host = "smtp.gmail.com", // set your SMTP server name here
+				Port = 587, // Port 
 				EnableSsl = true,
-				Credentials = new NetworkCredential("toufiqelahy3@gmail.com", "LAPLt6MbmGbTL")//"gravitycashonline@gmail.com", "yiwsebyqcwwudlmv")
+				
+				Credentials = new NetworkCredential("gravitycashonline@gmail.com", "yiwsebyqcwwudlmv")
             };
 
-            using (var message = new MailMessage("support@gravitycashonline.com", toAddress)
+            using (var message = new MailMessage("gravitycashonline@gmail.com", toAddress)
             {
                 IsBodyHtml = true,
                 Subject = "Gravity Cash",

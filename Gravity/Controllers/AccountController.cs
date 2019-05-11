@@ -9,6 +9,8 @@ using System;
 using Gravity.Data;
 using Gravity.Helpers;
 using System.Linq;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Gravity.Controllers
 {
@@ -54,7 +56,7 @@ namespace Gravity.Controllers
 					string viewHtml = await this.RenderViewAsync("emailVerification", model);
 					await SendEmail.SendEmailAsync(user.UserName, viewHtml);
 					//await SendEmail.SendEmailAsync(email, "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-					TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent."+Admin.EmailNotice;
+					TempData["msg"] = "Need Email Confirmation. A Confirmation email already sent." + Admin.EmailNotice;
 					return View();
 				}
 			}
@@ -95,6 +97,23 @@ namespace Gravity.Controllers
 		[Route("Register")]
 		public async Task<IActionResult> Register(string email, string password)
 		{
+			using (var client = new HttpClient())
+			{
+				var response = await client.GetAsync("https://disposable.debounce.io/?email=" + email);
+
+				using (var content = response.Content)
+				{
+					var json = await content.ReadAsStringAsync();
+					dynamic rslt = JsonConvert.DeserializeObject(json);
+					bool v = rslt.disposable;
+					if (v == true)
+					{
+						TempData["msg"] = "Temporary Email Not Accepted";
+						return View();
+					}
+				}
+
+			}
 
 			var user = new ApplicationUser { UserName = email, Email = email };
 			var result = await _userManager.CreateAsync(user, password);

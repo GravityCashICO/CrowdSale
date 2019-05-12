@@ -13,8 +13,9 @@ namespace Gravity.Models
 
         public static string Processing = "Processing";
 
-        
-        public static string Buy = "Buy";//Transaction.StatusType
+
+		public static string Reward = "Reward";//Transaction.StatusType
+		public static string Buy = "Buy";//Transaction.StatusType
         public static string Transfer = "Transfer";//Transaction.StatusType
         //public static string Send = "Send";
         //public static string Receive = "Receive";

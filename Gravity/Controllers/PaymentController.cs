@@ -268,9 +268,9 @@ namespace Gravity.Controllers
 					StatusType = EnumType.Buy
 				};
 
-				var signer = new MessageSigner();
-				var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-				trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
+				//var signer = new MessageSigner();
+				//var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+				//trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
 
 
 				///

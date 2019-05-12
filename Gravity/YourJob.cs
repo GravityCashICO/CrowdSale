@@ -115,7 +115,7 @@ namespace Gravity
 		}
 		public async Task<bool> AirDrop()
 		{
-			var airdrop = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending && x.StatusType == EnumType.Buy).OrderBy(x => x.CreationDate).Take(500).ToListAsync();
+			var airdrop = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending && (x.StatusType == EnumType.Buy || x.StatusType == EnumType.Reward)).OrderBy(x => x.CreationDate).Take(500).ToListAsync();
 			if (airdrop.Count <= 0)
 			{
 				return true;

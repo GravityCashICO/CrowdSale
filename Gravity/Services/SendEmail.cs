@@ -32,7 +32,7 @@ namespace Gravity.Services
 				msg.AddTo(new EmailAddress(toAddress, "GravityCash User"));
 				// Disable click tracking.
 				// See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
-				msg.SetClickTracking(false, false);
+				//msg.SetClickTracking(false, false);
 				var response = await client.SendEmailAsync(msg);
 			}
 			catch (Exception ex)

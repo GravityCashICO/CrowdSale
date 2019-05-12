@@ -1,0 +1,144 @@
+﻿@{ 
+    string userId =User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+}
+<!-- BREADCRUMB-->
+<section class="au-breadcrumb m-t-75">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="au-breadcrumb-content">
+                        <div class="au-breadcrumb-left">
+                            <span class="au-breadcrumb-span">You are here:</span>
+                            <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                <li class="list-inline-item active">
+                                    <a href="#">Referral</a>
+                                </li>
+                                <li class="list-inline-item seprate">
+                                    <span>/</span>
+                                </li>
+                                <li class="list-inline-item">Link</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END BREADCRUMB-->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=224514934765227&autoLogAppEvents=1"></script>
+
+<section>
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Whoever Sign-Up using this Referral Link Both User will get @Admin.referralReward Coins as Referral Reward and Sign-Up Reward is: @Admin.signupReward Coins</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            @using (Html.BeginForm())
+                            {
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="email-input" class=" form-control-label">Referral Link: </label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        @*<input type="password" id="password" required name="password" placeholder="New Password" class="form-control">*@
+                                        <a href="#" class="help-block form-text"> https://www.gravitycashonline.com/Account/Register?referral=@userId </a>
+                                    </div>
+                                </div>
+                                @*<div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="password-input" class=" form-control-label">Confirm Password</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="password" id="confirmpassword" required name="confirmpassword" placeholder="Confirm Password" class="form-control">
+                                        <small class="help-block form-text">Please enter a confirm password</small>
+                                    </div>
+                                </div>*@
+
+                                <div class="fb-share-button" data-href="https://www.gravitycashonline.com/Account/Register?referral=@userId" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.gravitycashonline.com%2FAccount%2FRegister%3Freferral%3D@(userId)&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share Referral</a></div>
+
+                                @*<div class="row form-group">
+                <div class="col col-md-3">
+
+                </div>
+                <div class="col-12 col-md-9">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                </div>
+            </div>*@
+
+                            }
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- END PAGE CONTAINER-->
+<script>
+    $(function () {
+
+        $.validator.addMethod("RequireDigit", function (value, element) {
+            return /([0-9])/.test(value);
+        }, " Requires a number between 0-9 in the password.");
+
+        $.validator.addMethod("RequireLowercase", function (value, element) {
+            return /[a-z]/.test(value);
+        }, " Requires a lowercase character in the password.");
+
+        $.validator.addMethod("RequireNonAlphanumeric", function (value, element) {
+            return /[^a-zA-Z 0-9]+/g.test(value);
+        }, " Requires a non-alphanumeric character in the password.");
+
+        $.validator.addMethod("RequiredUniqueChars", function (value, element) {
+            return /([~,!,@@,#,$,%,^,&,*,-,_,+,=,?,>,<])/.test(value);
+        }, " Requires the number of special characters in the password.");
+
+        $.validator.addMethod("RequireUppercase", function (value, element) {
+            return /[A-Z]/.test(value);
+        }, " Requires an uppercase character in the password.");
+
+
+        $("form:last").validate({
+            rules: {
+                password: {
+                    minlength: 6,//RequiredLength
+                    RequireLowercase: true,
+                    RequireDigit: true,
+                    RequiredUniqueChars: true,
+                    RequireUppercase: true,
+                    RequireNonAlphanumeric: true
+
+                },
+                confirmpassword: {
+                    equalTo: "#password"
+                }
+            }
+        });
+    })
+</script>
+

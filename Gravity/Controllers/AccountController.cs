@@ -122,7 +122,7 @@ namespace Gravity.Controllers
 				// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
 				// Send an email with this link
 				var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-				var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code }, protocol: HttpContext.Request.Scheme);
+				var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = code, referral = Request.Query["referral"].ToString() }, protocol: HttpContext.Request.Scheme);
 
 				//var resendUrl = Url.Action("ReSendEmail", "Account", new { email }, protocol: HttpContext.Request.Scheme);
 
@@ -182,7 +182,6 @@ namespace Gravity.Controllers
 						ConfirmEmailAsync(user, token).Result;
 			if (result.Succeeded)
 			{
-
 				TempData["msg"] = "Email confirmed successfully!";
 
 				var ecKey = EthECKey.GenerateKey();//Nethereum.Signer.EthECKey.GenerateKey();
@@ -196,9 +195,22 @@ namespace Gravity.Controllers
 				wallet.CreationDate = DateTime.UtcNow;
 				wallet.PrivateKey = privateKey;
 				wallet.PublicKey = publicKey;
-				wallet.TotalCoin = 0;
+				wallet.TotalCoin = Admin.signupReward;
 				wallet.UserId = userid;
 				_ctx.Wallets.Add(wallet);
+
+				var referral = Request.Query["referral"].ToString().Trim();
+				if (referral != "")
+				{
+					var referredUser = _userManager.FindByIdAsync(referral).Result;
+					if (referredUser != null)
+					{
+						var referredUserAddr = _ctx.Wallets.First(x => x.UserId == referredUser.Id).PublicKey;
+						AddRewardTrnx(Admin.referralReward, referredUserAddr);//referral
+						AddRewardTrnx(Admin.referralReward, wallet.PublicKey);//referral
+					}
+				}
+				AddRewardTrnx(Admin.signupReward, wallet.PublicKey);//signupReward
 
 				_ctx.SaveChanges();
 			}
@@ -207,6 +219,22 @@ namespace Gravity.Controllers
 				TempData["msg"] = "Error while confirming your email!" + result.Errors.First().Description;
 			}
 			return RedirectToAction("Login");
+		}
+		private void AddRewardTrnx(int amnt,string addrHolder)
+		{
+			var trns = new Models.Transaction
+			{
+				Id = new Guid(),
+				CoinAmount = amnt,
+				CreationDate = DateTime.UtcNow,
+				FeeInCoinAmount = 0,
+				FromKey = Admin.PublicKey,//wallet.PublicKey;
+				Status = EnumType.Pending,
+				ToKey = addrHolder,
+				StatusType = EnumType.Reward
+			};
+
+			_ctx.Transactions.Add(trns);
 		}
 
 		[Route("ForgetPass")]
@@ -260,6 +288,12 @@ namespace Gravity.Controllers
 				TempData["msg"] = "Error while confirming your password!" + result.Errors.First().Description;
 			}
 			return RedirectToAction("Login");
+		}
+		[Authorize]
+		[Route("Referral")]
+		public IActionResult Referral()
+		{
+			return View();
 		}
 	}
 }

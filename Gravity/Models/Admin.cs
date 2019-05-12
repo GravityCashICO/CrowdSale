@@ -39,5 +39,17 @@ namespace Gravity.Models
 		public static string PrivateKeyCP = "";
 
 		public const string EmailNotice = ".You Will Receieve Email Exactly 1 Minute Later. Thanks For The Patient.";
+
+
+		//rewards
+		public static int signupReward = 5;
+		public static int referralReward = 2;
+
+		public static int fbShareReward = 5;
+		public static int redditShareReward = 5;
+		public static int twitterShareReward = 5;
+		public static int instagramShareReward = 5;
+
+		public static int teleramJoinReward = 5;
 	}
 }

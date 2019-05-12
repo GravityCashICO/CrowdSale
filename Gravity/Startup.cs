@@ -41,7 +41,7 @@ namespace Gravity
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnectionStaging")));
 
             //services.AddDbContext<ApplicationDbContext>(context => { context.UseInMemoryDatabase("DefaultConnection"); });
 

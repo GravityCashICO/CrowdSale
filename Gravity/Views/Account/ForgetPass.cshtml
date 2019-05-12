@@ -48,6 +48,7 @@
                         <p>We will send you a link to reset password.</p>
                         @using (Html.BeginForm(FormMethod.Post, new { @class = "stopAjax" }))
                         {
+                            <div style="color:red">@TempData["msg"]</div>
                             <div class="form-group">
                                 <input type="email" name="email" class="form-control" placeholder="Your email address" required="">
                                 <i class="ik ik-mail"></i>

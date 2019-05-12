@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gravity.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190502072028_infoTbl")]
-    partial class infoTbl
+    [Migration("20190512205143_Initially")]
+    partial class Initially
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,6 +122,8 @@ namespace Gravity.Data.Migrations
                     b.Property<string>("JsonTransactions");
 
                     b.Property<DateTime>("LastTransactinTime");
+
+                    b.Property<long>("Nonce");
 
                     b.Property<string>("StatusType");
 

@@ -13,14 +13,14 @@ namespace Gravity.Services
     {
 		public static async Task<bool> SendEmailAsync(string toAddress, string body)
 		{
-			#if DEBUG
-				return await SendEmailAsyncn(toAddress,body);
-#else
-					
-			
 			try
 			{
-				var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+#if DEBUG
+				var apiKey = "SG.00gJ5MRCQkS7XGOkreAzxQ.owMQbefWGuseohJDMMjQTV2GDD0-e9oPr-B-VGxJUeo";
+#else
+					var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+#endif
+
 				var client = new SendGridClient(apiKey);
 				var msg = new SendGridMessage()
 				{
@@ -42,8 +42,8 @@ namespace Gravity.Services
 			}
 			return true;
 
-#endif
-		}
+
+			}
 		public static async Task<bool> SendEmailAsyncn(string toAddress, string body)
         {
 			var smtpClient = new SmtpClient

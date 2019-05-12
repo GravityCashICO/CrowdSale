@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+	
+  
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-Gravity-8780EC55-0A7A-4C6F-A218-2132C05527FF</UserSecretsId>
@@ -19,6 +20,13 @@
     <Content Remove="wwwroot\themekit\**" />
     <EmbeddedResource Remove="wwwroot\themekit\**" />
     <None Remove="wwwroot\themekit\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190512200736_tri.cs" />
+    <Compile Remove="Data\Migrations\20190512200736_tri.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190512204911_Initially.cs" />
+    <Compile Remove="Data\Migrations\20190512204911_Initially.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

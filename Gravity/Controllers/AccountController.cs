@@ -247,6 +247,11 @@ namespace Gravity.Controllers
 		public async Task<IActionResult> ForgetPass(string email)
 		{
 			var user = _userManager.FindByNameAsync(email).Result;
+			if (user == null)
+			{
+				TempData["msg"] = "User Not Exists";
+				return RedirectToAction("ForgetPass");
+			}
 			var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 			var callbackUrl = Url.Action("ChangePass", "Account", new { email, token = code }, protocol: HttpContext.Request.Scheme);
 			//await _emailSender.SendEmailAsync(model.Email, "Confirm your account",

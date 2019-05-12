@@ -178,7 +178,13 @@ namespace Gravity.Controllers
 		public IActionResult ConfirmEmail(string userid, string token)
 		{
 			var user = _userManager.FindByIdAsync(userid).Result;
-			IdentityResult result = _userManager.
+			if (_userManager.IsEmailConfirmedAsync
+					 (user).Result)
+			{
+				TempData["msg"] = "Email Already Confirmed!";
+				return RedirectToAction("Login");
+			}
+				IdentityResult result = _userManager.
 						ConfirmEmailAsync(user, token).Result;
 			if (result.Succeeded)
 			{

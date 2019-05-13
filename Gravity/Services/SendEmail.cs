@@ -16,7 +16,7 @@ namespace Gravity.Services
 			try
 			{
 #if DEBUG
-				var apiKey = "SG.00gJ5MRCQkS7XGOkreAzxQ.owMQbefWGuseohJDMMjQTV2GDD0-e9oPr-B-VGxJUeo";
+				var apiKey = "";
 #else
 					var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
 #endif

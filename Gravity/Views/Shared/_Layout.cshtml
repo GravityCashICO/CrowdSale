@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html class="no-js" lang="en">
 
-<!-- Mirrored from themekit.lavalite.org/demo/pages/table="~/demo/node_modules/-bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:17:51 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -57,29 +57,34 @@
         </header>
 
         <div class="page-wrap">
-            <div class="app-sidebar colored">
-                <div class="sidebar-header">
-                    <a class="header-brand" href="/">
-                        <div class="logo-img">
-                            <img src="~/demo/img/logo/logo-white.png" class="header-brand-img" alt="Gravity Cash">
-                        </div>
-                        <span class="text"></span>
-                    </a>
-                    <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="app-sidebar colored">
+                    <div class="sidebar-header">
+                        <a class="header-brand" href="/">
+                            <div class="logo-img">
+                                <img src="~/demo/img/logo/logo-white.png" class="header-brand-img" alt="Gravity Cash">
+                            </div>
+                            <span class="text"></span>
+                        </a>
+                        <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+                    </div>
+
+                    <div class="sidebar-content">
+                        <partial name="_SideMenu" />
+                    </div>
+                    
+                </div>
+            }
+
+                <div class="main-content">
+                    <div id="toufiqElahy">@RenderBody()</div>
                 </div>
 
-                <div class="sidebar-content">
-                    <partial name="_SideMenu" />
-                </div>
+                <footer class="footer">
+                    <partial name="_Footer" />
+                </footer>
             </div>
-            <div class="main-content">
-                <div id="toufiqElahy">@RenderBody()</div>
-            </div>
-
-            <footer class="footer">
-                <partial name="_Footer" />
-            </footer>
-        </div>
     </div>
 
 
@@ -108,5 +113,5 @@
         </script>*@
 </body>
 
-<!-- Mirrored from themekit.lavalite.org/demo/pages/table-bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Apr 2019 13:17:51 GMT -->
+
 </html>

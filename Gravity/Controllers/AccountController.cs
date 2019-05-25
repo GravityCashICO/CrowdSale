@@ -216,7 +216,7 @@ namespace Gravity.Controllers
 						AddRewardTrnx(Admin.referralReward, wallet.PublicKey);//referral
 					}
 				}
-				AddRewardTrnx(Admin.signupReward, wallet.PublicKey);//signupReward
+				//AddRewardTrnx(Admin.signupReward, wallet.PublicKey);//signupReward
 
 				_ctx.SaveChanges();
 			}
@@ -303,6 +303,12 @@ namespace Gravity.Controllers
 		[Authorize]
 		[Route("Referral")]
 		public IActionResult Referral()
+		{
+			return View();
+		}
+		[Authorize]
+		[Route("GetFreeCoin")]
+		public IActionResult GetFreeCoin()
 		{
 			return View();
 		}

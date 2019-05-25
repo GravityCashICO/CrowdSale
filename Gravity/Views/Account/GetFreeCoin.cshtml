@@ -1,0 +1,35 @@
+﻿<div class="fb-like" data-href="https://www.facebook.com/gravitycashsocial/" data-layout="button_count" data-onshare="fshare" data-onlike="flike" data-action="like" data-size="large" data-show-faces="true" data-share="false"></div>
+<div id="fb-root"></div>
+
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1981411565453560',
+            status: true,
+            cookie: true,
+            xfbml: true,
+            oauth: true
+        });
+        FB.Event.subscribe('edge.create', function (response) {
+            alert('You liked the URL: ' + response);
+
+        });
+    };
+    (function (d) {
+        var js, id = 'facebook-jssdk';
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
+
+</script>
+<script>
+    function flike() {
+        alert('');
+    }
+</script>

@@ -3,9 +3,15 @@
     <div class="d-flex justify-content-between">
         <div class="top-menu d-flex align-items-center">
             <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
-            
-
-            
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="header-brand" href="/">
+                    <div class="logo-img">
+                        <img src="~/demo/img/logo/logo-white.png" class="header-brand-img" alt="Gravity Cash">
+                    </div>
+                    <span class="text"></span>
+                </a>
+            }
         </div>
         <div class="top-menu d-flex align-items-center">
    

@@ -83,10 +83,10 @@
 
 <script>
     $(function () {
-        //$('a[href^="/"]').each(function () {
+        $('a[href^="/block/"],a[href^="/token/"],a[href^="/address/"],a[href^="/login/"]').each(function () {
             
-        //    $(this).attr('href', '#');
-        //})
+            $(this).attr('href', '#');
+        })
         
     })
 </script>

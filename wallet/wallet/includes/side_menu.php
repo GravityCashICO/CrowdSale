@@ -27,10 +27,14 @@
                                     <a href="security.php"><i class="ik ik-shield"></i><span>Account Security</span> </a>
                             </div>
 								
+								
+									<div class="nav-item">
+                                    <a href="referral.php"><i class="ik ik-send"></i><span>Send Referral</span> </a>
+                            </div>
+                             
 									<div class="nav-item">
                                     <a href="../index.php"><i class="ik ik-power"></i><span>Logout</span> </a>
                             </div>
-                             
                             
                          
                           

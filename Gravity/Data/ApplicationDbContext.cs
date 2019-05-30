@@ -21,6 +21,7 @@ namespace Gravity.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<MineTransaction> MineTransactions { get; set; }
 		public DbSet<Info> Infoes { get; set; }
+		public DbSet<Referral> Referrals { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
         {

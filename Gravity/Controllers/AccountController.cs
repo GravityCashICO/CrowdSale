@@ -208,12 +208,27 @@ namespace Gravity.Controllers
 				var referral = Request.Query["referral"].ToString().Trim();
 				if (referral != "")
 				{
-					var referredUser = _userManager.FindByIdAsync(referral).Result;
+					var referredUser = _userManager.FindByIdAsync(referral).Result;//the user who shared
 					if (referredUser != null)
 					{
 						var referredUserAddr = _ctx.Wallets.First(x => x.UserId == referredUser.Id).PublicKey;
 						AddRewardTrnx(Admin.referralReward, referredUserAddr);//referral
 						AddRewardTrnx(Admin.referralReward, wallet.PublicKey);//referral
+
+						var email = user.Email;
+						var refferal = _ctx.Referrals.FirstOrDefault(x => x.Email == email);
+						if (refferal == null)
+						{
+							refferal = new Referral();
+							refferal.Email = email;
+							refferal.Invitation = "Another Source";
+							refferal.UserId = referredUser.Id;
+
+							_ctx.Referrals.Add(refferal);
+							//_ctx.SaveChanges();
+						}
+						refferal.Status = "Active";
+						refferal.Bonus = "Success";
 					}
 				}
 				//AddRewardTrnx(Admin.signupReward, wallet.PublicKey);//signupReward
@@ -302,9 +317,29 @@ namespace Gravity.Controllers
 		}
 		[Authorize]
 		[Route("Referral")]
-		public IActionResult Referral()
+		public async Task<IActionResult> Referral(string email=null)
 		{
-			return View();
+			var userId= User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+			if (email != null)
+			{
+				var refferal = _ctx.Referrals.FirstOrDefault(x => x.Email == email);
+				if (refferal == null)
+				{
+					refferal = new Referral();
+					refferal.Email = email;
+					refferal.Status = "Unverified";
+					refferal.Invitation = "Sent";
+					refferal.Bonus = "Pending";
+					refferal.UserId= userId;
+
+					_ctx.Referrals.Add(refferal);
+					_ctx.SaveChanges();
+				}
+				var callbackUrl = Url.Action("Register", "Account", new { referral = refferal.UserId }, protocol: HttpContext.Request.Scheme);
+				//string viewHtml = "";
+				await SendEmail.SendEmailAsync(email, callbackUrl);
+			}
+			return View(_ctx.Referrals.Where(x=>x.UserId==userId).ToList());
 		}
 		[Authorize]
 		[Route("GetFreeCoin")]

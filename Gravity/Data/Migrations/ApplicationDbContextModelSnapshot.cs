@@ -186,6 +186,31 @@ namespace Gravity.Data.Migrations
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("Gravity.Models.Referral", b =>
+                {
+                    b.Property<string>("Email")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Bonus");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Invitation");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.Property<string>("UserId1");
+
+                    b.HasKey("Email");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Referrals");
+                });
+
             modelBuilder.Entity("Gravity.Models.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
@@ -348,6 +373,13 @@ namespace Gravity.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Gravity.Models.Referral", b =>
+                {
+                    b.HasOne("Gravity.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Gravity.Models.Wallet", b =>

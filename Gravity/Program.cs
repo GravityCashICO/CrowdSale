@@ -32,7 +32,7 @@ namespace Gravity
 					//var context = services.GetRequiredService<ApplicationDbContext>();
 					//context.Database.Migrate();
 					//SeedData.Initialize(services);
-					await QuartzStartup.Start(services);
+					//await QuartzStartup.Start(services);
 				}
 				catch (Exception ex)
 				{

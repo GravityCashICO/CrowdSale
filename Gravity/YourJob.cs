@@ -64,10 +64,109 @@ namespace Gravity
 				.Build();
 
 			await _scheduler.ScheduleJob(yourJob, yourJobTrigger);
+
+			//reward
+			var rewardJob = JobBuilder.Create<RewardJob>()
+				.Build();
+
+			var rewardJobTrigger = TriggerBuilder.Create()
+				.StartNow()
+				.WithSimpleSchedule(s => s
+					.WithIntervalInHours(24)
+					.RepeatForever())
+				.Build();
+
+			await _scheduler.ScheduleJob(rewardJob, rewardJobTrigger);
 		}
 
 
 	}
+
+	public class RewardJob : IJob
+	{
+		private readonly ApplicationDbContext _ctx;
+		private readonly INodeServices nodeServices;
+		static decimal p = Convert.ToDecimal(Math.Pow(10, Admin.decimalNumber));
+		public RewardJob(ApplicationDbContext ctx, INodeServices nd)
+		{
+			_ctx = ctx;
+			nodeServices = nd;
+		}
+
+
+
+
+		async Task IJob.Execute(IJobExecutionContext context)
+		{
+			try
+			{
+				await AirDrop();
+			}
+			catch (Exception ex)
+			{
+
+				await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "(Reward)Quartz Error:exception: " + Newtonsoft.Json.JsonConvert.SerializeObject(ex));
+
+			}
+		}
+		public async Task<bool> AirDrop()
+		{
+			var airdrop = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending && x.StatusType == EnumType.Reward).OrderBy(x => x.CreationDate).Take(500).ToListAsync();
+			if (airdrop.Count <= 0)
+			{
+				return true;
+			}
+			PushResp result = new PushResp();
+
+			var objAirdrop = new
+			{
+				toes = airdrop.Select(x => x.ToKey).ToArray(),
+				values = airdrop.Select(x => ((BigInteger)(x.CoinAmount * p)).ToString()).ToArray(),
+			};
+			var json_obj = Newtonsoft.Json.JsonConvert.SerializeObject(objAirdrop);
+
+			try
+			{
+				result = await nodeServices.InvokeExportAsync<PushResp>("wwwroot/Scripts/AutoPush.js", "sendBatchCS", json_obj, Admin.PrivateKey);
+				AddMineTransaction(result, json_obj, airdrop.Count());  //
+				foreach (var trn in airdrop)
+				{
+					trn.Status = EnumType.Success;
+					trn.HashHex = result.Hash;
+				}
+			}
+			catch (Exception ex)
+			{
+				airdrop.ForEach(x => x.Status = EnumType.Failed);
+				await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "Node(Reward) Error:exception: " + json_obj + " resp  " + Newtonsoft.Json.JsonConvert.SerializeObject(result) + "  EXCEPTN::" + ex.Message);
+			}
+
+			await _ctx.SaveChangesAsync();
+			return true;
+		}
+
+
+		private void AddMineTransaction(PushResp result, string json, int trnxCount, decimal totalCoinFee = 0)
+		{
+			var mineTrnx = new MineTransaction();
+			mineTrnx.Id = new Guid();
+			mineTrnx.CreationDate = DateTime.UtcNow;
+			mineTrnx.GasFee = Convert.ToUInt64(result.GasPrice.Hex, 16);
+			mineTrnx.LastTransactinTime = DateTime.Now;//trnxs.Last().CreationDate;
+			mineTrnx.totalCoinFee = totalCoinFee;//trnxs.Sum(x => x.FeeInCoinAmount);
+			mineTrnx.TotalFee = Convert.ToUInt64(result.GasLimit.Hex, 16);
+			mineTrnx.txHash = result.Hash;
+
+			mineTrnx.StatusType = totalCoinFee == 0 ? EnumType.Buy : EnumType.Transfer;
+			mineTrnx.TransactionCount = trnxCount;
+			mineTrnx.JsonTransactions = json;
+			mineTrnx.Nonce = result.Nonce;
+
+			_ctx.MineTransactions.Add(mineTrnx);
+		}
+	}
+
+
 
 	public class YourJob : IJob
 	{
@@ -115,7 +214,7 @@ namespace Gravity
 		}
 		public async Task<bool> AirDrop()
 		{
-			var airdrop = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending && (x.StatusType == EnumType.Buy || x.StatusType == EnumType.Reward)).OrderBy(x => x.CreationDate).Take(500).ToListAsync();
+			var airdrop = await _ctx.Transactions.Where(x => x.Status == EnumType.Pending && x.StatusType == EnumType.Buy).OrderBy(x => x.CreationDate).Take(500).ToListAsync();
 			if (airdrop.Count <= 0)
 			{
 				return true;

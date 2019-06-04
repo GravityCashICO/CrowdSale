@@ -17,6 +17,10 @@ namespace Gravity.Services
 			{
 #if DEBUG
 				var apiKey = "";
+				if (apiKey == "")
+				{
+					return await SendEmailAsyncn(toAddress, body);
+				}
 #else
 					var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
 #endif

@@ -38,11 +38,11 @@ namespace Gravity.Models
 		public static string PublicKeyCP = "";
 		public static string PrivateKeyCP = "";
 
-		public const string EmailNotice = ".You Will Receieve Email Exactly 1 Minute Later. Thanks For The Patient.";
+		public const string EmailNotice = ".You Will Receieve Email Within 1 Minute. Thanks For The Patient.";
 
 
 		//rewards
-		public static int signupReward = 5;
+		public static int signupReward = 15;
 		public static int referralReward = 2;
 
 		public static int fbShareReward = 5;

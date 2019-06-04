@@ -231,7 +231,7 @@ namespace Gravity.Controllers
 						refferal.Bonus = "Success";
 					}
 				}
-				//AddRewardTrnx(Admin.signupReward, wallet.PublicKey);//signupReward
+				AddRewardTrnx(Admin.signupReward, wallet.PublicKey);//signupReward
 
 				_ctx.SaveChanges();
 			}

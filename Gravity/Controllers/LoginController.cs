@@ -246,5 +246,133 @@ namespace Gravity.Controllers
 			var publicKeys = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).Select(x => x.PublicKey).ToArray();
 			return publicKeys;
 		}
+
+
+		public IActionResult SendByMetamask()
+		{
+			var publicKeys = GetPubKeys();
+			ViewBag.publicKeys = publicKeys;
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> SendByMetamask(string fromddr, string sign, string addr, decimal amnt, decimal feee)//string addrHolder, 
+		{
+			addr = addr.Trim();
+			var v = new Nethereum.Util.AddressUtil();
+			if (v.IsValidEthereumAddressHexFormat(addr) == false)
+			{
+				TempData["msg"] = "Invalid address";
+				return View();
+			}
+			//var wallets = _ctx.Wallets.Where(x => x.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value).ToList();
+
+
+			//var fes = feee;
+			decimal totalCoins = 0;
+			decimal pendingCoins = 0;
+
+
+			//var web3 = new Web3(Admin.InfuraUrl);
+			//var handler = web3.Eth.GetContractHandler(Admin.ContractAddress);
+
+			//foreach (var wallet in wallets)
+			//{
+			//var balanceMessage = new BalanceOfFunction() { Owner = wallet.PublicKey };
+			//var balance = await handler.QueryAsync<BalanceOfFunction, BigInteger>(balanceMessage);
+			//var value = Web3.Convert.FromWeiToBigDecimal(balance);
+
+			//wallet.TotalCoin = Convert.ToDecimal(value.ToString());
+			var wallet = new Wallet();
+			wallet.PublicKey = fromddr;
+				wallet.TotalCoin = await Nether.GetBalance(wallet.PublicKey);
+				totalCoins += wallet.TotalCoin;
+
+				var pendingTrnx = _ctx.Transactions.Where(x => x.FromKey == wallet.PublicKey && x.Status != EnumType.Success).Sum(x => x.FeeInCoinAmount + x.CoinAmount);
+				pendingCoins += pendingTrnx;
+
+				wallet.TotalCoin -= pendingTrnx;
+
+			//}
+
+
+			//assuming all have 18 decimals
+
+
+
+
+			if (totalCoins < (amnt + feee + pendingCoins))
+			{
+				string err = "Insuffcient Balance ";
+				err = pendingCoins != 0 ? err += "(Pending Transactions Amount) " + pendingCoins : err;
+				TempData["msg"] = err;
+				return RedirectToAction("Send");
+			}
+			else
+			{
+				decimal amountWithFee = (amnt + feee);
+				//var signer = new MessageSigner();
+				//var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+				//foreach (var wallet in wallets.Where(x => x.TotalCoin > 0 && x.PublicKey != addr).OrderBy(n => Math.Abs(amountWithFee - n.TotalCoin)))
+				//{
+					if (wallet.TotalCoin >= amountWithFee)
+					{
+						wallet.TotalCoin = wallet.TotalCoin - amountWithFee;
+
+						var trns = new Models.Transaction
+						{
+							Id = new Guid(),
+							CoinAmount = amountWithFee - feee,
+							CreationDate = DateTime.UtcNow,
+							FeeInCoinAmount = feee,
+							FromKey = wallet.PublicKey,
+							Status = EnumType.Pending,
+							ToKey = addr,
+							StatusType = EnumType.Transfer,
+							Signature = sign//signer.Sign(digest.HexToByteArray(), wallet.PrivateKey)
+						};
+						_ctx.Transactions.Add(trns);
+						//break;
+					}
+					//else
+					//{
+					//	var trns = new Models.Transaction
+					//	{
+					//		Id = new Guid(),
+					//		CoinAmount = wallet.TotalCoin - feee,
+					//		CreationDate = DateTime.UtcNow,
+					//		FeeInCoinAmount = feee,
+					//		FromKey = wallet.PublicKey,
+					//		Status = EnumType.Pending,
+					//		ToKey = addr,
+					//		StatusType = EnumType.Transfer,
+					//		Signature = signer.Sign(digest.HexToByteArray(), wallet.PrivateKey)
+					//	};
+					//	_ctx.Transactions.Add(trns);
+
+
+					//	amountWithFee = amountWithFee - wallet.TotalCoin;
+					//	wallet.TotalCoin = 0;
+					//}
+
+					feee = 0;
+				//}
+
+				var walletTo = _ctx.Wallets.FirstOrDefault(x => x.PublicKey == addr);
+
+				if (walletTo != null)
+				{
+					walletTo.TotalCoin = walletTo.TotalCoin + amnt;
+				}
+
+
+
+
+				_ctx.SaveChanges();
+
+
+			}
+
+			return RedirectToAction("Home");
+		}
 	}
 }

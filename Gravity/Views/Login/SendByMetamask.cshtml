@@ -1,0 +1,241 @@
+﻿@{
+    //string[] publicKeys = ViewBag.publicKeys;
+
+}
+
+<div class="container-fluid">
+    <div class="page-header">
+
+
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <div class="page-header-title">
+                    <i class="ik ik-minus-circle bg-dark"></i>
+                    <div class="d-inline">
+                        <h5> Send Coin </h5>
+                        <span>Send Gravity Cash (GCH) </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <nav class="breadcrumb-container" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item">
+
+                        </li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--Account Balance --><div class="row clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="widget bg-dark">
+                <div class="widget-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="state">
+                            <h6>Account Balance</h6>
+                            <h2><text id="totalBlnc">0</text> GCH</h2>
+                        </div>
+                        <div class="icon">
+                            <i class="ik ik-file-text"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!--Account Balance End -->
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" style="min-height: 484px;">
+                <div class="card-header"><h3>Send (GCH)</h3></div>
+
+                <div class="card-body">
+
+                    @using (Html.BeginForm(FormMethod.Post, new { @class = "forms-sample" }))
+                    {
+                    <input type="hidden" id="fromddr" name="fromddr" value="" required="" />
+                    <input type="hidden" id="sign" name="sign" value="" required="" />
+                    <div style="color:red">@Html.Raw(TempData["msg"])</div>
+                    @*<div class="form-group">
+            <label for="exampleInputEmail1">Wallet Address (GCH) </label>
+            <select class="form-control" id="addrHolder" name="addrHolder">
+                @foreach (var item in publicKeys)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+        </div>*@
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Gravity Cash Address (GCH) </label>
+                        <input type="text" class="form-control" id="addr" name="addr" placeholder="Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Amount (GCH)</label>
+                        <input type="text" class="form-control" id="amnt" name="amnt" placeholder="Amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputConfirmPassword1">Fee</label>
+                        <input type="text" class="form-control" id="feee" name="feee" placeholder="Estimated Fee" readonly="readonly">
+                    </div>
+
+                    @*<div class="form-group">
+            <label for="exampleInputPassword1">Balance (GCH)</label>
+            <input type="text" class="form-control" id="blnc" placeholder="" readonly="readonly">
+        </div>*@
+                    <div class="form-group">
+
+                    </div>
+                    <button id="btnSubmit" type="button" class="btn btn-primary mr-2">Send</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<script>
+
+
+    //$('#addrHolder').on('change',async function () {
+    //    var $this = $(this);
+    //    var addr = $this.val();
+    //    var val = await contract.balanceOf(addr);
+    //    val = parseInt(val.toString()) / 10 ** 18;
+    //    $('#blnc').val(val);
+    //})
+
+
+
+
+
+
+    $(function () {
+
+        $('#feee').val(0.01);
+
+        //$('#addrHolder').change();
+        //var totalCoins = totalCoin;
+
+        //$.validator.addMethod('lessThanEqual', function (value, param) {
+        //    totalCoin = $(param).text();
+        //    console.log(totalCoin);
+        //    return parseFloat(value + $('#feee').val()) <= parseFloat(totalCoin);
+        //}, "Amount must be less than " + $(param).text());
+
+
+        $.validator.addMethod('lessThanEqual', function (value, element, param) {
+            if (this.optional(element)) return true;
+            var i = parseFloat(value);
+            var j = parseFloat($(param).text());
+            i += parseFloat($('#feee').val());
+            console.log(i + '   ' + j);
+            return i <= j;
+        }, "Amount must be less than Total (GCH)Balance");
+
+
+        $("form:last").validate({
+            rules: {
+                amnt: {
+                    number: true,
+                    lessThanEqual: '#totalBlnc'
+                }
+            }
+        });
+
+        $('#btnSubmit').on('click', async function () {
+            if ($('#sign').val() == '') {
+                let signature = await signer.signMessage(messageHashBytes);
+                console.log(signature);
+
+                if (typeof signature === 'string' || signature instanceof String) {
+                    $('#sign').val(signature);
+
+
+                } else {
+                    alert('Error!');
+                }
+            }
+            var $form = $(this).closest('form');
+                if ($form.valid()) {
+                    $form.submit();
+                }
+        })
+    })
+
+    //})
+    ///////////
+
+    window.addEventListener('load', async () => {
+        //Modern dapp browsers...
+        if (window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+                // Request account access if needed
+                await ethereum.enable();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+            window.web3 = new Web3(web3.currentProvider);
+        }
+        // Non-dapp browsers...
+        else {
+            console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        }
+
+
+    });
+
+    var provider1 = new ethers.providers.Web3Provider(web3.currentProvider);
+    var signer = provider1.getSigner();
+
+    let messageHash = ethers.utils.id("");
+        let messageHashBytes = ethers.utils.arrayify(messageHash);
+
+    fnc();
+
+    async function fnc() {
+        
+        //let tx = await signer.sendTransaction(tx);
+        let getAddress = await signer.getAddress();
+        console.log(getAddress);
+        var val = await contract.balanceOf(getAddress);
+        val = parseInt(val.toString()) / 10 ** 18;
+
+        $('#totalBlnc').html(val);
+        $('#fromddr').val(getAddress);
+
+
+        
+
+        
+
+    }
+
+
+</script>

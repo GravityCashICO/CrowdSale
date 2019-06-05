@@ -2,6 +2,7 @@
 
 @{ 
     int i = 0;
+    var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
 }
 
 <div class="container-fluid">
@@ -15,15 +16,37 @@
                         <span>Gravity Cash Wallet</span>
                     </div>
                 </div>
+                <br />
+                <div>
+                    <a id="pvPress" href="#" class="btn btn-warning"><i class="ik ik-plus-circle"></i> Create Address Using Private Key</a>
+
+                    <form class="forms-sample" method="post" action="/Wallet/Import" style="display:none">
+                        <input type="hidden" name="userId" value="@userId" />
+                        <div class="input-group col-xs-12">
+
+                            <input type="text" class="form-control" placeholder="Import Wallet Using Private Key" name="privateKey">
+                            <span class="input-group-append">
+                                <input type="submit" class="file-upload-browse btn btn-primary" value="Import">
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                @*<form method="post" action="" class="">
+                
+                <input type="text" name="privateKey" placeholder="" />
+                <input type="submit" style="display:none" />
+            </form>*@
             </div>
             <div class="col-lg-4">
+                
                 <nav class="breadcrumb-container" aria-label="breadcrumb">
                     <ol class="breadcrumb">
 
                         <li class="breadcrumb-item">
-                            <a href="/Wallet/Create?userId=@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value" class="btn btn-primary"><i class="ik ik-plus-circle"></i> Create Address</a>
-                        </li>
 
+                            <a href="/Wallet/Create?userId=@userId" class="btn btn-primary"><i class="ik ik-plus-circle"></i> Create Address</a>
+                        </li>
+                        
                     </ol>
                 </nav>
             </div>
@@ -88,7 +111,17 @@
             val = parseInt(val.toString()) / 10 ** 18;
             $this.html(val);
         });
+
+        $('#pvPress').on('click', function () {
+            $this = $(this);
+            $this.hide();
+            $this.closest('div').find('form').attr('style', '');
+        })
     })
 
+    var v = '@TempData["msg"]';
+    if (v != '') {
+        alert(v);
+    }
 
 </script>

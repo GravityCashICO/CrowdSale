@@ -232,80 +232,82 @@ namespace Gravity.Controllers
 		[HttpPost]
 		public async Task<IActionResult> IpnBack(string addrHolder, decimal amnt)
 		{
-			var req = Request;
-			var forms = req.Form;
-			var status = Convert.ToInt32(forms["status"]);
-			//var req = Request;
-			var h = JsonConvert.SerializeObject(req.Headers);
-			var q = req.QueryString.Value;
-			var f = JsonConvert.SerializeObject(req.Form);
-
-			//await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
-			if (status == 2 || status >= 100)
+			try
 			{
-				var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
-				var user = _ctx.Users.First(x => x.Id == wallet.UserId);
-				//var userName = user.FirstName + " " + user.LastName;
-				var received_amount = forms["received_amount"].ToString();
-				var currency2 = forms["currency2"].ToString();
+				var req = Request;
+				var forms = req.Form;
+				var status = Convert.ToInt32(forms["status"]);
+				//var req = Request;
+				var h = JsonConvert.SerializeObject(req.Headers);
+				var q = req.QueryString.Value;
+				var f = JsonConvert.SerializeObject(req.Form);
 
-				var model = new ViewModels.PaymentConfirmation { UserName = user.FirstName + " " + user.LastName, received_amount = received_amount, currency2 = currency2 };
-
-				string viewHtml = await this.RenderViewAsync("paymentConfimation", model);
-				await SendEmail.SendEmailAsync(user.UserName, viewHtml);
-				await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "postBack " + q + "  " + JsonConvert.SerializeObject(req.Form));
-				wallet.TotalCoin = wallet.TotalCoin + amnt;
-
-				var trns = new Models.Transaction
+				//await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com","post  "+ q+ "   headers   " + h +"   form   "+f);
+				if (status == 2 || status >= 100)
 				{
-					Id = new Guid(),
-					CoinAmount = amnt,
-					CreationDate = DateTime.UtcNow,
-					FeeInCoinAmount = 0,
-					FromKey = Admin.PublicKey,//wallet.PublicKey;
-					Status = EnumType.Pending,
-					ToKey = addrHolder,
-					StatusType = EnumType.Buy
-				};
+					var wallet = _ctx.Wallets.First(x => x.PublicKey == addrHolder);
+					var user = _ctx.Users.First(x => x.Id == wallet.UserId);
+					//var userName = user.FirstName + " " + user.LastName;
+					var received_amount = forms["received_amount"].ToString();
+					var currency2 = forms["currency2"].ToString();
 
-				//var signer = new MessageSigner();
-				//var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
-				//trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
+					var model = new ViewModels.PaymentConfirmation { UserName = user.FirstName + " " + user.LastName, received_amount = received_amount, currency2 = currency2 };
 
+					string viewHtml = await this.RenderViewAsync("paymentConfimation", model);
+					await SendEmail.SendEmailAsync(user.UserName, viewHtml);
+					await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", "postBack " + q + "  " + JsonConvert.SerializeObject(req.Form));
+					wallet.TotalCoin = wallet.TotalCoin + amnt;
 
-				///
-				var payment = new Models.Payment
-				{
-					Id = forms["txn_id"].ToString(),
-					Ipn_id = forms["ipn_id"].ToString(),
-					CurrencyCode = forms["currency2"].ToString(),
-					Received_amount = forms["received_amount"].ToString(),
-					Fee = forms["fee"].ToString(),
-					NetValue = forms["net"].ToString(),
-					Status = status,
-					AddressToSendCoin = addrHolder,
-					CoinAmount = amnt
-				};
-				_ctx.Payments.Add(payment);
+					var trns = new Models.Transaction
+					{
+						Id = new Guid(),
+						CoinAmount = amnt,
+						CreationDate = DateTime.UtcNow,
+						FeeInCoinAmount = 0,
+						FromKey = Admin.PublicKey,//wallet.PublicKey;
+						Status = EnumType.Pending,
+						ToKey = addrHolder,
+						StatusType = EnumType.Buy
+					};
 
+					//var signer = new MessageSigner();
+					//var digest = "0x618e860eefb172f655b56aad9bdc5685c037efba70b9c34a8e303b19778efd2c";
+					//trns.Signature = signer.Sign(digest.HexToByteArray(), Admin.PrivateKey);
 
 
-				_ctx.Transactions.Add(trns);
+					///
+					var payment = new Models.Payment
+					{
+						Id = forms["txn_id"].ToString(),
+						Ipn_id = forms["ipn_id"].ToString(),
+						CurrencyCode = forms["currency2"].ToString(),
+						Received_amount = forms["received_amount"].ToString(),
+						Fee = forms["fee"].ToString(),
+						NetValue = forms["net"].ToString(),
+						Status = status,
+						AddressToSendCoin = addrHolder,
+						CoinAmount = amnt
+					};
+					_ctx.Payments.Add(payment);
 
-				try
-				{
+
+
+					_ctx.Transactions.Add(trns);
+
+
 					_ctx.SaveChanges();
-				}
-				catch (Exception ex)
-				{
 
-					await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", ex.Message);
-					throw;
 				}
+
+
+				return Ok();
 			}
+			catch (Exception ex)
+			{
 
-
-			return Ok();
+				await SendEmail.SendEmailAsync("toufiqelahy@hotmail.com", ex.Message);
+				throw;
+			}
 		}
 	}
 }

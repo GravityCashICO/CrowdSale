@@ -5,7 +5,7 @@
                                     <a href="home.php"><i class="ik ik-menu"></i><span>Dashboard</span></a>
                                 </div>
 								<div class="nav-item">
-								    <a href="explorer.php"><i class="ik ik-search"></i><span>GCH Explorer</span> </a>
+								    <a href="explorer.php"><i class="ik ik-search"></i><span>GVCH Explorer</span> </a>
                             </div>
 								
 									<div class="nav-item">

@@ -48,7 +48,7 @@
                             <div class="state">
                                 <h6>@Model.ExtraCoinPercentage % Extra Coin</h6>
                                 <h2>@Model.PriceInUSD USD</h2>
-                                <span style="color: greenyellow;"> GCH @@ @Admin.CoinPriceUSD USD</span>
+                                <span style="color: greenyellow;"> GVCH @@ @Admin.CoinPriceUSD USD</span>
                             </div>
 
                             <div class="icon">
@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card" style="min-height: 484px;">
-                <div class="card-header"><h3>Buy (GCH)</h3></div>
+                <div class="card-header"><h3>Buy (GVCH)</h3></div>
 
                 <div class="card-body">
                     @using (Html.BeginForm(FormMethod.Post, new { @class = "forms-sample" }))
@@ -91,12 +91,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputConfirmPassword1">Total Graviy Coin (GCH) </label>
+                            <label for="exampleInputConfirmPassword1">Total Graviy Coin (GVCH) </label>
                             <input type="text" class="form-control" id="exampleInputConfirmPassword1" value="@coin" readonly="readonly">
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Bonus (GCH)</label>
+                            <label for="exampleInputPassword1">Bonus (GVCH)</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" value="@bonus" readonly="readonly">
                         </div>
 

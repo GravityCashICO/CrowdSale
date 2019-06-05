@@ -40,7 +40,7 @@
                                 <a href="wallet/index.html"><img src="wallet/src/img/brand.svg" alt=""></a>
                             </div>
                             <h3>Login In to Gravity Cash</h3>
-                            <p>Sign in to GCH online wallet</p>
+                            <p>Sign in to GVCH online wallet</p>
                             <form action="http://themekit.lavalite.org/demo/index.html">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Email" required="" value="johndoe@admin.com">

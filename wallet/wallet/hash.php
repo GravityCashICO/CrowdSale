@@ -67,7 +67,7 @@
                                     <div class="page-header-title">
                                         <i class="ik ik-search bg-dark"></i>
                                         <div class="d-inline">
-                                            <h5> GCH Explorer </h5>
+                                            <h5> GVCH Explorer </h5>
                                             <span>Gravity Cash Blockchain Explorer</span>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                         <form class="forms-sample" method="post" action="explorer.php">
 											
 											<div class="input-group col-xs-12">
-                                                    <input type="text" class="form-control" placeholder="GCH address or txn">
+                                                    <input type="text" class="form-control" placeholder="GVCH address or txn">
                                                     <span class="input-group-append">
                                                     <input type="submit" class="file-upload-browse btn btn-primary" type="button" value="Search">
                                                     </span>
@@ -177,9 +177,9 @@
 													                 <tr>
                                         <td><h6>Tokens Transfered:</h6></td>
 												 <td>   <strong> From :</strong> 0x6798f371ceab4fe2f59da53a6239ed979ec36772</br>
-													 <strong> To :</strong> 0xf2a1d42ca6a16386e3e79dc24a790f198e4c93b4 <strong>For 9 ERC-20 (GCH)</strong></br>
+													 <strong> To :</strong> 0xf2a1d42ca6a16386e3e79dc24a790f198e4c93b4 <strong>For 9 ERC-20 (GVCH)</strong></br>
 													<strong> From :</strong>  0x6798f371ceab4fe2f59da53a6239ed979ec36772</br>
-													<strong> To :</strong> 0xa6b70392346be7fbfc33d2d098529efc2459b62d 	<strong>For 0.01 ERC-20 (GCH)</strong></td>
+													<strong> To :</strong> 0xa6b70392346be7fbfc33d2d098529efc2459b62d 	<strong>For 0.01 ERC-20 (GVCH)</strong></td>
 												
                                                     </tr>
 													

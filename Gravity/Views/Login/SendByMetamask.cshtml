@@ -13,7 +13,7 @@
                     <i class="ik ik-minus-circle bg-dark"></i>
                     <div class="d-inline">
                         <h5> Send Coin </h5>
-                        <span>Send Gravity Cash (GCH) </span>
+                        <span>Send Gravity Cash (GVCH) </span>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="state">
                             <h6>Account Balance</h6>
-                            <h2><text id="totalBlnc">0</text> GCH</h2>
+                            <h2><text id="totalBlnc">0</text> GVCH</h2>
                         </div>
                         <div class="icon">
                             <i class="ik ik-file-text"></i>
@@ -64,7 +64,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card" style="min-height: 484px;">
-                <div class="card-header"><h3>Send (GCH)</h3></div>
+                <div class="card-header"><h3>Send (GVCH)</h3></div>
 
                 <div class="card-body">
 
@@ -74,7 +74,7 @@
                     <input type="hidden" id="sign" name="sign" value="" required="" />
                     <div style="color:red">@Html.Raw(TempData["msg"])</div>
                     @*<div class="form-group">
-            <label for="exampleInputEmail1">Wallet Address (GCH) </label>
+            <label for="exampleInputEmail1">Wallet Address (GVCH) </label>
             <select class="form-control" id="addrHolder" name="addrHolder">
                 @foreach (var item in publicKeys)
                 {
@@ -83,11 +83,11 @@
             </select>
         </div>*@
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Gravity Cash Address (GCH) </label>
+                        <label for="exampleInputEmail1">Gravity Cash Address (GVCH) </label>
                         <input type="text" class="form-control" id="addr" name="addr" placeholder="Address" required>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Amount (GCH)</label>
+                        <label for="exampleInputPassword1">Amount (GVCH)</label>
                         <input type="text" class="form-control" id="amnt" name="amnt" placeholder="Amount" required>
                     </div>
                     <div class="form-group">
@@ -96,7 +96,7 @@
                     </div>
 
                     @*<div class="form-group">
-            <label for="exampleInputPassword1">Balance (GCH)</label>
+            <label for="exampleInputPassword1">Balance (GVCH)</label>
             <input type="text" class="form-control" id="blnc" placeholder="" readonly="readonly">
         </div>*@
                     <div class="form-group">
@@ -153,7 +153,7 @@
             i += parseFloat($('#feee').val());
             console.log(i + '   ' + j);
             return i <= j;
-        }, "Amount must be less than Total (GCH)Balance");
+        }, "Amount must be less than Total (GVCH)Balance");
 
 
         $("form:last").validate({

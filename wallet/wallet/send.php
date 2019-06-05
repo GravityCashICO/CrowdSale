@@ -66,7 +66,7 @@
                                         <i class="ik ik-minus-circle bg-dark"></i>
                                         <div class="d-inline">
                                             <h5> Send Coin </h5>
-                                            <span>Send Gravity Cash (GCH) </span>
+                                            <span>Send Gravity Cash (GVCH) </span>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="state">
                                                 <h6>Account Balance</h6>
-                                                <h2>250.47678 GCH</h2>
+                                                <h2>250.47678 GVCH</h2>
                                             </div>
                                             <div class="icon">
                                                 <i class="ik ik-file-text"></i>
@@ -117,17 +117,17 @@
 						   <div class="row">
                             <div class="col-md-6">
                                 <div class="card" style="min-height: 484px;">
-                                    <div class="card-header"><h3>Send (GCH)</h3></div>
+                                    <div class="card-header"><h3>Send (GVCH)</h3></div>
 									
 									   <div class="card-body">
                                         <form class="forms-sample">
                                             
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Gravity Cash Address (GCH) </label>
+                                                <label for="exampleInputEmail1">Gravity Cash Address (GVCH) </label>
                                                 <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Address">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Amount (GCH)</label>
+                                                <label for="exampleInputPassword1">Amount (GVCH)</label>
                                                 <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                             </div>
                                             <div class="form-group">
@@ -136,7 +136,7 @@
                                             </div>
 											
 											     <div class="form-group">
-                                                <label for="exampleInputPassword1">Balance (GCH)</label>
+                                                <label for="exampleInputPassword1">Balance (GVCH)</label>
                                                 <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" readonly="readonly">
                                             </div>
                                             <div class="form-group">

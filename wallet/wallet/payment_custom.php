@@ -105,7 +105,7 @@
                                             <div class="state">
                                                 <h6></h6>
                                                 <h2>Custom USD</h2>
-												<span style="color: greenyellow;">GCH @ 0.1 USD</span>
+												<span style="color: greenyellow;">GVCH @ 0.1 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -137,7 +137,7 @@
 						 <div class="row">
                             <div class="col-md-6">
                                 <div class="card" style="min-height: 484px;">
-                                    <div class="card-header"><h3>Buy (GCH)</h3></div>
+                                    <div class="card-header"><h3>Buy (GVCH)</h3></div>
 									
 									   <div class="card-body">
                                         <form class="forms-sample">
@@ -156,12 +156,12 @@
                                              </div>
                                          
                                             <div class="form-group">
-                                                <label for="exampleInputConfirmPassword1">Total Graviy Coin (GCH)  </label>
-                                                <input type="text" class="form-control" id="exampleInputConfirmPassword1" placeholder="Total GCH" readonly="readonly">
+                                                <label for="exampleInputConfirmPassword1">Total Graviy Coin (GVCH)  </label>
+                                                <input type="text" class="form-control" id="exampleInputConfirmPassword1" placeholder="Total GVCH" readonly="readonly">
                                             </div>
 											
 											     <div class="form-group">
-                                                <label for="exampleInputPassword1">Bonus (GCH)</label>
+                                                <label for="exampleInputPassword1">Bonus (GVCH)</label>
                                                 <input type="text" class="form-control" id="exampleInputPassword1" placeholder="0" readonly="readonly">
                                             </div>
                                        

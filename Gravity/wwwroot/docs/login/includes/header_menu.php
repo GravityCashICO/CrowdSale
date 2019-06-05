@@ -1,7 +1,7 @@
   <div class="header-button2">
 	 
                                 <div class="header-button-item js-item-menu">
-                                 <h5>Total : 1250.25 (GCH)</h5>
+                                 <h5>Total : 1250.25 (GVCH)</h5>
                                   
                                 </div>
 	   <?php /*

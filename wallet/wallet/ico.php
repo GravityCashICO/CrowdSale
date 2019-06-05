@@ -102,7 +102,7 @@
                                             <div class="state">
                                                 <h6>0 % Extra Coin</h6>
                                                 <h2>100 USD</h2>
-												<span style="color: greenyellow;"> GCH @ 0.10 USD</span>
+												<span style="color: greenyellow;"> GVCH @ 0.10 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -129,7 +129,7 @@
                                             <div class="state">
                                                 <h6>1 % Extra Coin</h6>
                                                 <h2>200 USD</h2>
-												<span style="color: greenyellow;">GCH @ 0.10 USD</span>
+												<span style="color: greenyellow;">GVCH @ 0.10 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -156,7 +156,7 @@
                                             <div class="state">
                                                 <h6>3 % Extra Coin</h6>
                                                 <h2>500 USD</h2>
-												<span style="color: greenyellow;">GCH @ 0.10 USD</span>
+												<span style="color: greenyellow;">GVCH @ 0.10 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -181,7 +181,7 @@
                                             <div class="state">
                                                 <h6>7 % Extra Coin</h6>
                                                 <h2>1000 USD</h2>
-												<span style="color: greenyellow;">GCH @ 0.10 USD</span>
+												<span style="color: greenyellow;">GVCH @ 0.10 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -206,7 +206,7 @@
                                             <div class="state">
                                                 <h6>20 % Extra Coin</h6>
                                                 <h2>2000 USD</h2>
-												<span style="color: greenyellow;">GCH @ 0.10 USD</span>
+												<span style="color: greenyellow;">GVCH @ 0.10 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -232,7 +232,7 @@
                                             <div class="state">
                                                 
                                                 <h2 style="color: black;">Custom</h2>
-												 <span style="color:darkviolet;">GCH @ 0.10 USD</span>
+												 <span style="color:darkviolet;">GVCH @ 0.10 USD</span>
                                             </div>
 											
 											   <div class="icon">				

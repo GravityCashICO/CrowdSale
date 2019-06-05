@@ -11,7 +11,7 @@
 	 <link rel="shortcut icon" href="images/icon/favicon.png">
 
     <!-- Title Page-->
-    <title>GCH Token ICO Sale</title>
+    <title>GVCH Token ICO Sale</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -96,7 +96,7 @@
                 <div class="container" style="width: 650px;">
       <div class="row">
         <div class="col-lg-12">
-            <h1 class="text-center">GCH TOKEN ICO SALE</h1>
+            <h1 class="text-center">GVCH TOKEN ICO SALE</h1>
             <h6 class="text-center">TOTAL TOKENS:(<b>42000000</b>). ADMIN CARRYING <b>50%</b> TOKENS AND 50% IS FOR SALE.</h6>
             <hr/>
             <br/>
@@ -106,8 +106,8 @@
         </div>
         <div id="content" class="text-center" style="display: none;">
           <p>
-            Introducing "GCH Token" (GCH)!
-            Token price is <span class="token-price"></span> Ether. You currently have <span class="GCH-balance"></span>&nbsp;GCH.
+            Introducing "GVCH Token" (GVCH)!
+            Token price is <span class="token-price"></span> Ether. You currently have <span class="GVCH-balance"></span>&nbsp;GVCH.
           </p>
           <br/>
           <form onSubmit="App.buyTokens(); return false;" role="form">

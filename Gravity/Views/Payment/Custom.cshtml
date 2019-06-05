@@ -53,7 +53,7 @@
                             <div class="state">
                                 <h6></h6>
                                 <h2>Custom USD</h2>
-                                <span style="color: greenyellow;">GCH @@ @Admin.CoinPriceUSD USD</span>
+                                <span style="color: greenyellow;">GVCH @@ @Admin.CoinPriceUSD USD</span>
                             </div>
 
                             <div class="icon">
@@ -85,7 +85,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card" style="min-height: 484px;">
-                <div class="card-header"><h3>Buy (GCH)</h3></div>
+                <div class="card-header"><h3>Buy (GVCH)</h3></div>
 
                 <div class="card-body">
                     <div style="color:red" id="msgErr">@TempData["msg"]</div>
@@ -106,12 +106,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputConfirmPassword1">Total Graviy Coin (GCH)  </label>
-                            <input type="text" class="form-control" id="coin" placeholder="Total GCH" readonly="readonly">
+                            <label for="exampleInputConfirmPassword1">Total Graviy Coin (GVCH)  </label>
+                            <input type="text" class="form-control" id="coin" placeholder="Total GVCH" readonly="readonly">
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Bonus (GCH)</label>
+                            <label for="exampleInputPassword1">Bonus (GVCH)</label>
                             <input type="text" class="form-control" id="bonus" placeholder="0" readonly="readonly">
                         </div>
 
@@ -169,7 +169,7 @@
             $('#bonus').val(bonus);
 
             if (amnt > val) {
-                $err.html(val + ' GCH Coin Exists For ICO Sale.')
+                $err.html(val + ' GVCH Coin Exists For ICO Sale.')
             } else if(amnt > 1000000) {
                 $err.html("Can't buy more tan 1 Million");
             }else {

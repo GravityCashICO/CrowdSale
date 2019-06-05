@@ -40,7 +40,7 @@
                                 <a href="home/index.php"><img src="wallet/img/gch-black-logo.png" style="width: 80px;" alt=""></a>
                             </div>
                             <h3>Gravity Cash Login</h3>
-                            <p>Sign in to GCH online wallet</p>
+                            <p>Sign in to GVCH online wallet</p>
                             <form method="post" action="wallet/home.php">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Email" required="" value="username@email.com">

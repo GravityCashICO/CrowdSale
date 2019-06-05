@@ -30,14 +30,14 @@ App = {
       App.contracts.GCHTokenSale = TruffleContract(GCHTokenSale);
       App.contracts.GCHTokenSale.setProvider(App.web3Provider);
       App.contracts.GCHTokenSale.deployed().then(function(GCHTokenSale) {
-        console.log("GCH Token Sale Address:", GCHTokenSale.address);
+        console.log("GVCH Token Sale Address:", GCHTokenSale.address);
       });
     }).done(function() {
       $.getJSON("GCHToken.json", function(GCHToken) {
         App.contracts.GCHToken = TruffleContract(GCHToken);
         App.contracts.GCHToken.setProvider(App.web3Provider);
         App.contracts.GCHToken.deployed().then(function(GCHToken) {
-          console.log("GCH Token Address:", GCHToken.address);
+          console.log("GVCH Token Address:", GCHToken.address);
         });
         App.listenForEvents();
         return App.render();
@@ -105,7 +105,7 @@ App = {
         GCHTokenInstance = instance;
         return GCHTokenInstance.balanceOf(App.account);
       }).then(function(balance) {
-        $('.GCH-balance').html(balance.toNumber())
+        $('.GVCH-balance').html(balance.toNumber())
       });
 
       App.loading = false;

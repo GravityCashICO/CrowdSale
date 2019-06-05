@@ -67,7 +67,7 @@
                                     <div class="page-header-title">
                                         <i class="ik ik-file-text bg-dark"></i>
                                         <div class="d-inline">
-                                            <h5> Transactions (GCH)</h5>
+                                            <h5> Transactions (GVCH)</h5>
                                             <span>Gravity Cash Transactions History</span>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="state">
                                                 <h6>Account Balance</h6>
-                                                <h2>250.47678 GCH</h2>
+                                                <h2>250.47678 GVCH</h2>
                                             </div>
                                             <div class="icon">
                                                 <i class="ik ik-file-text"></i>
@@ -123,7 +123,7 @@
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-header d-block">
-                                        <h3>GCH Transactions</h3>
+                                        <h3>GVCH Transactions</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="dt-responsive">
@@ -134,8 +134,8 @@
 													<th>Date</th>
 													<th>Type</th>
                                                     <th>Address</th>
-                                                    <th>Amount (GCH)</th>
-                                                    <th>Fee(GCH)</th>
+                                                    <th>Amount (GVCH)</th>
+                                                    <th>Fee(GVCH)</th>
                                                  
                                                     <th>Status</th>
                                                 </tr>

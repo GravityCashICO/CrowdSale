@@ -107,9 +107,9 @@
                                                 <tr>
                                                     
                                                     <td>Date</td>
-													<td>Address (GCH)</td>
+													<td>Address (GVCH)</td>
                                                     <td>Type</td>
-                                                    <td>Amount (GCH)</td>
+                                                    <td>Amount (GVCH)</td>
                                                   
                                                 </tr>
                                             </thead>

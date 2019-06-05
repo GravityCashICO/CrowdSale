@@ -67,7 +67,7 @@
                                     <div class="page-header-title">
                                         <i class="ik ik-search bg-dark"></i>
                                         <div class="d-inline">
-                                            <h5> GCH Explorer </h5>
+                                            <h5> GVCH Explorer </h5>
                                             <span>Gravity Cash Blockchain Explorer</span>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                         <form class="forms-sample" method="post" action="explorer.php">
 											
 											<div class="input-group col-xs-12">
-                                                    <input type="text" class="form-control" placeholder="GCH address or txn">
+                                                    <input type="text" class="form-control" placeholder="GVCH address or txn">
                                                     <span class="input-group-append">
                                                     <input type="submit" class="file-upload-browse btn btn-primary" type="button" value="Search">
                                                     </span>

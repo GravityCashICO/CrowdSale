@@ -39,7 +39,7 @@ namespace Gravity.Controllers
 			var total = await Nether.GetBalance(Admin.PublicKey);
 			if (Convert.ToDecimal(amnt) > total)
 			{
-				TempData["msg"] = total + " GCH Coin Exists For ICO Sale.";
+				TempData["msg"] = total + " GVCH Coin Exists For ICO Sale.";
 				return RedirectToAction("Custom");
 			}
 
@@ -93,7 +93,7 @@ namespace Gravity.Controllers
 			var total = await Nether.GetBalance(Admin.PublicKey);
 			if (Convert.ToDecimal(coin + bonus) > total)
 			{
-				TempData["msg"] = total + " GCH Coin Exists For ICO Sale.";
+				TempData["msg"] = total + " GVCH Coin Exists For ICO Sale.";
 				return RedirectToAction("Custom");
 			}
 

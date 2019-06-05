@@ -105,7 +105,7 @@
                                             <div class="state">
                                                 <h6>0 % Extra Coin</h6>
                                                 <h2>100 USD</h2>
-												<span style="color: greenyellow;">GCH @ 0.1 USD</span>
+												<span style="color: greenyellow;">GVCH @ 0.1 USD</span>
                                             </div>
 											
 											   <div class="icon">				
@@ -137,7 +137,7 @@
 						 <div class="row">
                             <div class="col-md-6">
                                 <div class="card" style="min-height: 484px;">
-                                    <div class="card-header"><h3>Buy (GCH)</h3></div>
+                                    <div class="card-header"><h3>Buy (GVCH)</h3></div>
 									
 									   <div class="card-body">
                                         <form class="forms-sample">
@@ -156,12 +156,12 @@
                                             </div>
                                          
                                             <div class="form-group">
-                                                <label for="exampleInputConfirmPassword1">Total Graviy Coin (GCH) </label>
+                                                <label for="exampleInputConfirmPassword1">Total Graviy Coin (GVCH) </label>
                                                 <input type="text" class="form-control" id="exampleInputConfirmPassword1" value="1000.00" readonly="readonly">
                                             </div>
 											
 											     <div class="form-group">
-                                                <label for="exampleInputPassword1">Bonus (GCH)</label>
+                                                <label for="exampleInputPassword1">Bonus (GVCH)</label>
                                                 <input type="text" class="form-control" id="exampleInputPassword1" value="0"  readonly="readonly">
                                             </div>
                                            

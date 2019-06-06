@@ -1,0 +1,52 @@
+﻿@model Gravity.ViewModels.ReferralEmail
+
+<!doctype html>
+@{
+    Layout = null;
+    var user = Model.UserName.Trim() == "" ? "User" : Model.UserName;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+</head>
+
+<body>
+    <table width="648" border="0">
+        <tbody>
+            <tr>
+                <td colspan="2" align="left" style="padding:30px 30px 10px; line-height:1.8; font-family:&quot;open sans&quot;,Arial,sans-serif">
+                    <p>Dear User,</p>
+                    <p>
+                        Your friend <a href="mailto:email@domain.com" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable">
+                            @Model.Email
+                        </a> has sent your invitation email to join gravitycash free coin offer . Find referral link below to signup and get 15 GVCH free.
+                    </p>
+                    <p>To signup please click the referral link below:</p>
+                    <p><a href="@Model.Link" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" style="font-family:Arial,Helvetica,sans-serif">@Model.Link</a><img data-imagetype="External" src="/actions/ei?u=http%3A%2F%2Furl9601.gravitycashonline.com%2Fwf%2Fopen%3Fupn%3DCstEwUpa8yookM8QKpBsis08QEkJ9QTKYtMNib5LFGx-2FSTFQS8ZNxwHZ-2B-2BhMgtirT0fh-2Fk0XVBZuN9-2BtdzgPNoXo6P7ZNTb-2BrNKTX7dTb0VGtmTC055NtcWwVwiO-2FyP70Xn5K-2B12-2FMQxNgeSx58kpexRSYxIfC6BWBvaZal6j8SeZRcGoUswshwII-2FIlUWguuSVNZnUYhKGgO3iZkQSBIJBa-2Bxs8QEOmHeT4xWoA56k-3D&amp;d=2019-06-06T06%3A18%3A49.019Z" originalsrc="http://url9601.gravitycashonline.com/wf/open?upn=CstEwUpa8yookM8QKpBsis08QEkJ9QTKYtMNib5LFGx-2FSTFQS8ZNxwHZ-2B-2BhMgtirT0fh-2Fk0XVBZuN9-2BtdzgPNoXo6P7ZNTb-2BrNKTX7dTb0VGtmTC055NtcWwVwiO-2FyP70Xn5K-2B12-2FMQxNgeSx58kpexRSYxIfC6BWBvaZal6j8SeZRcGoUswshwII-2FIlUWguuSVNZnUYhKGgO3iZkQSBIJBa-2Bxs8QEOmHeT4xWoA56k-3D" data-connectorsauthtoken="1" data-imageproxyendpoint="/actions/ei" data-imageproxyid="" class="x_gmail-CToWUd" alt="" width="1" height="1" border="0" style="font-family:Arial,Helvetica,sans-serif; height:1px; width:1px; border-width:0px; margin:0px; padding:0px">.</p>
+                    <p>&nbsp;</p>
+                    <p>This offer is good for a limited time only</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="left" style="padding:30px 30px 10px; line-height:1.2; font-family:&quot;open sans&quot;,Arial,sans-serif">
+                    If you're not sure why you're receiving this message, you can report it to us by emailing
+                    <a href="mailto:support@gravitycash.org" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable">
+                        support@gravitycash.org
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding:30px 30px 10px; line-height:1.2; font-family:&quot;open sans&quot;,Arial,sans-serif">
+                    This email contains important information about your new Gravity Account. Be sure to keep this safe and stored .
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right" style="font-family:&quot;open sans&quot;,Arial,sans-serif; font-size:13px; line-height:25px; padding:10px 30px; border-top:1px solid rgb(0,0,0)">
+                    &nbsp;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

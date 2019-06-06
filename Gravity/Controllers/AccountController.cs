@@ -320,6 +320,7 @@ namespace Gravity.Controllers
 		public async Task<IActionResult> Referral(string email=null)
 		{
 			var userId= User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+			var user = _userManager.FindByIdAsync(userId).Result;
 			if (email != null)
 			{
 				var refferal = _ctx.Referrals.FirstOrDefault(x => x.Email == email);
@@ -336,8 +337,11 @@ namespace Gravity.Controllers
 					_ctx.SaveChanges();
 				}
 				var callbackUrl = Url.Action("Register", "Account", new { referral = refferal.UserId }, protocol: HttpContext.Request.Scheme);
-				//string viewHtml = "";
-				await SendEmail.SendEmailAsync(email, callbackUrl);
+
+				var model = new ViewModels.ReferralEmail { UserName = "User", Link = callbackUrl,Email= user.Email };
+
+				string viewHtml = await this.RenderViewAsync("ReferralEmail", model);
+				await SendEmail.SendEmailAsync(email, viewHtml);
 			}
 			return View(_ctx.Referrals.Where(x=>x.UserId==userId).ToList());
 		}
